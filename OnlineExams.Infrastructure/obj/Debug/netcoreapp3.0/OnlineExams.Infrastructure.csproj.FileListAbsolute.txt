@@ -1,0 +1,15 @@
+D:\Sandbox\OnlineExamer\OnlineExams.Infrastructure\bin\Debug\netcoreapp3.0\OnlineExams.Infrastructure.deps.json
+D:\Sandbox\OnlineExamer\OnlineExams.Infrastructure\bin\Debug\netcoreapp3.0\OnlineExams.Infrastructure.dll
+D:\Sandbox\OnlineExamer\OnlineExams.Infrastructure\bin\Debug\netcoreapp3.0\OnlineExams.Infrastructure.pdb
+D:\Sandbox\OnlineExamer\OnlineExams.Infrastructure\obj\Debug\netcoreapp3.0\OnlineExams.Infrastructure.AssemblyInfoInputs.cache
+D:\Sandbox\OnlineExamer\OnlineExams.Infrastructure\obj\Debug\netcoreapp3.0\OnlineExams.Infrastructure.AssemblyInfo.cs
+D:\Sandbox\OnlineExamer\OnlineExams.Infrastructure\obj\Debug\netcoreapp3.0\OnlineExams.Infrastructure.dll
+D:\Sandbox\OnlineExamer\OnlineExams.Infrastructure\obj\Debug\netcoreapp3.0\OnlineExams.Infrastructure.pdb
+D:\Sandbox\OnlineExamer\OnlineExams.Infrastructure\obj\Debug\netcoreapp3.0\OnlineExams.Infrastructure.csprojAssemblyReference.cache
+D:\Examer\OnlineExams.Infrastructure\bin\Debug\netcoreapp3.0\OnlineExams.Infrastructure.deps.json
+D:\Examer\OnlineExams.Infrastructure\bin\Debug\netcoreapp3.0\OnlineExams.Infrastructure.dll
+D:\Examer\OnlineExams.Infrastructure\bin\Debug\netcoreapp3.0\OnlineExams.Infrastructure.pdb
+D:\Examer\OnlineExams.Infrastructure\obj\Debug\netcoreapp3.0\OnlineExams.Infrastructure.AssemblyInfoInputs.cache
+D:\Examer\OnlineExams.Infrastructure\obj\Debug\netcoreapp3.0\OnlineExams.Infrastructure.AssemblyInfo.cs
+D:\Examer\OnlineExams.Infrastructure\obj\Debug\netcoreapp3.0\OnlineExams.Infrastructure.dll
+D:\Examer\OnlineExams.Infrastructure\obj\Debug\netcoreapp3.0\OnlineExams.Infrastructure.pdb

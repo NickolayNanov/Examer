@@ -1,0 +1,13 @@
+D:\Sandbox\OnlineExamer.Core\bin\Debug\netcoreapp3.1\OnlineExamer.Core.deps.json
+D:\Sandbox\OnlineExamer.Core\bin\Debug\netcoreapp3.1\OnlineExamer.Core.dll
+D:\Sandbox\OnlineExamer.Core\bin\Debug\netcoreapp3.1\OnlineExamer.Core.pdb
+D:\Sandbox\OnlineExamer.Core\bin\Debug\netcoreapp3.1\OnlineExamer.Data.dll
+D:\Sandbox\OnlineExamer.Core\bin\Debug\netcoreapp3.1\OnlineExamer.Models.dll
+D:\Sandbox\OnlineExamer.Core\bin\Debug\netcoreapp3.1\OnlineExamer.Data.pdb
+D:\Sandbox\OnlineExamer.Core\bin\Debug\netcoreapp3.1\OnlineExamer.Models.pdb
+D:\Sandbox\OnlineExamer.Core\obj\Debug\netcoreapp3.1\OnlineExamer.Core.csprojAssemblyReference.cache
+D:\Sandbox\OnlineExamer.Core\obj\Debug\netcoreapp3.1\OnlineExamer.Core.AssemblyInfoInputs.cache
+D:\Sandbox\OnlineExamer.Core\obj\Debug\netcoreapp3.1\OnlineExamer.Core.AssemblyInfo.cs
+D:\Sandbox\OnlineExamer.Core\obj\Debug\netcoreapp3.1\OnlineExamer.Core.csproj.CopyComplete
+D:\Sandbox\OnlineExamer.Core\obj\Debug\netcoreapp3.1\OnlineExamer.Core.dll
+D:\Sandbox\OnlineExamer.Core\obj\Debug\netcoreapp3.1\OnlineExamer.Core.pdb
