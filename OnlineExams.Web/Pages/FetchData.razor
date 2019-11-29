@@ -2,7 +2,6 @@
 
 @using OnlineExams.Web.Data
 @inject WeatherForecastService ForecastService
-@inject DataService Data
 
 <h1>Weather forecast</h1>
 
@@ -36,19 +35,10 @@ else
         </tbody>
     </table>
 
-
-    <NavLink class="nav-link" href="" @onclick="Send">
-        <span class="oi oi-home" aria-hidden="true"></span> Home
-    </NavLink>
 }
 
 @code {
     WeatherForecast[] forecasts;
-
-    private async Task Send()
-    {
-        await this.Data.Save();
-    }
 
     protected override async Task OnInitializedAsync()
     {

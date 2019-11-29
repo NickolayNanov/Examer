@@ -35,3 +35,16 @@ D:\Examer\OnlineExamer.Core\bin\Debug\netcoreapp3.0\OnlineExamer.Data.pdb
 D:\Examer\OnlineExamer.Core\bin\Debug\netcoreapp3.0\OnlineExamer.Models.pdb
 D:\Examer\OnlineExamer.Core\obj\Debug\netcoreapp3.0\OnlineExamer.Core.csprojAssemblyReference.cache
 D:\Examer\OnlineExamer.Core\obj\Debug\netcoreapp3.0\OnlineExamer.Core.csproj.CopyComplete
+D:\Projects\Examer123\Examer321\OnlineExamer.Core\bin\Debug\netcoreapp3.0\OnlineExamer.Core.deps.json
+D:\Projects\Examer123\Examer321\OnlineExamer.Core\bin\Debug\netcoreapp3.0\OnlineExamer.Core.dll
+D:\Projects\Examer123\Examer321\OnlineExamer.Core\bin\Debug\netcoreapp3.0\OnlineExamer.Core.pdb
+D:\Projects\Examer123\Examer321\OnlineExamer.Core\bin\Debug\netcoreapp3.0\OnlineExamer.Data.dll
+D:\Projects\Examer123\Examer321\OnlineExamer.Core\bin\Debug\netcoreapp3.0\OnlineExamer.Models.dll
+D:\Projects\Examer123\Examer321\OnlineExamer.Core\bin\Debug\netcoreapp3.0\OnlineExamer.Data.pdb
+D:\Projects\Examer123\Examer321\OnlineExamer.Core\bin\Debug\netcoreapp3.0\OnlineExamer.Models.pdb
+D:\Projects\Examer123\Examer321\OnlineExamer.Core\obj\Debug\netcoreapp3.0\OnlineExamer.Core.csprojAssemblyReference.cache
+D:\Projects\Examer123\Examer321\OnlineExamer.Core\obj\Debug\netcoreapp3.0\OnlineExamer.Core.AssemblyInfoInputs.cache
+D:\Projects\Examer123\Examer321\OnlineExamer.Core\obj\Debug\netcoreapp3.0\OnlineExamer.Core.AssemblyInfo.cs
+D:\Projects\Examer123\Examer321\OnlineExamer.Core\obj\Debug\netcoreapp3.0\OnlineExamer.Core.csproj.CopyComplete
+D:\Projects\Examer123\Examer321\OnlineExamer.Core\obj\Debug\netcoreapp3.0\OnlineExamer.Core.dll
+D:\Projects\Examer123\Examer321\OnlineExamer.Core\obj\Debug\netcoreapp3.0\OnlineExamer.Core.pdb

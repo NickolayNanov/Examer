@@ -18,7 +18,8 @@ namespace OnlineExamer.Models.Entities
 
         public bool IsOpenAnswer { get; set; }
 
-        public int CorrectAnswerId { get; set; }
+        public int CorrectAnswer { get; set; }
+
         public ICollection<Answer> Answers { get; set; }
     }
 }

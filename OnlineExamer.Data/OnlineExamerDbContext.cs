@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿    using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using OnlineExamer.Models.Entities;
@@ -7,11 +7,7 @@ namespace OnlineExamer.Data
 {
     public class OnlineExamerDbContext : IdentityDbContext<OnlineExamerUser, IdentityRole, string>
     {
-        public OnlineExamerDbContext(DbContextOptions<OnlineExamerDbContext> options)
-            : base(options)
-        {
-
-        }
+        public OnlineExamerDbContext(DbContextOptions<OnlineExamerDbContext> options):base(options) { }
 
         public DbSet<Exam> Exams { get; set; }
 
@@ -36,22 +32,9 @@ namespace OnlineExamer.Data
 
         private void ExamModelSettings(ModelBuilder builder)
         {
-
             builder.Entity<Exam>()
-                .Property(exam => exam.StartedAt)
-                .IsRequired();
-
-            builder.Entity<Exam>()
-                .Property(exam => exam.FinishedAt)
-                .IsRequired();
-
-            builder.Entity<Exam>()
-                .Property(exam => exam.FinishedAt)
-                .IsRequired(false);
-
-            builder.Entity<Exam>()
-                .Property(exam => exam.StartedAt)
-                .IsRequired(false);
+                            .Property(x => x.YearOfCreation)
+                            .IsRequired();
         }
 
         private void AnswerModelSettings(ModelBuilder builder)
@@ -63,8 +46,7 @@ namespace OnlineExamer.Data
 
             builder.Entity<Answer>()
                 .HasOne(answer => answer.Question)
-                .WithMany(question => question.Answers)
-                .HasForeignKey(fk => fk.QuestionId);
+                .WithMany(question => question.Answers);
         }
 
         private void SchoolSubjectModelSettings(ModelBuilder builder)
@@ -83,14 +65,13 @@ namespace OnlineExamer.Data
                             .IsRequired();
 
             builder.Entity<Question>()
-                .HasMany(question => question.Answers)
-                .WithOne(answer => answer.Question)
-                .HasForeignKey(fk => fk.QuestionId);
+                            .HasMany(question => question.Answers)
+                            .WithOne(answer => answer.Question);
 
             builder.Entity<Question>()
-                .HasOne(question => question.Exam)
-                .WithMany(exam => exam.Questions)
-                .HasForeignKey(fk => fk.ExamId);
+                            .HasOne(question => question.Exam)
+                            .WithMany(exam => exam.Questions)
+                            .HasForeignKey(fk => fk.ExamId);
         }
 
         private void SetPrimaryKeys(ModelBuilder builder)

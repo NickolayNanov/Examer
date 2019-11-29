@@ -165,7 +165,7 @@ namespace OnlineExamer.Data.Migrations
                     b.Property<DateTime?>("CreatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("QuestionId")
+                    b.Property<int?>("QuestionId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -187,12 +187,6 @@ namespace OnlineExamer.Data.Migrations
 
                     b.Property<int>("ExamType")
                         .HasColumnType("int");
-
-                    b.Property<DateTime?>("FinishedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("StartedAt")
-                        .HasColumnType("datetime2");
 
                     b.Property<int>("YearOfCreation")
                         .HasColumnType("int");
@@ -277,7 +271,7 @@ namespace OnlineExamer.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("CorrectAnswerId")
+                    b.Property<int>("CorrectAnswer")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("CreatedAt")
@@ -335,6 +329,9 @@ namespace OnlineExamer.Data.Migrations
                     b.Property<DateTime?>("DeletedOn")
                         .HasColumnType("datetime2");
 
+                    b.Property<DateTime?>("FinishedAt")
+                        .HasColumnType("datetime2");
+
                     b.Property<double>("Grade")
                         .HasColumnType("float");
 
@@ -349,6 +346,9 @@ namespace OnlineExamer.Data.Migrations
 
                     b.Property<int>("Points")
                         .HasColumnType("int");
+
+                    b.Property<DateTime?>("StartedAt")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("ExamId", "UserId");
 
@@ -412,9 +412,7 @@ namespace OnlineExamer.Data.Migrations
                 {
                     b.HasOne("OnlineExamer.Models.Entities.Question", "Question")
                         .WithMany("Answers")
-                        .HasForeignKey("QuestionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("QuestionId");
                 });
 
             modelBuilder.Entity("OnlineExamer.Models.Entities.Question", b =>

@@ -22,5 +22,19 @@ namespace OnlineExamer.Models.Entities
         public bool IsDeleted { get; set; }
 
         public DateTime? DeletedOn { get; set; }
+
+        public DateTime? StartedAt { get; private set; }
+
+        public DateTime? FinishedAt { get; private set; }
+
+        public void Finish()
+        {
+            this.FinishedAt = DateTime.Now;
+        }
+
+        public void Start()
+        {
+            this.FinishedAt = DateTime.Now;
+        }
     }
 }

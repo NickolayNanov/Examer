@@ -4,9 +4,13 @@ namespace OnlineExamer.Models.Entities
 {
     public class Answer : BaseEntity<int>
     {
+        public Answer(string content)
+        {
+            this.Content = content;
+        }
+
         public string Content { get; set; }
 
-        public int QuestionId { get; set; }
         public Question Question { get; set; }
     }
 }

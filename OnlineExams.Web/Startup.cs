@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Builder;
+    using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -9,6 +9,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using OnlineExamer.Models.Entities;
 using OnlineExamer.Core;
+using OnlineExamer.Data.Seeding;
+using Microsoft.AspNetCore.Components.Authorization;
+using OnlineExams.Web.Utils;
 
 namespace OnlineExams.Web
 {
@@ -47,14 +50,21 @@ namespace OnlineExams.Web
                 .AddDefaultTokenProviders()
                 .AddEntityFrameworkStores<OnlineExamerDbContext>();
 
+            services.AddScoped<AuthenticationStateProvider, MyAuthenticationStateProvider>();
 
             services.AddSingleton<WeatherForecastService>();
-            services.AddScoped<DataService>();
+            services.AddTransient<ISchoolSubjectService, SchoolSubjectService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            using (var serviceScope = app.ApplicationServices.CreateScope())
+            {
+                var dbContext = serviceScope.ServiceProvider.GetRequiredService<OnlineExamerDbContext>();
+                Seeder.Seed(dbContext, serviceScope.ServiceProvider);
+            }
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

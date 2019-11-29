@@ -13,3 +13,11 @@ D:\Examer\OnlineExams.Infrastructure\obj\Debug\netcoreapp3.0\OnlineExams.Infrast
 D:\Examer\OnlineExams.Infrastructure\obj\Debug\netcoreapp3.0\OnlineExams.Infrastructure.AssemblyInfo.cs
 D:\Examer\OnlineExams.Infrastructure\obj\Debug\netcoreapp3.0\OnlineExams.Infrastructure.dll
 D:\Examer\OnlineExams.Infrastructure\obj\Debug\netcoreapp3.0\OnlineExams.Infrastructure.pdb
+D:\Projects\Examer123\Examer321\OnlineExams.Infrastructure\bin\Debug\netcoreapp3.0\OnlineExams.Infrastructure.deps.json
+D:\Projects\Examer123\Examer321\OnlineExams.Infrastructure\bin\Debug\netcoreapp3.0\OnlineExams.Infrastructure.dll
+D:\Projects\Examer123\Examer321\OnlineExams.Infrastructure\bin\Debug\netcoreapp3.0\OnlineExams.Infrastructure.pdb
+D:\Projects\Examer123\Examer321\OnlineExams.Infrastructure\obj\Debug\netcoreapp3.0\OnlineExams.Infrastructure.csprojAssemblyReference.cache
+D:\Projects\Examer123\Examer321\OnlineExams.Infrastructure\obj\Debug\netcoreapp3.0\OnlineExams.Infrastructure.AssemblyInfoInputs.cache
+D:\Projects\Examer123\Examer321\OnlineExams.Infrastructure\obj\Debug\netcoreapp3.0\OnlineExams.Infrastructure.AssemblyInfo.cs
+D:\Projects\Examer123\Examer321\OnlineExams.Infrastructure\obj\Debug\netcoreapp3.0\OnlineExams.Infrastructure.dll
+D:\Projects\Examer123\Examer321\OnlineExams.Infrastructure\obj\Debug\netcoreapp3.0\OnlineExams.Infrastructure.pdb
