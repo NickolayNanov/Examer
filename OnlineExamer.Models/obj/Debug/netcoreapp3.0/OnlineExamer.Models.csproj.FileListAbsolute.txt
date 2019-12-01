@@ -1,8 +1,0 @@
-D:\ExamerRepo\OnlineExamer\OnlineExamer.Models\obj\Debug\netcoreapp3.0\OnlineExamer.Models.AssemblyInfoInputs.cache
-D:\ExamerRepo\OnlineExamer\OnlineExamer.Models\obj\Debug\netcoreapp3.0\OnlineExamer.Models.AssemblyInfo.cs
-D:\ExamerRepo\OnlineExamer\OnlineExamer.Models\bin\Debug\netcoreapp3.0\OnlineExamer.Models.deps.json
-D:\ExamerRepo\OnlineExamer\OnlineExamer.Models\bin\Debug\netcoreapp3.0\OnlineExamer.Models.dll
-D:\ExamerRepo\OnlineExamer\OnlineExamer.Models\bin\Debug\netcoreapp3.0\OnlineExamer.Models.pdb
-D:\ExamerRepo\OnlineExamer\OnlineExamer.Models\obj\Debug\netcoreapp3.0\OnlineExamer.Models.dll
-D:\ExamerRepo\OnlineExamer\OnlineExamer.Models\obj\Debug\netcoreapp3.0\OnlineExamer.Models.pdb
-D:\ExamerRepo\OnlineExamer\OnlineExamer.Models\obj\Debug\netcoreapp3.0\OnlineExamer.Models.csprojAssemblyReference.cache
