@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Projects\\Examer123\\Examer321\\OnlineExamer.Models\\OnlineExamer.Models.csproj": {}
+    "D:\\ExamerRepo\\OnlineExamer\\OnlineExamer.Models\\OnlineExamer.Models.csproj": {}
   },
   "projects": {
-    "D:\\Projects\\Examer123\\Examer321\\OnlineExamer.Models\\OnlineExamer.Models.csproj": {
+    "D:\\ExamerRepo\\OnlineExamer\\OnlineExamer.Models\\OnlineExamer.Models.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Projects\\Examer123\\Examer321\\OnlineExamer.Models\\OnlineExamer.Models.csproj",
+        "projectUniqueName": "D:\\ExamerRepo\\OnlineExamer\\OnlineExamer.Models\\OnlineExamer.Models.csproj",
         "projectName": "OnlineExamer.Models",
-        "projectPath": "D:\\Projects\\Examer123\\Examer321\\OnlineExamer.Models\\OnlineExamer.Models.csproj",
+        "projectPath": "D:\\ExamerRepo\\OnlineExamer\\OnlineExamer.Models\\OnlineExamer.Models.csproj",
         "packagesPath": "C:\\Users\\Nick\\.nuget\\packages\\",
-        "outputPath": "D:\\Projects\\Examer123\\Examer321\\OnlineExamer.Models\\obj\\",
+        "outputPath": "D:\\ExamerRepo\\OnlineExamer\\OnlineExamer.Models\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

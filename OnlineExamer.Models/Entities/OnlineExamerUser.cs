@@ -4,17 +4,16 @@ using System.Collections.Generic;
 
 namespace OnlineExamer.Models.Entities
 {
-    public class OnlineExamerUser : IdentityUser<string>
+    public class OnlineExamerUser : IdentityUser
     {
         public OnlineExamerUser()
         {
-
+            
         }
 
-        public OnlineExamerUser(string email, string fullName)
+        public OnlineExamerUser(string email)
         {
-            this.Id = Guid.NewGuid().ToString();
-            this.UserName = fullName;
+            this.Email = email;
 
             this.UserExams = new HashSet<UserExam>();
         }

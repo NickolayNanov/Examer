@@ -1,7 +1,0 @@
-D:\Sandbox\OnlineExamer.Common\bin\Debug\netcoreapp3.1\OnlineExamer.Common.deps.json
-D:\Sandbox\OnlineExamer.Common\bin\Debug\netcoreapp3.1\OnlineExamer.Common.dll
-D:\Sandbox\OnlineExamer.Common\bin\Debug\netcoreapp3.1\OnlineExamer.Common.pdb
-D:\Sandbox\OnlineExamer.Common\obj\Debug\netcoreapp3.1\OnlineExamer.Common.AssemblyInfoInputs.cache
-D:\Sandbox\OnlineExamer.Common\obj\Debug\netcoreapp3.1\OnlineExamer.Common.AssemblyInfo.cs
-D:\Sandbox\OnlineExamer.Common\obj\Debug\netcoreapp3.1\OnlineExamer.Common.dll
-D:\Sandbox\OnlineExamer.Common\obj\Debug\netcoreapp3.1\OnlineExamer.Common.pdb

@@ -1,0 +1,26 @@
+﻿@inject Areas.Identity.Pages.Account.LogoutModel model
+<AuthorizeView>
+    <Authorized>
+        <div class="col-xs-6 col-md-8"></div>
+        <div class="col-xs-12 col-md-4">
+            <div class="d-inline-flex">
+                <p>Hello, @context.User.Identity.Name!</p>                
+                <button style="border: none;" @onclick="SendLogout">Logout</button>
+            </div>
+        </div>
+    </Authorized>
+    <NotAuthorized>
+        <div class="col-xs-12 col-md-10"></div>
+        <div class="col-xs-6 col-md-2">
+            <a class="mr-4" href="Identity/Account/Register">Register</a>
+            <a class="pull-right" href="authentication/login">Log in</a>
+        </div>
+    </NotAuthorized>
+</AuthorizeView>
+
+@code{
+    async Task SendLogout()
+    {       
+        await model.OnPost("/");
+    }
+}

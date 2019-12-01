@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Projects\\Examer123\\Examer321\\OnlineExamer.Core\\OnlineExamer.Core.csproj": {}
+    "D:\\ExamerRepo\\OnlineExamer\\OnlineExamer.Core\\OnlineExamer.Core.csproj": {}
   },
   "projects": {
-    "D:\\Projects\\Examer123\\Examer321\\OnlineExamer.Core\\OnlineExamer.Core.csproj": {
+    "D:\\ExamerRepo\\OnlineExamer\\OnlineExamer.Core\\OnlineExamer.Core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Projects\\Examer123\\Examer321\\OnlineExamer.Core\\OnlineExamer.Core.csproj",
+        "projectUniqueName": "D:\\ExamerRepo\\OnlineExamer\\OnlineExamer.Core\\OnlineExamer.Core.csproj",
         "projectName": "OnlineExamer.Core",
-        "projectPath": "D:\\Projects\\Examer123\\Examer321\\OnlineExamer.Core\\OnlineExamer.Core.csproj",
+        "projectPath": "D:\\ExamerRepo\\OnlineExamer\\OnlineExamer.Core\\OnlineExamer.Core.csproj",
         "packagesPath": "C:\\Users\\Nick\\.nuget\\packages\\",
-        "outputPath": "D:\\Projects\\Examer123\\Examer321\\OnlineExamer.Core\\obj\\",
+        "outputPath": "D:\\ExamerRepo\\OnlineExamer\\OnlineExamer.Core\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -30,8 +30,8 @@
         "frameworks": {
           "netcoreapp3.0": {
             "projectReferences": {
-              "D:\\Projects\\Examer123\\Examer321\\OnlineExamer.Data\\OnlineExamer.Data.csproj": {
-                "projectPath": "D:\\Projects\\Examer123\\Examer321\\OnlineExamer.Data\\OnlineExamer.Data.csproj"
+              "D:\\ExamerRepo\\OnlineExamer\\OnlineExamer.Data\\OnlineExamer.Data.csproj": {
+                "projectPath": "D:\\ExamerRepo\\OnlineExamer\\OnlineExamer.Data\\OnlineExamer.Data.csproj"
               }
             }
           }
@@ -63,14 +63,14 @@
         }
       }
     },
-    "D:\\Projects\\Examer123\\Examer321\\OnlineExamer.Data\\OnlineExamer.Data.csproj": {
+    "D:\\ExamerRepo\\OnlineExamer\\OnlineExamer.Data\\OnlineExamer.Data.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Projects\\Examer123\\Examer321\\OnlineExamer.Data\\OnlineExamer.Data.csproj",
+        "projectUniqueName": "D:\\ExamerRepo\\OnlineExamer\\OnlineExamer.Data\\OnlineExamer.Data.csproj",
         "projectName": "OnlineExamer.Data",
-        "projectPath": "D:\\Projects\\Examer123\\Examer321\\OnlineExamer.Data\\OnlineExamer.Data.csproj",
+        "projectPath": "D:\\ExamerRepo\\OnlineExamer\\OnlineExamer.Data\\OnlineExamer.Data.csproj",
         "packagesPath": "C:\\Users\\Nick\\.nuget\\packages\\",
-        "outputPath": "D:\\Projects\\Examer123\\Examer321\\OnlineExamer.Data\\obj\\",
+        "outputPath": "D:\\ExamerRepo\\OnlineExamer\\OnlineExamer.Data\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -89,8 +89,8 @@
         "frameworks": {
           "netcoreapp3.0": {
             "projectReferences": {
-              "D:\\Projects\\Examer123\\Examer321\\OnlineExamer.Models\\OnlineExamer.Models.csproj": {
-                "projectPath": "D:\\Projects\\Examer123\\Examer321\\OnlineExamer.Models\\OnlineExamer.Models.csproj"
+              "D:\\ExamerRepo\\OnlineExamer\\OnlineExamer.Models\\OnlineExamer.Models.csproj": {
+                "projectPath": "D:\\ExamerRepo\\OnlineExamer\\OnlineExamer.Models\\OnlineExamer.Models.csproj"
               }
             }
           }
@@ -115,10 +115,6 @@
             "Microsoft.EntityFrameworkCore.Design": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
-              "target": "Package",
-              "version": "[3.0.1, )"
-            },
-            "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
               "version": "[3.0.1, )"
             },
@@ -148,14 +144,14 @@
         }
       }
     },
-    "D:\\Projects\\Examer123\\Examer321\\OnlineExamer.Models\\OnlineExamer.Models.csproj": {
+    "D:\\ExamerRepo\\OnlineExamer\\OnlineExamer.Models\\OnlineExamer.Models.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Projects\\Examer123\\Examer321\\OnlineExamer.Models\\OnlineExamer.Models.csproj",
+        "projectUniqueName": "D:\\ExamerRepo\\OnlineExamer\\OnlineExamer.Models\\OnlineExamer.Models.csproj",
         "projectName": "OnlineExamer.Models",
-        "projectPath": "D:\\Projects\\Examer123\\Examer321\\OnlineExamer.Models\\OnlineExamer.Models.csproj",
+        "projectPath": "D:\\ExamerRepo\\OnlineExamer\\OnlineExamer.Models\\OnlineExamer.Models.csproj",
         "packagesPath": "C:\\Users\\Nick\\.nuget\\packages\\",
-        "outputPath": "D:\\Projects\\Examer123\\Examer321\\OnlineExamer.Models\\obj\\",
+        "outputPath": "D:\\ExamerRepo\\OnlineExamer\\OnlineExamer.Models\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
