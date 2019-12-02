@@ -1,0 +1,33 @@
+﻿@using OnlineExamer.Models.ViewModels.Exams
+@using OnlineExamer.Core.ExamService
+@using OnlineExamer.Web.Components.Exams
+@page "/AllExams"
+@inject IExamService service
+
+<h1 class="text-center mb-5">Всички изпити</h1>
+
+@if (Exams != null)
+{
+    <div class="container mt-5">
+        <div class="row">
+            @foreach (var examType in Exams)
+            {
+                <ExamButton ExamType="@examType.ExamType" />
+            }
+        </div>
+    </div>
+}
+else
+{
+    <h3>Loading...</h3>
+}
+
+@code {
+    IEnumerable<ExamViewModel> Exams { get; set; }
+
+    protected override Task OnInitializedAsync()
+    {
+        Exams = service.AllExams();
+        return Task.CompletedTask;
+    }
+}
