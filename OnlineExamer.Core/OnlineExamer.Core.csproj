@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\OnlineExamer.Data\OnlineExamer.Data.csproj" />
+    <ProjectReference Include="..\OnlineExamer.Infrastructure\OnlineExamer.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

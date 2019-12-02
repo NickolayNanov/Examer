@@ -148,3 +148,22 @@ app {
         display: block;
     }
 }
+
+.card {
+    padding: 20px;
+    margin-top: 20px;
+}
+
+.card-button {
+    border-radius: 7px;
+    background-color: #7386D5;
+    color: white;
+    padding: 10px;
+    font-size: 1.1em;
+    display: block;
+}
+
+    .card-button:hover {
+        color: #fff;
+        background: #1861ac !important;
+    }

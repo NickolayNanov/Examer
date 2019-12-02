@@ -1,23 +1,18 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-//using OnlineExamer.Web.Areas.Identity;
 using OnlineExamer.Web.Data;
 using OnlineExamer.Data;
-using OnlineExamer.Core;
 using OnlineExamer.Web.Areas.Identity.Pages.Account;
+using OnlineExamer.Data.Seeding;
+using OnlineExamer.Core.SchoolSubjects;
+using AutoMapper;
+using OnlineExamer.Infrastructure;
+using OnlineExamer.Core.ExamService;
 
 namespace OnlineExamer.Web
 {
@@ -47,16 +42,32 @@ namespace OnlineExamer.Web
                 options.Password.RequireUppercase = false;
             }).AddEntityFrameworkStores<OnlineExamerDbContext>();
 
+            MapperConfiguration mappingConfig = new MapperConfiguration(mc =>
+            {
+                mc.AddProfile(new MappingProfile());
+            });
+
+            IMapper mapper = mappingConfig.CreateMapper();
+            services.AddSingleton(mapper);
+
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddSingleton<WeatherForecastService>();
+            
             services.AddScoped<ISchoolSubjectService, SchoolSubjectService>();
+            services.AddScoped<IExamService, ExamService>();
             services.AddTransient<LogoutModel>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            using (IServiceScope serviceScope = app.ApplicationServices.CreateScope())
+            {
+                var dbContext = serviceScope.ServiceProvider.GetRequiredService<OnlineExamerDbContext>();
+                Seeder.Seed(dbContext, serviceScope.ServiceProvider);
+            }
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

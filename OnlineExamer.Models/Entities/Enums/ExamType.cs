@@ -8,6 +8,7 @@
         Geography = 3,
         English = 4,
         Bulgarian = 5,
-        Psychology = 6
+        Psychology = 6,
+        Chemistry = 7
     }
 }

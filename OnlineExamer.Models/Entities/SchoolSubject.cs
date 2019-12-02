@@ -4,7 +4,6 @@ namespace OnlineExamer.Models.Entities
 {
     public class SchoolSubject : BaseEntity<int>
     {
-
         public string Name { get; set; }
     }
 }

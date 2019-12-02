@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineExamer.Models", "Onli
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineExamer.Core", "OnlineExamer.Core\OnlineExamer.Core.csproj", "{E9E38303-3AD7-4343-BCE9-12442D50D54F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineExamer.Infrastructure", "OnlineExamer.Infrastructure\OnlineExamer.Infrastructure.csproj", "{87907FAD-0CE7-4144-9B86-B15817718D35}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineExamer.Infrastructure", "OnlineExamer.Infrastructure\OnlineExamer.Infrastructure.csproj", "{87907FAD-0CE7-4144-9B86-B15817718D35}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
