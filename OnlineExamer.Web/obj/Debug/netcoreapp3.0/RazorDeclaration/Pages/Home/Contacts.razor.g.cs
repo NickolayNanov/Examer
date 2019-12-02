@@ -89,6 +89,13 @@ using Microsoft.AspNetCore.Components;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 12 "D:\Examer\Examer\OnlineExamer.Web\_Imports.razor"
+using OnlineExamer.Infrastructure;
+
+#line default
+#line hidden
+#nullable disable
     [Microsoft.AspNetCore.Components.RouteAttribute("/Contacts")]
     public partial class Contacts : Microsoft.AspNetCore.Components.ComponentBase
     {

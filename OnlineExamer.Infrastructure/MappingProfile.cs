@@ -15,6 +15,9 @@ namespace OnlineExamer.Infrastructure
                 .ForMember(x => x.ExamType, y => y.MapFrom(x => x.ExamType.ToString()))
                 .ForMember(x => x.YearOfCreation, y => y.MapFrom(z => z.YearOfCreation))
                 .ReverseMap();
+
+            this.CreateMap<SchoolSubject, ExamViewModel>()
+                .ForMember(x => x.ExamType, y => y.MapFrom(z => z.Name));
         }
     }
 }

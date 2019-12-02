@@ -1,0 +1,34 @@
+﻿@page "/AllExams/{Subject}"
+@using OnlineExamer.Models.ViewModels.Exams
+@using OnlineExamer.Core.ExamService
+@using OnlineExamer.Web.Components.Exams
+@inject IExamService service
+
+
+<h1 class="text-center mb-5">Всички изпити по @Subject</h1>
+
+@if (Exams != null)
+{
+    <div class="container mt-5">
+        <div class="row">
+            @foreach (var examType in Exams)
+            {
+                <ExamTypeYear ExamType="@examType" />
+            }
+        </div>
+    </div>
+}
+else
+{
+    <h3>Loading...</h3>
+}
+
+@code {
+    [Parameter] public string Subject { get; set; }
+    [Parameter] public IEnumerable<ExamViewModel> Exams { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        Exams = await service.AllExamsByExamType(Subject);
+    }
+}

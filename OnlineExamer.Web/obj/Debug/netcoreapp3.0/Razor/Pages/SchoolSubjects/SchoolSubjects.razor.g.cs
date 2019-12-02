@@ -86,6 +86,13 @@ using Microsoft.AspNetCore.Components;
 #line hidden
 #nullable disable
 #nullable restore
+#line 12 "D:\Examer\Examer\OnlineExamer.Web\_Imports.razor"
+using OnlineExamer.Infrastructure;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
 #line 3 "D:\Examer\Examer\OnlineExamer.Web\Pages\SchoolSubjects\SchoolSubjects.razor"
 using OnlineExamer.Core.SchoolSubjects;
 

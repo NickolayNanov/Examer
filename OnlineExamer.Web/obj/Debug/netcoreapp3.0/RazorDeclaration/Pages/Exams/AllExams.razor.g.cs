@@ -83,6 +83,13 @@ using Microsoft.AspNetCore.Components;
 #line hidden
 #nullable disable
 #nullable restore
+#line 12 "D:\Examer\Examer\OnlineExamer.Web\_Imports.razor"
+using OnlineExamer.Infrastructure;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
 #line 1 "D:\Examer\Examer\OnlineExamer.Web\Pages\Exams\AllExams.razor"
 using OnlineExamer.Models.ViewModels.Exams;
 

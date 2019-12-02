@@ -184,3 +184,7 @@ D:\Examer\Examer\OnlineExamer.Web\obj\Debug\netcoreapp3.0\OnlineExamer.Web.Views
 D:\Examer\Examer\OnlineExamer.Web\obj\Debug\netcoreapp3.0\OnlineExamer.Web.csproj.CopyComplete
 D:\Examer\Examer\OnlineExamer.Web\obj\Debug\netcoreapp3.0\OnlineExamer.Web.dll
 D:\Examer\Examer\OnlineExamer.Web\obj\Debug\netcoreapp3.0\OnlineExamer.Web.pdb
+D:\Examer\Examer\OnlineExamer.Web\obj\Debug\netcoreapp3.0\RazorDeclaration\Components\Exams\ExamTypeYear.razor.g.cs
+D:\Examer\Examer\OnlineExamer.Web\obj\Debug\netcoreapp3.0\RazorDeclaration\Pages\Exams\ExamTypeExams.razor.g.cs
+D:\Examer\Examer\OnlineExamer.Web\obj\Debug\netcoreapp3.0\Razor\Components\Exams\ExamTypeYear.razor.g.cs
+D:\Examer\Examer\OnlineExamer.Web\obj\Debug\netcoreapp3.0\Razor\Pages\Exams\ExamTypeExams.razor.g.cs

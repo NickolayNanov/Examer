@@ -1,0 +1,10 @@
+﻿@using OnlineExamer.Models.ViewModels.Exams
+
+<a 
+   class="btn container col-md-5 mr-1 mb-2 card-button" style="color: white;">
+    @ExamType.YearOfCreation
+</a>
+
+@code {
+    [Parameter] public ExamViewModel ExamType { get; set; }
+}

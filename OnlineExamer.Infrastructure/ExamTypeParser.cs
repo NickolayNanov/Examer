@@ -20,5 +20,21 @@ namespace OnlineExamer.Infrastructure
                 _ => string.Empty,
             };
         }
+
+        public static string ReverseParse(this ExamViewModel exam)
+        {
+            return exam.ExamType switch
+            {
+                "Български език" => "Bulgarian",
+                "Английски език" => "English",
+                "Математика" => "Math",
+                "Биология" => "Biology",
+                "Психология" => "Psychology",
+                "История" => "History",
+                "Химия" => "Chemistry",
+                "География" => "Geography",
+                _ => string.Empty,
+            };
+        }
     }
 }
