@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using OnlineExamer.Data;
 using OnlineExamer.Infrastructure;
 using OnlineExamer.Models.Entities.Enums;
+using OnlineExamer.Models.ViewModels.Answers;
 using OnlineExamer.Models.ViewModels.Exams;
+using OnlineExamer.Models.ViewModels.Questions;
 
 namespace OnlineExamer.Core.ExamService
 {
@@ -53,6 +56,42 @@ namespace OnlineExamer.Core.ExamService
             });
 
             return exams;
+        }
+
+        public async Task<ExamQuestionsViewModel> LoadExamByExamTypeAndYear(string examType, int year)
+        {
+            ExamViewModel exam = new ExamViewModel();
+            exam.ExamType = examType;
+
+            bool doesParse = Enum.TryParse(exam.ExamType, out ExamType type);
+
+            if (!doesParse)
+            {
+                return null;
+            }
+
+            ExamQuestionsViewModel dto = null;
+            var examm = context.Exams.Include(x => x.Questions).ThenInclude(x => x.Answers).FirstOrDefault(x => x.YearOfCreation == year && x.ExamType == type);
+            
+            await Task.Run(() =>
+            {
+                dto = new ExamQuestionsViewModel()
+                {
+                    Questions = examm.Questions.Select(x => new QuestionViewModel()
+                    {
+                        Title = x.Title,
+                        IsOpenAnswer = x.IsOpenAnswer,
+                        CorrectAnswer = x.CorrectAnswer,
+                        Answers = x.Answers.Select(a => new AnswerViewModel()
+                        {
+                            Content = a.Content,
+                            IsSelected = false
+                        }).ToList()
+                    }).ToList()
+                };
+            });
+
+            return dto;
         }
     }
 }

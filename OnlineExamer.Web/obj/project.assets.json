@@ -8607,11 +8607,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Examer\\Examer\\OnlineExamer.Web\\OnlineExamer.Web.csproj",
+      "projectUniqueName": "D:\\New folder\\Examer\\OnlineExamer.Web\\OnlineExamer.Web.csproj",
       "projectName": "OnlineExamer.Web",
-      "projectPath": "D:\\Examer\\Examer\\OnlineExamer.Web\\OnlineExamer.Web.csproj",
+      "projectPath": "D:\\New folder\\Examer\\OnlineExamer.Web\\OnlineExamer.Web.csproj",
       "packagesPath": "C:\\Users\\Nikolay\\.nuget\\packages\\",
-      "outputPath": "D:\\Examer\\Examer\\OnlineExamer.Web\\obj\\",
+      "outputPath": "D:\\New folder\\Examer\\OnlineExamer.Web\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "D:\\Microsoft\\Xamarin\\NuGet\\"
@@ -8631,8 +8631,8 @@
       "frameworks": {
         "netcoreapp3.0": {
           "projectReferences": {
-            "D:\\Examer\\Examer\\OnlineExamer.Core\\OnlineExamer.Core.csproj": {
-              "projectPath": "D:\\Examer\\Examer\\OnlineExamer.Core\\OnlineExamer.Core.csproj"
+            "D:\\New folder\\Examer\\OnlineExamer.Core\\OnlineExamer.Core.csproj": {
+              "projectPath": "D:\\New folder\\Examer\\OnlineExamer.Core\\OnlineExamer.Core.csproj"
             }
           }
         }

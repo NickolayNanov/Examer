@@ -5097,11 +5097,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Examer\\Examer\\OnlineExamer.Data\\OnlineExamer.Data.csproj",
+      "projectUniqueName": "D:\\New folder\\Examer\\OnlineExamer.Data\\OnlineExamer.Data.csproj",
       "projectName": "OnlineExamer.Data",
-      "projectPath": "D:\\Examer\\Examer\\OnlineExamer.Data\\OnlineExamer.Data.csproj",
+      "projectPath": "D:\\New folder\\Examer\\OnlineExamer.Data\\OnlineExamer.Data.csproj",
       "packagesPath": "C:\\Users\\Nikolay\\.nuget\\packages\\",
-      "outputPath": "D:\\Examer\\Examer\\OnlineExamer.Data\\obj\\",
+      "outputPath": "D:\\New folder\\Examer\\OnlineExamer.Data\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "D:\\Microsoft\\Xamarin\\NuGet\\"
@@ -5121,8 +5121,8 @@
       "frameworks": {
         "netcoreapp3.0": {
           "projectReferences": {
-            "D:\\Examer\\Examer\\OnlineExamer.Models\\OnlineExamer.Models.csproj": {
-              "projectPath": "D:\\Examer\\Examer\\OnlineExamer.Models\\OnlineExamer.Models.csproj"
+            "D:\\New folder\\Examer\\OnlineExamer.Models\\OnlineExamer.Models.csproj": {
+              "projectPath": "D:\\New folder\\Examer\\OnlineExamer.Models\\OnlineExamer.Models.csproj"
             }
           }
         }

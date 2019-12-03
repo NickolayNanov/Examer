@@ -19,4 +19,10 @@
     <ProjectReference Include="..\OnlineExamer.Core\OnlineExamer.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Update="Shared\MainLayout.razor">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
 </Project>

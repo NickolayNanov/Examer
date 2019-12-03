@@ -9,5 +9,7 @@ namespace OnlineExamer.Core.ExamService
         IEnumerable<ExamViewModel> AllExams();
 
         Task<IEnumerable<ExamViewModel>> AllExamsByExamType(string examType);
+
+        Task<ExamQuestionsViewModel> LoadExamByExamTypeAndYear(string examType, int year);
     }
 }
