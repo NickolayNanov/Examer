@@ -1,0 +1,60 @@
+﻿@page "/AllExams/{Subject}/{Year:int}"
+@inject IExamService service
+@using OnlineExamer.Models.ViewModels.Exams
+@using OnlineExamer.Core.ExamService
+<h3>SolveExam</h3>
+
+@if (Data != null)
+{
+    <form>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+                    @for (int i = 0; i < Data.Questions.Count; i++)
+                    {
+                        <span>@(counter++). @(Data.Questions[i].Title)</span>
+
+                        if (!Data.Questions[i].IsOpenAnswer)
+                        {
+                            <ul class="list-group" id="question_@(counter - 1)">
+                                @for (int j = 0; j < Data.Questions[i].Answers.Count; j++)
+                                {
+                                    <li onclick="giveAnswer(@(counter - 1), @j)" class="list-group-item mb-3" id="question_@(counter - 1)_answer_@j">
+
+                                        <input asp-for="@Data.Questions[i].Answers[j].IsSelected"
+                                               type="checkbox"
+                                               id="input_@(counter - 1)_question_@j"
+                                               class="check"
+                                               style="display:none" />
+                                        <label>@Data.Questions[i].Answers[j].Content</label>
+                                    </li>
+                                }
+                            </ul>
+                        }
+                    }
+                    <button class="btn btn-success">
+                        Send
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+}
+else
+{
+    <h1>Loading...</h1>
+}
+KRAVA
+
+@code {
+    int counter = 1;
+    [Parameter] public string Subject { get; set; }
+    [Parameter] public int Year { get; set; }
+
+    public ExamQuestionsViewModel Data { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        Data = await service.LoadExamByExamTypeAndYear(Subject, Year);
+    }
+}
