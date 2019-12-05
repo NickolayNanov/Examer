@@ -1,0 +1,95 @@
+﻿@page "/AllExams/{Subject}/{Year:int}"
+@inject IExamService service
+@using OnlineExamer.Models.ViewModels.Exams
+@using OnlineExamer.Core.ExamService
+@using OnlineExamer.Infrastructure
+@using Microsoft.JSInterop
+@inject IJSRuntime JS
+@inject NavigationManager NavigationManager
+
+@if (Data != null)
+{
+    <h3 class="text-center">Изпит по @(ExamTypeParser.Parse<ExamQuestionsViewModel>(Data)) - @Year</h3>
+
+    <form>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    @for (int i = 0; i < Data.Questions.Count; i++)
+                    {
+                        <span>@(counter++). @(Data.Questions[i].Title)</span>
+
+                        if (!Data.Questions[i].IsOpenAnswer)
+                        {
+                            <ul class="list-group" id="question_@(counter - 1)">
+                                @for (int j = 0; j < Data.Questions[i].Answers.Count; j++)
+                                {
+                                    <li onclick="giveAnswer(@(counter - 1), @j)"
+                                        style="background: @Data.Questions[i].Answers[j].BackgroundColor"
+                                        class="list-group-item mb-3 marked-answer"
+                                        id="question_@(counter - 1)_answer_@j">
+                                        <input @bind="@Data.Questions[i].Answers[j].IsSelected"
+                                               type="checkbox"
+                                               id="input_@(counter - 1)_question_@j"
+                                               class="check"
+                                               style="display:none" />
+                                        <label>@Data.Questions[i].Answers[j].Content</label>
+                                    </li>
+                                }
+                            </ul>
+                        }
+                    }
+                    <button class="btn btn-success" @onclick="Solve">
+                        Send
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+}
+else
+{
+    <h1>Loading...</h1>
+}
+
+@code {
+    int counter;
+
+    [Parameter] public string Subject { get; set; }
+    [Parameter] public int Year { get; set; }
+
+    [CascadingParameter]
+    private Task<AuthenticationState> authenticationStateTask { get; set; }
+
+    public static ExamQuestionsViewModel Data { get; set; }
+
+    protected override Task OnInitializedAsync()
+    {
+        counter = 1;
+        Data = service.LoadExamByExamTypeAndYear(Subject, Year);
+        Data.YearOfCreation = Year;
+        Data.ExamType = Subject;
+        return Task.CompletedTask;
+    }
+
+    private async Task RedirectToAsync(string path)
+    {
+        await JS.InvokeVoidAsync("clientFunctions.RedirectTo", path);
+    }
+
+    private async Task Solve()
+    {
+        counter = 0;
+        var authState = await authenticationStateTask;
+        var examResultId = await this.service.SolveExam(Data, authState.User.Identity.Name);
+        await this.RedirectToAsync($"/AllExams/{Subject}/{Year}/ExamResult/{examResultId}");
+    }
+
+    [JSInvokable(identifier: "SelectAnswer")]
+    public static Task Select(int questionId, int answerId)
+    {
+        Data.Questions[questionId - 1].Answers[answerId].IsSelected = true;
+        return Task.CompletedTask;
+    }
+
+}
