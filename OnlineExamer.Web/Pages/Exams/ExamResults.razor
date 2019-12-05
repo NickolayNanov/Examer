@@ -1,0 +1,18 @@
+﻿@page "/AllExams/{Subject}/{Year:int}/{ExamResultId:int}"
+@inject IExamService service
+@using OnlineExamer.Core.ExamService
+
+<h3>@ExamResult.Points, @ExamResult.Grade</h3>
+
+@code {
+    [Parameter] public string Subject { get; set; }
+    [Parameter] public int Year { get; set; }
+    [Parameter] public int ExamResultId { get; set; }
+
+    public OnlineExamer.Models.ViewModels.Exams.ExamResults ExamResult { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        ExamResult = await this.service.GetExamResult(ExamResultId);        
+    }
+}
