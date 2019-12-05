@@ -5,9 +5,11 @@ namespace OnlineExamer.Infrastructure
 {
     public static class ExamTypeParser
     {
-        public static string Parse(this ExamViewModel exam)
+        public static string Parse<T>(this T exam)
         {
-            return exam.ExamType switch
+            var examType = (string)typeof(T).GetProperty(nameof(ExamType)).GetValue(exam);
+
+            return examType switch
             {
                 "Bulgarian" => "Български език",
                 "English" => "Английски език",
@@ -21,9 +23,11 @@ namespace OnlineExamer.Infrastructure
             };
         }
 
-        public static string ReverseParse(this ExamViewModel exam)
+        public static string ReverseParse<T>(this T exam)
         {
-            return exam.ExamType switch
+            var examType = (string)typeof(T).GetProperty(nameof(ExamType)).GetValue(exam);
+
+            return examType switch
             {
                 "Български език" => "Bulgarian",
                 "Английски език" => "English",

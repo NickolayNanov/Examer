@@ -1,3 +1,5 @@
+//import blazor from './BlazorScripts'
+
 $('.rolldown-list li').each(() => {
     let delay = ($(this).index() / 4) + 's';
     $(this).css({
@@ -6,6 +8,8 @@ $('.rolldown-list li').each(() => {
         animationDelay: delay
     });
 });
+
+
 
 function giveAnswer(questionId, ansewrId) {
 
@@ -19,6 +23,13 @@ function giveAnswer(questionId, ansewrId) {
 
     let li = document.getElementById(`question_${questionId}_answer_${ansewrId}`);
     li.style.background = 'lightyellow';
-    let input = document.getElementById(`input_${questionId}_question_${ansewrId}`);
-    input.checked = true;
+
+    DotNet.invokeMethodAsync("OnlineExamer.Web", "SelectAnswer", questionId, ansewrId)
+        .then(result => console.log(result));
+}
+
+window.clientFunctions = {
+    RedirectTo: (path) => {
+        window.location = path;
+    }
 }

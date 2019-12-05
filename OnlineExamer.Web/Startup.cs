@@ -13,6 +13,8 @@ using OnlineExamer.Core.SchoolSubjects;
 using AutoMapper;
 using OnlineExamer.Infrastructure;
 using OnlineExamer.Core.ExamService;
+using Microsoft.AspNetCore.Components.Authorization;
+using OnlineExamer.Models.Entities;
 
 namespace OnlineExamer.Web
 {
@@ -31,9 +33,9 @@ namespace OnlineExamer.Web
         {
             services.AddDbContext<OnlineExamerDbContext>(options =>
                 options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection")))
-                ;
-            services.AddDefaultIdentity<IdentityUser>(options =>
+                    Configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddDefaultIdentity<OnlineExamerUser>(options =>
             {
                 options.Password.RequireDigit = false;
                 options.Password.RequiredLength = 6;
@@ -53,7 +55,8 @@ namespace OnlineExamer.Web
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddSingleton<WeatherForecastService>();
-            
+            services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<OnlineExamerUser>>();
+
             services.AddScoped<ISchoolSubjectService, SchoolSubjectService>();
             services.AddScoped<IExamService, ExamService>();
             services.AddTransient<LogoutModel>();

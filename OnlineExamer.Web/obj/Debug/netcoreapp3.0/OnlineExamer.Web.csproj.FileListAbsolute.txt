@@ -384,3 +384,5 @@ D:\New folder\Examer\OnlineExamer.Web\obj\Debug\netcoreapp3.0\OnlineExamer.Web.V
 D:\New folder\Examer\OnlineExamer.Web\obj\Debug\netcoreapp3.0\OnlineExamer.Web.csproj.CopyComplete
 D:\New folder\Examer\OnlineExamer.Web\obj\Debug\netcoreapp3.0\OnlineExamer.Web.dll
 D:\New folder\Examer\OnlineExamer.Web\obj\Debug\netcoreapp3.0\OnlineExamer.Web.pdb
+D:\New folder\Examer\OnlineExamer.Web\obj\Debug\netcoreapp3.0\RazorDeclaration\Pages\Exams\ExamResults.razor.g.cs
+D:\New folder\Examer\OnlineExamer.Web\obj\Debug\netcoreapp3.0\Razor\Pages\Exams\ExamResults.razor.g.cs

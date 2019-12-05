@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using System;
 using System.Collections.Generic;
 
 namespace OnlineExamer.Models.Entities
@@ -8,7 +7,6 @@ namespace OnlineExamer.Models.Entities
     {
         public OnlineExamerUser()
         {
-            
         }
 
         public OnlineExamerUser(string email)

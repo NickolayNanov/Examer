@@ -1,4 +1,6 @@
+using Microsoft.JSInterop;
 using System;
+using System.Threading.Tasks;
 
 namespace OnlineExamer.Web.Data
 {

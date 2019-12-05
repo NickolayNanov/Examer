@@ -1,26 +1,23 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using OnlineExamer.Models.Entities;
 
 namespace OnlineExamer.Web.Areas.Identity.Pages.Account
 {
     [AllowAnonymous]
     public class LogoutModel : PageModel
     {
-        private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly SignInManager<OnlineExamerUser> _signInManager;
         private readonly ILogger<LogoutModel> _logger;
-        private readonly NavigationManager navigationManager;
 
-        public LogoutModel(SignInManager<IdentityUser> signInManager, ILogger<LogoutModel> logger, NavigationManager navigationManager)
+        public LogoutModel(SignInManager<OnlineExamerUser> signInManager, ILogger<LogoutModel> logger)
         {
             _signInManager = signInManager;
             _logger = logger;
-            this.navigationManager = navigationManager;
         }
 
         public async Task<IActionResult> OnGet()
@@ -34,6 +31,7 @@ namespace OnlineExamer.Web.Areas.Identity.Pages.Account
         {
             await _signInManager.SignOutAsync();
             _logger.LogInformation("User logged out.");
+
             if (returnUrl != null)
             {
                 return LocalRedirect(returnUrl);
