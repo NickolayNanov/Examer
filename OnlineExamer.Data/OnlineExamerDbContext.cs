@@ -24,9 +24,15 @@ namespace OnlineExamer.Data
             this.QuestionModelSettings(builder);
             this.AnswerModelSettings(builder);
             this.SchoolSubjectModelSettings(builder);
-            this.ExamModelSettings(builder);            
+            this.ExamModelSettings(builder);
+            UserModelSettings(builder);
 
             base.OnModelCreating(builder);
+        }
+
+        private static void UserModelSettings(ModelBuilder builder)
+        {
+            builder.Entity<OnlineExamerUser>().HasNoDiscriminator();
         }
 
         private void ExamModelSettings(ModelBuilder builder)
@@ -38,6 +44,8 @@ namespace OnlineExamer.Data
 
         private void AnswerModelSettings(ModelBuilder builder)
         {
+            
+
             builder.Entity<Answer>()
                             .Property(answer => answer.Content)
                             .IsUnicode()

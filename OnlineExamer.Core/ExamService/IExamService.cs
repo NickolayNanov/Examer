@@ -8,12 +8,12 @@ namespace OnlineExamer.Core.ExamService
     {
         IEnumerable<ExamViewModel> AllExams();
 
-        Task<IEnumerable<ExamViewModel>> AllExamsByExamType(string examType);
+        Task<IEnumerable<ExamViewModel>> AllExamsByExamTypeAsync(string examType);
 
-        ExamQuestionsViewModel LoadExamByExamTypeAndYear(string examType, int year);
+        Task<ExamQuestionsViewModel> LoadExamByExamTypeAndYearAsync(string examType, int year);
 
-        Task<int> SolveExam(ExamQuestionsViewModel questions, string username);
+        Task<int> SolveExamAsync(ExamQuestionsViewModel questions, string username);
 
-        Task<ExamResults> GetExamResult(int examResultId);
+        Task<ExamResult> GetExamResultByExamIdAndUsernameAsync(int examId, string username);
     }
 }

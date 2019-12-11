@@ -20,3 +20,14 @@ D:\New folder\Examer\OnlineExamer.Infrastructure\obj\Debug\netcoreapp3.0\OnlineE
 D:\New folder\Examer\OnlineExamer.Infrastructure\obj\Debug\netcoreapp3.0\OnlineExamer.Infrastructure.csproj.CopyComplete
 D:\New folder\Examer\OnlineExamer.Infrastructure\obj\Debug\netcoreapp3.0\OnlineExamer.Infrastructure.dll
 D:\New folder\Examer\OnlineExamer.Infrastructure\obj\Debug\netcoreapp3.0\OnlineExamer.Infrastructure.pdb
+D:\Projects\Examer\Examer\OnlineExamer.Infrastructure\bin\Debug\netcoreapp3.0\OnlineExamer.Infrastructure.deps.json
+D:\Projects\Examer\Examer\OnlineExamer.Infrastructure\bin\Debug\netcoreapp3.0\OnlineExamer.Infrastructure.dll
+D:\Projects\Examer\Examer\OnlineExamer.Infrastructure\bin\Debug\netcoreapp3.0\OnlineExamer.Infrastructure.pdb
+D:\Projects\Examer\Examer\OnlineExamer.Infrastructure\bin\Debug\netcoreapp3.0\OnlineExamer.Models.dll
+D:\Projects\Examer\Examer\OnlineExamer.Infrastructure\bin\Debug\netcoreapp3.0\OnlineExamer.Models.pdb
+D:\Projects\Examer\Examer\OnlineExamer.Infrastructure\obj\Debug\netcoreapp3.0\OnlineExamer.Infrastructure.csprojAssemblyReference.cache
+D:\Projects\Examer\Examer\OnlineExamer.Infrastructure\obj\Debug\netcoreapp3.0\OnlineExamer.Infrastructure.AssemblyInfoInputs.cache
+D:\Projects\Examer\Examer\OnlineExamer.Infrastructure\obj\Debug\netcoreapp3.0\OnlineExamer.Infrastructure.AssemblyInfo.cs
+D:\Projects\Examer\Examer\OnlineExamer.Infrastructure\obj\Debug\netcoreapp3.0\OnlineExamer.Infrastructure.csproj.CopyComplete
+D:\Projects\Examer\Examer\OnlineExamer.Infrastructure\obj\Debug\netcoreapp3.0\OnlineExamer.Infrastructure.dll
+D:\Projects\Examer\Examer\OnlineExamer.Infrastructure\obj\Debug\netcoreapp3.0\OnlineExamer.Infrastructure.pdb

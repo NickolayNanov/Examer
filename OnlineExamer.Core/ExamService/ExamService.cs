@@ -39,7 +39,7 @@ namespace OnlineExamer.Core.ExamService
             return exams;
         }
 
-        public async Task<IEnumerable<ExamViewModel>> AllExamsByExamType(string examType)
+        public async Task<IEnumerable<ExamViewModel>> AllExamsByExamTypeAsync(string examType)
         {
             ExamViewModel exam = new ExamViewModel();
             exam.ExamType = examType;
@@ -62,13 +62,14 @@ namespace OnlineExamer.Core.ExamService
             return exams;
         }
 
-        public async Task<ExamResults> GetExamResult(int examResultId)
+        public async Task<ExamResult> GetExamResultAsync(int examResultId, string username)
         {
-            var result = await this.context.UserExams.FirstOrDefaultAsync(ux => ux.Id == examResultId);
-            return new ExamResults { Grade = result.Grade, MaxPoints = 4, Points = result.Points };
+            string userId = (await userManager.FindByNameAsync(username)).Id;
+            UserExam result = await this.context.UserExams.FirstOrDefaultAsync(ux => ux.ExamId == examResultId && ux.UserId == userId);
+            return new ExamResult { Grade = result.Grade, MaxPoints = 4, Points = result.Points };
         }
 
-        public ExamQuestionsViewModel LoadExamByExamTypeAndYear(string examType, int year)
+        public async Task<ExamQuestionsViewModel> LoadExamByExamTypeAndYearAsync(string examType, int year)
         {
             ExamViewModel exam = new ExamViewModel();
             exam.ExamType = examType;
@@ -81,7 +82,10 @@ namespace OnlineExamer.Core.ExamService
             }
 
             ExamQuestionsViewModel dto = null;
-            var examm = context.Exams.Include(x => x.Questions).ThenInclude(x => x.Answers).FirstOrDefault(x => x.YearOfCreation == year && x.ExamType == type);
+            var examm = await context .Exams
+                                      .Include(x => x.Questions)
+                                      .ThenInclude(x => x.Answers)
+                                      .FirstOrDefaultAsync(x => x.YearOfCreation == year && x.ExamType == type);
 
 
             dto = new ExamQuestionsViewModel()
@@ -102,7 +106,7 @@ namespace OnlineExamer.Core.ExamService
             return dto;
         }
 
-        public async Task<int> SolveExam(ExamQuestionsViewModel data, string username)
+        public async Task<int> SolveExamAsync(ExamQuestionsViewModel data, string username)
         {
             int points = 0;
             int maxPoints = data.Questions.Count;
@@ -115,19 +119,9 @@ namespace OnlineExamer.Core.ExamService
             }
 
             OnlineExamerUser user = await this.userManager.FindByNameAsync(username);
-            Exam exam = this.context.Exams.FirstOrDefault(exam => exam.ExamType == type && exam.YearOfCreation == data.YearOfCreation);
+            Exam exam = await this.context.Exams.FirstOrDefaultAsync(exam => exam.ExamType == type && exam.YearOfCreation == data.YearOfCreation);
 
-            foreach (var question in data.Questions)
-            {
-                for (int i = 0; i < question.Answers.Count; i++)
-                {
-                    if (question.Answers[i].IsSelected && (i + 1) == question.CorrectAnswer)
-                    {
-                        points++;
-                        break;
-                    }
-                }
-            }
+            points = CalcPoints(data, points);
 
             UserExam userExam = new UserExam()
             {
@@ -140,7 +134,32 @@ namespace OnlineExamer.Core.ExamService
             context.UserExams.Add(userExam);
             context.SaveChanges();
 
-            return this.context.UserExams.FirstOrDefault(x => x.UserId == user.Id && x.ExamId == exam.Id).Id;
+            return exam.Id;
+        }
+
+        private static int CalcPoints(ExamQuestionsViewModel data, int points)
+        {
+            foreach (var question in data.Questions)
+            {
+                for (int i = 0; i < question.Answers.Count; i++)
+                {
+                    if (question.Answers[i].IsSelected && (i + 1) == question.CorrectAnswer)
+                    {
+                        points++;
+                        break;
+                    }
+                }
+            }
+
+            return points;
+        }
+
+        public async Task<ExamResult> GetExamResultByExamIdAndUsernameAsync(int examId, string username)
+        {
+            OnlineExamerUser user = await this.userManager.FindByNameAsync(username);
+            Exam exam = await this.context.Exams.Include(e => e.Questions).FirstOrDefaultAsync(e => e.Id == examId);
+            UserExam result = await this.context.UserExams.FirstOrDefaultAsync(ux => ux.ExamId == examId && ux.UserId == user.Id);
+            return new ExamResult { Grade = result.Grade, Points = result.Points, MaxPoints = exam.Questions.Count, ExamResultId = exam.Id };
         }
     }
 }

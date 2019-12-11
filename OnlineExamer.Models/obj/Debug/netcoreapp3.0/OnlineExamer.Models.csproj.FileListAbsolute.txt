@@ -14,3 +14,10 @@ D:\New folder\Examer\OnlineExamer.Models\obj\Debug\netcoreapp3.0\OnlineExamer.Mo
 D:\New folder\Examer\OnlineExamer.Models\obj\Debug\netcoreapp3.0\OnlineExamer.Models.AssemblyInfo.cs
 D:\New folder\Examer\OnlineExamer.Models\obj\Debug\netcoreapp3.0\OnlineExamer.Models.dll
 D:\New folder\Examer\OnlineExamer.Models\obj\Debug\netcoreapp3.0\OnlineExamer.Models.pdb
+D:\Projects\Examer\Examer\OnlineExamer.Models\bin\Debug\netcoreapp3.0\OnlineExamer.Models.deps.json
+D:\Projects\Examer\Examer\OnlineExamer.Models\bin\Debug\netcoreapp3.0\OnlineExamer.Models.dll
+D:\Projects\Examer\Examer\OnlineExamer.Models\bin\Debug\netcoreapp3.0\OnlineExamer.Models.pdb
+D:\Projects\Examer\Examer\OnlineExamer.Models\obj\Debug\netcoreapp3.0\OnlineExamer.Models.AssemblyInfoInputs.cache
+D:\Projects\Examer\Examer\OnlineExamer.Models\obj\Debug\netcoreapp3.0\OnlineExamer.Models.AssemblyInfo.cs
+D:\Projects\Examer\Examer\OnlineExamer.Models\obj\Debug\netcoreapp3.0\OnlineExamer.Models.dll
+D:\Projects\Examer\Examer\OnlineExamer.Models\obj\Debug\netcoreapp3.0\OnlineExamer.Models.pdb

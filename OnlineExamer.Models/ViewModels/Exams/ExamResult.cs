@@ -1,6 +1,6 @@
 ﻿namespace OnlineExamer.Models.ViewModels.Exams
 {
-    public class ExamResults
+    public class ExamResult
     {
         public int? ExamResultId { get; set; }
 

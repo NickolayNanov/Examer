@@ -3,7 +3,7 @@ using System;
 
 namespace OnlineExamer.Models.Entities
 {
-    public class UserExam : BaseEntity<int>
+    public class UserExam
     {
         public string UserId { get; set; }
 

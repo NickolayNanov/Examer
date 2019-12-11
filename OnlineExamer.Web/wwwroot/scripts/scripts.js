@@ -30,6 +30,6 @@ function giveAnswer(questionId, ansewrId) {
 
 window.clientFunctions = {
     RedirectTo: (path) => {
-        window.location = path;
+        window.location.href = 'https://localhost:44330' + path;
     }
 }

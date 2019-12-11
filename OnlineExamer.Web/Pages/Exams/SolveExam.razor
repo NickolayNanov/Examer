@@ -39,9 +39,9 @@
                             </ul>
                         }
                     }
-                    <button class="btn btn-success" @onclick="Solve">
+                    <a href="@href" class="btn btn-success" @onclick="Solve">
                         Send
-                    </button>
+                    </a>
                 </div>
             </div>
         </div>
@@ -57,19 +57,19 @@ else
 
     [Parameter] public string Subject { get; set; }
     [Parameter] public int Year { get; set; }
+    string href;
 
     [CascadingParameter]
-    private Task<AuthenticationState> authenticationStateTask { get; set; }
+    private Task<AuthenticationState> AuthenticationStateTask { get; set; }
 
     public static ExamQuestionsViewModel Data { get; set; }
 
-    protected override Task OnInitializedAsync()
+    protected override async Task OnInitializedAsync()
     {
         counter = 1;
-        Data = service.LoadExamByExamTypeAndYear(Subject, Year);
+        Data = await service.LoadExamByExamTypeAndYearAsync(Subject, Year);
         Data.YearOfCreation = Year;
         Data.ExamType = Subject;
-        return Task.CompletedTask;
     }
 
     private async Task RedirectToAsync(string path)
@@ -80,9 +80,11 @@ else
     private async Task Solve()
     {
         counter = 0;
-        var authState = await authenticationStateTask;
-        var examResultId = await this.service.SolveExam(Data, authState.User.Identity.Name);
-        await this.RedirectToAsync($"/AllExams/{Subject}/{Year}/ExamResult/{examResultId}");
+        var authState = await AuthenticationStateTask;
+        var examResultId = await this.service.SolveExamAsync(Data, authState.User.Identity.Name);
+        
+        href = $"/AllExams/{Subject}/{Year}/{examResultId}";
+        await this.RedirectToAsync($"/AllExams/{Subject}/{Year}/{examResultId}");
     }
 
     [JSInvokable(identifier: "SelectAnswer")]

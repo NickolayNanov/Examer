@@ -1,6 +1,7 @@
 ﻿@page "/AllExams/{Subject}/{Year:int}/{ExamResultId:int}"
 @inject IExamService service
 @using OnlineExamer.Core.ExamService
+@using OnlineExamer.Models.ViewModels.Exams
 
 <h3>@ExamResult.Points, @ExamResult.Grade</h3>
 
@@ -9,10 +10,15 @@
     [Parameter] public int Year { get; set; }
     [Parameter] public int ExamResultId { get; set; }
 
-    public OnlineExamer.Models.ViewModels.Exams.ExamResults ExamResult { get; set; }
+    [CascadingParameter]
+    private Task<AuthenticationState> AuthenticationStateTask { get; set; }
+
+    public ExamResult ExamResult { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
-        ExamResult = await this.service.GetExamResult(ExamResultId);        
+        var authState = await AuthenticationStateTask;
+        int examId = ExamResultId;
+        ExamResult = await this.service.GetExamResultByExamIdAndUsernameAsync(examId, authState.User.Identity.Name);
     }
 }

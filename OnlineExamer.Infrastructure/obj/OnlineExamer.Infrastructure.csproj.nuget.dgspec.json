@@ -1,25 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "D:\\New folder\\Examer\\OnlineExamer.Infrastructure\\OnlineExamer.Infrastructure.csproj": {}
+    "D:\\Projects\\Examer\\Examer\\OnlineExamer.Infrastructure\\OnlineExamer.Infrastructure.csproj": {}
   },
   "projects": {
-    "D:\\New folder\\Examer\\OnlineExamer.Infrastructure\\OnlineExamer.Infrastructure.csproj": {
+    "D:\\Projects\\Examer\\Examer\\OnlineExamer.Infrastructure\\OnlineExamer.Infrastructure.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\New folder\\Examer\\OnlineExamer.Infrastructure\\OnlineExamer.Infrastructure.csproj",
+        "projectUniqueName": "D:\\Projects\\Examer\\Examer\\OnlineExamer.Infrastructure\\OnlineExamer.Infrastructure.csproj",
         "projectName": "OnlineExamer.Infrastructure",
-        "projectPath": "D:\\New folder\\Examer\\OnlineExamer.Infrastructure\\OnlineExamer.Infrastructure.csproj",
-        "packagesPath": "C:\\Users\\Nikolay\\.nuget\\packages\\",
-        "outputPath": "D:\\New folder\\Examer\\OnlineExamer.Infrastructure\\obj\\",
+        "projectPath": "D:\\Projects\\Examer\\Examer\\OnlineExamer.Infrastructure\\OnlineExamer.Infrastructure.csproj",
+        "packagesPath": "C:\\Users\\Nick\\.nuget\\packages\\",
+        "outputPath": "D:\\Projects\\Examer\\Examer\\OnlineExamer.Infrastructure\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "D:\\Microsoft\\Xamarin\\NuGet\\"
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\Nikolay\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+          "C:\\Users\\Nick\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.0"
@@ -31,8 +30,8 @@
         "frameworks": {
           "netcoreapp3.0": {
             "projectReferences": {
-              "D:\\New folder\\Examer\\OnlineExamer.Models\\OnlineExamer.Models.csproj": {
-                "projectPath": "D:\\New folder\\Examer\\OnlineExamer.Models\\OnlineExamer.Models.csproj"
+              "D:\\Projects\\Examer\\Examer\\OnlineExamer.Models\\OnlineExamer.Models.csproj": {
+                "projectPath": "D:\\Projects\\Examer\\Examer\\OnlineExamer.Models\\OnlineExamer.Models.csproj"
               }
             }
           }
@@ -61,37 +60,30 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "downloadDependencies": [
-            {
-              "name": "Microsoft.AspNetCore.App.Ref",
-              "version": "[3.0.1, 3.0.1]"
-            }
-          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.100\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.100-preview3-014645\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "D:\\New folder\\Examer\\OnlineExamer.Models\\OnlineExamer.Models.csproj": {
+    "D:\\Projects\\Examer\\Examer\\OnlineExamer.Models\\OnlineExamer.Models.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\New folder\\Examer\\OnlineExamer.Models\\OnlineExamer.Models.csproj",
+        "projectUniqueName": "D:\\Projects\\Examer\\Examer\\OnlineExamer.Models\\OnlineExamer.Models.csproj",
         "projectName": "OnlineExamer.Models",
-        "projectPath": "D:\\New folder\\Examer\\OnlineExamer.Models\\OnlineExamer.Models.csproj",
-        "packagesPath": "C:\\Users\\Nikolay\\.nuget\\packages\\",
-        "outputPath": "D:\\New folder\\Examer\\OnlineExamer.Models\\obj\\",
+        "projectPath": "D:\\Projects\\Examer\\Examer\\OnlineExamer.Models\\OnlineExamer.Models.csproj",
+        "packagesPath": "C:\\Users\\Nick\\.nuget\\packages\\",
+        "outputPath": "D:\\Projects\\Examer\\Examer\\OnlineExamer.Models\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "D:\\Microsoft\\Xamarin\\NuGet\\"
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\Nikolay\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+          "C:\\Users\\Nick\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.0"
@@ -133,18 +125,12 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "downloadDependencies": [
-            {
-              "name": "Microsoft.AspNetCore.App.Ref",
-              "version": "[3.0.1, 3.0.1]"
-            }
-          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.100\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.100-preview3-014645\\RuntimeIdentifierGraph.json"
         }
       }
     }
