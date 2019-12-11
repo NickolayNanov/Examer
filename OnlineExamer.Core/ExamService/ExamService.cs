@@ -106,7 +106,7 @@ namespace OnlineExamer.Core.ExamService
             return dto;
         }
 
-        public async Task<int> SolveExamAsync(ExamQuestionsViewModel data, string username)
+        public int SolveExamAsync(ExamQuestionsViewModel data, string username)
         {
             int points = 0;
             int maxPoints = data.Questions.Count;
@@ -118,8 +118,8 @@ namespace OnlineExamer.Core.ExamService
                 return 0;
             }
 
-            OnlineExamerUser user = await this.userManager.FindByNameAsync(username);
-            Exam exam = await this.context.Exams.FirstOrDefaultAsync(exam => exam.ExamType == type && exam.YearOfCreation == data.YearOfCreation);
+            OnlineExamerUser user = this.context.Users.FirstOrDefault(u => u.UserName == username);
+            Exam exam = this.context.Exams.FirstOrDefault(exam => exam.ExamType == type && exam.YearOfCreation == data.YearOfCreation);
 
             points = CalcPoints(data, points);
 
@@ -130,6 +130,13 @@ namespace OnlineExamer.Core.ExamService
                 ExamId = exam.Id,
                 Grade = 6,
             };
+
+            var easdxam = context.UserExams.FirstOrDefault(ux => ux.ExamId == exam.Id && ux.UserId == user.Id && ux.Points >= points);
+
+            if (easdxam != null)
+            {
+                return easdxam.ExamId;
+            }
 
             context.UserExams.Add(userExam);
             context.SaveChanges();
@@ -158,8 +165,18 @@ namespace OnlineExamer.Core.ExamService
         {
             OnlineExamerUser user = await this.userManager.FindByNameAsync(username);
             Exam exam = await this.context.Exams.Include(e => e.Questions).FirstOrDefaultAsync(e => e.Id == examId);
-            UserExam result = await this.context.UserExams.FirstOrDefaultAsync(ux => ux.ExamId == examId && ux.UserId == user.Id);
-            return new ExamResult { Grade = result.Grade, Points = result.Points, MaxPoints = exam.Questions.Count, ExamResultId = exam.Id };
+            UserExam userExam = await this.context.UserExams.FirstOrDefaultAsync(ux => ux.ExamId == examId && ux.UserId == user.Id);
+
+            var examResults = this.context.UserExams.Where(ux => ux.UserId == user.Id).Take(5).ToList();
+            var result = new ExamResult { Grade = userExam.Grade, Points = userExam.Points, MaxPoints = exam.Questions.Count, ExamResultId = exam.Id };
+
+            foreach (var item in examResults)
+            {
+                var currentExam = this.context.Exams.Include(e => e.Questions).FirstOrDefault(x => x.Id == item.ExamId);
+                result.PastResults.Add(new ExamResult { Grade = item.Grade, Points = item.Points, MaxPoints = currentExam.Questions.Count, ExamResultId = item.ExamId });
+            }
+
+            return result;
         }
     }
 }

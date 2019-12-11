@@ -4,33 +4,39 @@
 @using OnlineExamer.Core.ExamService
 @using OnlineExamer.Infrastructure
 @using Microsoft.JSInterop
-@inject IJSRuntime JS
 @inject NavigationManager NavigationManager
 
 @if (Data != null)
 {
     <h3 class="text-center">Изпит по @(ExamTypeParser.Parse<ExamQuestionsViewModel>(Data)) - @Year</h3>
-
+    <h3 class="text-center text-danger">@ErrorMsg</h3>
     <form>
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
+
                     @for (int i = 0; i < Data.Questions.Count; i++)
                     {
-                        <span>@(counter++). @(Data.Questions[i].Title)</span>
+
+                        @if (i == 5)
+                        {
+                            i = 1;
+                        }
+
+                        <span>@(i + 1). @(Data.Questions[i].Title)</span>
 
                         if (!Data.Questions[i].IsOpenAnswer)
                         {
-                            <ul class="list-group" id="question_@(counter - 1)">
+                            <ul class="list-group" id="question_@(i - 1)">
                                 @for (int j = 0; j < Data.Questions[i].Answers.Count; j++)
                                 {
-                                    <li onclick="giveAnswer(@(counter - 1), @j)"
+                                    <li onclick="giveAnswer(@(i - 1), @j)"
                                         style="background: @Data.Questions[i].Answers[j].BackgroundColor"
                                         class="list-group-item mb-3 marked-answer"
-                                        id="question_@(counter - 1)_answer_@j">
+                                        id="question_@(i - 1)_answer_@j">
                                         <input @bind="@Data.Questions[i].Answers[j].IsSelected"
                                                type="checkbox"
-                                               id="input_@(counter - 1)_question_@j"
+                                               id="input_@(i - 1)_question_@j"
                                                class="check"
                                                style="display:none" />
                                         <label>@Data.Questions[i].Answers[j].Content</label>
@@ -39,8 +45,8 @@
                             </ul>
                         }
                     }
-                    <a href="@href" class="btn btn-success" @onclick="Solve">
-                        Send
+                    <a class="btn btn-primary" @onclick="Solve">
+                        <span class="oi oi-share-boxed" aria-hidden="true"></span> Всички изпити
                     </a>
                 </div>
             </div>
@@ -53,11 +59,10 @@ else
 }
 
 @code {
-    int counter;
-
+    int counter = 1;
+    string ErrorMsg = "";
     [Parameter] public string Subject { get; set; }
     [Parameter] public int Year { get; set; }
-    string href;
 
     [CascadingParameter]
     private Task<AuthenticationState> AuthenticationStateTask { get; set; }
@@ -70,27 +75,26 @@ else
         Data = await service.LoadExamByExamTypeAndYearAsync(Subject, Year);
         Data.YearOfCreation = Year;
         Data.ExamType = Subject;
-    }
-
-    private async Task RedirectToAsync(string path)
-    {
-        await JS.InvokeVoidAsync("clientFunctions.RedirectTo", path);
+        this.StateHasChanged();
     }
 
     private async Task Solve()
     {
-        counter = 0;
+        if(Data.Questions.Any(q => q.Answers.All(x => x.IsSelected == false)))
+        {
+            ErrorMsg = "Всички въпроси трябва да имат избран отговор!";
+            return;
+        }
+        counter = 1;
         var authState = await AuthenticationStateTask;
-        var examResultId = await this.service.SolveExamAsync(Data, authState.User.Identity.Name);
-        
-        href = $"/AllExams/{Subject}/{Year}/{examResultId}";
-        await this.RedirectToAsync($"/AllExams/{Subject}/{Year}/{examResultId}");
+        int ExamResultId = this.service.SolveExamAsync(Data, authState.User.Identity.Name);
+        NavigationManager.NavigateTo($"ExamResults/{Subject}/{Year}/{ExamResultId}", true);
     }
 
     [JSInvokable(identifier: "SelectAnswer")]
     public static Task Select(int questionId, int answerId)
     {
-        Data.Questions[questionId - 1].Answers[answerId].IsSelected = true;
+        Data.Questions[questionId + 1].Answers[answerId].IsSelected = true;
         return Task.CompletedTask;
     }
 

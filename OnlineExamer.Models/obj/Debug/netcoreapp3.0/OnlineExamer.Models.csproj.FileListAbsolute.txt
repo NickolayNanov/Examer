@@ -21,3 +21,11 @@ D:\Projects\Examer\Examer\OnlineExamer.Models\obj\Debug\netcoreapp3.0\OnlineExam
 D:\Projects\Examer\Examer\OnlineExamer.Models\obj\Debug\netcoreapp3.0\OnlineExamer.Models.AssemblyInfo.cs
 D:\Projects\Examer\Examer\OnlineExamer.Models\obj\Debug\netcoreapp3.0\OnlineExamer.Models.dll
 D:\Projects\Examer\Examer\OnlineExamer.Models\obj\Debug\netcoreapp3.0\OnlineExamer.Models.pdb
+D:\Nikolay\Examer\OnlineExamer.Models\bin\Debug\netcoreapp3.0\OnlineExamer.Models.deps.json
+D:\Nikolay\Examer\OnlineExamer.Models\bin\Debug\netcoreapp3.0\OnlineExamer.Models.dll
+D:\Nikolay\Examer\OnlineExamer.Models\bin\Debug\netcoreapp3.0\OnlineExamer.Models.pdb
+D:\Nikolay\Examer\OnlineExamer.Models\obj\Debug\netcoreapp3.0\OnlineExamer.Models.csprojAssemblyReference.cache
+D:\Nikolay\Examer\OnlineExamer.Models\obj\Debug\netcoreapp3.0\OnlineExamer.Models.AssemblyInfoInputs.cache
+D:\Nikolay\Examer\OnlineExamer.Models\obj\Debug\netcoreapp3.0\OnlineExamer.Models.AssemblyInfo.cs
+D:\Nikolay\Examer\OnlineExamer.Models\obj\Debug\netcoreapp3.0\OnlineExamer.Models.dll
+D:\Nikolay\Examer\OnlineExamer.Models\obj\Debug\netcoreapp3.0\OnlineExamer.Models.pdb

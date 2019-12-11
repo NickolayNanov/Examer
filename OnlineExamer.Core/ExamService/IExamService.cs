@@ -12,7 +12,7 @@ namespace OnlineExamer.Core.ExamService
 
         Task<ExamQuestionsViewModel> LoadExamByExamTypeAndYearAsync(string examType, int year);
 
-        Task<int> SolveExamAsync(ExamQuestionsViewModel questions, string username);
+        int SolveExamAsync(ExamQuestionsViewModel questions, string username);
 
         Task<ExamResult> GetExamResultByExamIdAndUsernameAsync(int examId, string username);
     }

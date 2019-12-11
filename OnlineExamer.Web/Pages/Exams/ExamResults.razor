@@ -1,9 +1,38 @@
-﻿@page "/AllExams/{Subject}/{Year:int}/{ExamResultId:int}"
+﻿@page "/ExamResults/{Subject}/{Year:int}/{ExamResultId:int}"
 @inject IExamService service
 @using OnlineExamer.Core.ExamService
 @using OnlineExamer.Models.ViewModels.Exams
 
-<h3>@ExamResult.Points, @ExamResult.Grade</h3>
+@if (ExamResult != null)
+{
+    if (ExamResultId != 0)
+    {
+        <div class="text-center">
+            <h3>
+                <p>Вие изкарахте @ExamResult.Points/@ExamResult.MaxPoints, @Subject (@Year). Вашата оценка е около @ExamResult.Grade</p>
+            </h3>
+        </div>
+
+        <div class="row">
+            @foreach (var result in ExamResult.PastResults)
+            {
+                <div class="col-md-3">
+
+                    <div class="card" style="width: 18rem;">
+                        <div class="card-body">
+                            <h5 class="card-title">@Year</h5>
+                            <p class="card-text">@result.Points/@result.MaxPoints</p>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <h3>Не успяхте да подобрите оценката си.</h3>
+    }
+}
 
 @code {
     [Parameter] public string Subject { get; set; }
