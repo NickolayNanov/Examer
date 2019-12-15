@@ -20,6 +20,8 @@ namespace OnlineExamer.Models.Entities
 
         public int CorrectAnswer { get; set; }
 
+        public int Points { get; set; }
+
         public ICollection<Answer> Answers { get; set; }
     }
 }

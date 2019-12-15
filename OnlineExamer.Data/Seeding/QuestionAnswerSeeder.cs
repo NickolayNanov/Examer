@@ -21,6 +21,7 @@
                         CorrectAnswer = 1,
                         ExamId = examId,
                         Title = "asdasdasdas",
+                        Points = 2,
                         Answers = new HashSet<Answer>()
                         {
                             new Answer("ASDASDSADASD"),
@@ -34,6 +35,7 @@
                         CorrectAnswer = 1,
                         ExamId = examId,
                         Title = "asdasdasdas",
+                        Points = 2,
                         Answers = new HashSet<Answer>()
                         {
                             new Answer("asdasdasdsad"),
@@ -47,6 +49,7 @@
                         CorrectAnswer = 1,
                         ExamId = examId,
                         Title = "asdasdasdas",
+                        Points = 2,
                         Answers = new HashSet<Answer>()
                         {
                             new Answer("asdasdasdasd"),
@@ -60,6 +63,7 @@
                         CorrectAnswer = 1,
                         ExamId = examId,
                         Title = "asdasdasdas",
+                        Points = 2,
                         Answers = new HashSet<Answer>()
                         {
                             new Answer("asdsadasdsad"),

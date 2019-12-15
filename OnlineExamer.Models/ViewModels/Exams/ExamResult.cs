@@ -17,6 +17,8 @@ namespace OnlineExamer.Models.ViewModels.Exams
 
         public double Grade { get; set; }
 
+        public string Subject { get; set; }
+
         public IList<ExamResult> PastResults { get; set; }
     }
 }

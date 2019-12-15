@@ -11,6 +11,8 @@ namespace OnlineExamer.Models.ViewModels.Questions
 
         public int CorrectAnswer { get; set; }
 
+        public int Points { get; set; }
+
         public virtual IList<AnswerViewModel> Answers { get; set; }
     }
 }

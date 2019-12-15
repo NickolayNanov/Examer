@@ -62,11 +62,12 @@ namespace OnlineExamer.Core.ExamService
             return exams;
         }
 
-        public async Task<ExamResult> GetExamResultAsync(int examResultId, string username)
+        public async Task<ExamResult> GetExamResultAsync(int examId, string username)
         {
             string userId = (await userManager.FindByNameAsync(username)).Id;
-            UserExam result = await this.context.UserExams.FirstOrDefaultAsync(ux => ux.ExamId == examResultId && ux.UserId == userId);
-            return new ExamResult { Grade = result.Grade, MaxPoints = 4, Points = result.Points };
+            Exam exam = await context.Exams.Include(ex => ex.Questions).SingleOrDefaultAsync(ex => ex.Id == examId);
+            UserExam result = await this.context.UserExams.FirstOrDefaultAsync(ux => ux.ExamId == examId && ux.UserId == userId);
+            return new ExamResult { Grade = result.Grade, MaxPoints = exam.Questions.Count, Points = result.Points };
         }
 
         public async Task<ExamQuestionsViewModel> LoadExamByExamTypeAndYearAsync(string examType, int year)
@@ -82,7 +83,7 @@ namespace OnlineExamer.Core.ExamService
             }
 
             ExamQuestionsViewModel dto = null;
-            var examm = await context .Exams
+            var examm = await context.Exams
                                       .Include(x => x.Questions)
                                       .ThenInclude(x => x.Answers)
                                       .FirstOrDefaultAsync(x => x.YearOfCreation == year && x.ExamType == type);
@@ -95,6 +96,7 @@ namespace OnlineExamer.Core.ExamService
                     Title = x.Title,
                     IsOpenAnswer = x.IsOpenAnswer,
                     CorrectAnswer = x.CorrectAnswer,
+                    Points = x.Points,
                     Answers = x.Answers.Select(a => new AnswerViewModel()
                     {
                         Content = a.Content,
@@ -110,6 +112,7 @@ namespace OnlineExamer.Core.ExamService
         {
             int points = 0;
             int maxPoints = data.Questions.Count;
+            double grade = 0.0;
 
             bool doesParse = Enum.TryParse(data.ExamType, out ExamType type);
 
@@ -121,21 +124,22 @@ namespace OnlineExamer.Core.ExamService
             OnlineExamerUser user = this.context.Users.FirstOrDefault(u => u.UserName == username);
             Exam exam = this.context.Exams.FirstOrDefault(exam => exam.ExamType == type && exam.YearOfCreation == data.YearOfCreation);
 
-            points = CalcPoints(data, points);
+            points = CalcPoints(data);
+            grade = CalcGrade(points);
 
             UserExam userExam = new UserExam()
             {
                 Points = points,
                 UserId = user.Id,
                 ExamId = exam.Id,
-                Grade = 6,
+                Grade = grade,
             };
 
-            var easdxam = context.UserExams.FirstOrDefault(ux => ux.ExamId == exam.Id && ux.UserId == user.Id && ux.Points >= points);
+            UserExam examFromDb = context.UserExams.FirstOrDefault(ux => ux.ExamId == exam.Id && ux.UserId == user.Id && ux.Grade >= grade);
 
-            if (easdxam != null)
+            if (examFromDb != null)
             {
-                return easdxam.ExamId;
+                return examFromDb.ExamId;
             }
 
             context.UserExams.Add(userExam);
@@ -144,15 +148,30 @@ namespace OnlineExamer.Core.ExamService
             return exam.Id;
         }
 
-        private static int CalcPoints(ExamQuestionsViewModel data, int points)
+        private double CalcGrade(int points)
         {
+            double grade = 0.0;
+            points = 42;
+            if(points < 23)
+            {
+                return 2.0;
+            }
+
+            grade = 3.000 + (points - 23) * 0.028;
+            return grade;
+        }
+
+        private static int CalcPoints(ExamQuestionsViewModel data)
+        {
+            int points = 0;
+
             foreach (var question in data.Questions)
             {
                 for (int i = 0; i < question.Answers.Count; i++)
                 {
                     if (question.Answers[i].IsSelected && (i + 1) == question.CorrectAnswer)
                     {
-                        points++;
+                        points+= question.Points;
                         break;
                     }
                 }
@@ -167,13 +186,16 @@ namespace OnlineExamer.Core.ExamService
             Exam exam = await this.context.Exams.Include(e => e.Questions).FirstOrDefaultAsync(e => e.Id == examId);
             UserExam userExam = await this.context.UserExams.FirstOrDefaultAsync(ux => ux.ExamId == examId && ux.UserId == user.Id);
 
-            var examResults = this.context.UserExams.Where(ux => ux.UserId == user.Id).Take(5).ToList();
-            var result = new ExamResult { Grade = userExam.Grade, Points = userExam.Points, MaxPoints = exam.Questions.Count, ExamResultId = exam.Id };
+            List<UserExam> examResults = this.context.UserExams.Where(ux => ux.UserId == user.Id).Take(6).ToList();
+            examResults.RemoveAt(examResults.Count - 1);
 
+            var result = new ExamResult { Grade = userExam.Grade, Points = userExam.Points, MaxPoints = 50, ExamResultId = exam.Id };
+
+            result.Subject = ExamTypeParser.Parse(exam);
             foreach (var item in examResults)
             {
                 var currentExam = this.context.Exams.Include(e => e.Questions).FirstOrDefault(x => x.Id == item.ExamId);
-                result.PastResults.Add(new ExamResult { Grade = item.Grade, Points = item.Points, MaxPoints = currentExam.Questions.Count, ExamResultId = item.ExamId });
+                result.PastResults.Add(new ExamResult { Grade = item.Grade, Points = item.Points, MaxPoints = 50, ExamResultId = item.ExamId });
             }
 
             return result;

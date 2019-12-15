@@ -192,6 +192,9 @@ namespace OnlineExamer.Data.Migrations
                     b.Property<int>("ExamType")
                         .HasColumnType("int");
 
+                    b.Property<DateTime?>("LastSolved")
+                        .HasColumnType("datetime2");
+
                     b.Property<int>("YearOfCreation")
                         .HasColumnType("int");
 
@@ -288,6 +291,9 @@ namespace OnlineExamer.Data.Migrations
 
                     b.Property<bool>("IsOpenAnswer")
                         .HasColumnType("bit");
+
+                    b.Property<int>("Points")
+                        .HasColumnType("int");
 
                     b.Property<string>("Title")
                         .IsRequired()

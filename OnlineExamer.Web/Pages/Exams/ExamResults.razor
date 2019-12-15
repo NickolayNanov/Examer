@@ -9,7 +9,7 @@
     {
         <div class="text-center">
             <h3>
-                <p>Вие изкарахте @ExamResult.Points/@ExamResult.MaxPoints, @Subject (@Year). Вашата оценка е около @ExamResult.Grade</p>
+                <p>Вие изкарахте @ExamResult.Points/@ExamResult.MaxPoints, @ExamResult.Subject (@Year). Вашата оценка е около @ExamResult.Grade</p>
             </h3>
         </div>
 
@@ -38,6 +38,7 @@
     [Parameter] public string Subject { get; set; }
     [Parameter] public int Year { get; set; }
     [Parameter] public int ExamResultId { get; set; }
+    
 
     [CascadingParameter]
     private Task<AuthenticationState> AuthenticationStateTask { get; set; }

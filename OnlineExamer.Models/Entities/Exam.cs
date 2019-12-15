@@ -21,6 +21,13 @@ namespace OnlineExamer.Models.Entities
 
         public ICollection<UserExam> ExamUsers { get; set; }
 
-        public IList<Question> Questions { get; set; }        
+        public IList<Question> Questions { get; set; }      
+        
+        public DateTime? LastSolved { get; set; }
+
+        public void Solve()
+        {
+            this.LastSolved = DateTime.Now;
+        }
     }
 }

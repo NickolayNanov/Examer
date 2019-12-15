@@ -1,5 +1,5 @@
-﻿using OnlineExamer.Models.Entities.Enums;
-using OnlineExamer.Models.ViewModels.Exams;
+﻿using OnlineExamer.Models.Entities;
+using OnlineExamer.Models.Entities.Enums;
 
 namespace OnlineExamer.Infrastructure
 {
@@ -7,7 +7,7 @@ namespace OnlineExamer.Infrastructure
     {
         public static string Parse<T>(this T exam)
         {
-            var examType = (string)typeof(T).GetProperty(nameof(ExamType)).GetValue(exam);
+            var examType = (string)typeof(T).GetProperty(nameof(ExamType)).GetValue(exam).ToString();
 
             return examType switch
             {

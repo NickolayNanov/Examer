@@ -59,7 +59,6 @@ else
 }
 
 @code {
-    int counter = 1;
     string ErrorMsg = "";
     [Parameter] public string Subject { get; set; }
     [Parameter] public int Year { get; set; }
@@ -71,7 +70,6 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        counter = 1;
         Data = await service.LoadExamByExamTypeAndYearAsync(Subject, Year);
         Data.YearOfCreation = Year;
         Data.ExamType = Subject;
@@ -85,7 +83,7 @@ else
             ErrorMsg = "Всички въпроси трябва да имат избран отговор!";
             return;
         }
-        counter = 1;
+
         var authState = await AuthenticationStateTask;
         int ExamResultId = this.service.SolveExamAsync(Data, authState.User.Identity.Name);
         NavigationManager.NavigateTo($"ExamResults/{Subject}/{Year}/{ExamResultId}", true);
@@ -97,5 +95,4 @@ else
         Data.Questions[questionId + 1].Answers[answerId].IsSelected = true;
         return Task.CompletedTask;
     }
-
 }
