@@ -25,14 +25,8 @@ namespace OnlineExamer.Data
             this.AnswerModelSettings(builder);
             this.SchoolSubjectModelSettings(builder);
             this.ExamModelSettings(builder);
-            UserModelSettings(builder);
 
             base.OnModelCreating(builder);
-        }
-
-        private static void UserModelSettings(ModelBuilder builder)
-        {
-            builder.Entity<OnlineExamerUser>().HasNoDiscriminator();
         }
 
         private void ExamModelSettings(ModelBuilder builder)
@@ -83,7 +77,7 @@ namespace OnlineExamer.Data
 
         private void SetPrimaryKeys(ModelBuilder builder)
         {
-            builder.Entity<UserExam>().HasKey(pk => new { pk.ExamId, pk.UserId });
+            builder.Entity<UserExam>().HasKey(pk => new { pk.ExamId, pk.UserId, pk.Grade });
             builder.Entity<Question>().HasKey(pk => pk.Id);
             builder.Entity<SchoolSubject>().HasKey(pk => pk.Id);
             builder.Entity<Answer>().HasKey(pk => pk.Id);

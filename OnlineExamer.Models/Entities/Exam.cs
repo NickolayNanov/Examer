@@ -12,6 +12,12 @@ namespace OnlineExamer.Models.Entities
             this.ExamUsers = new HashSet<UserExam>();
             this.Questions = new List<Question>();
         }
+
+        public Exam(ExamType type, int yearOfCreation)
+        {
+            this.ExamType = type;
+            this.YearOfCreation = yearOfCreation;
+        }
         
         public ExamType ExamType { get; set; }       
 

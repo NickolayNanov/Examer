@@ -269,8 +269,6 @@ namespace OnlineExamer.Data.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
-
-                    b.HasDiscriminator();
                 });
 
             modelBuilder.Entity("OnlineExamer.Models.Entities.Question", b =>
@@ -335,14 +333,14 @@ namespace OnlineExamer.Data.Migrations
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<double>("Grade")
+                        .HasColumnType("float");
+
                     b.Property<DateTime?>("DeletedOn")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("FinishedAt")
                         .HasColumnType("datetime2");
-
-                    b.Property<double>("Grade")
-                        .HasColumnType("float");
 
                     b.Property<bool>("HasBeenStarted")
                         .HasColumnType("bit");
@@ -356,7 +354,7 @@ namespace OnlineExamer.Data.Migrations
                     b.Property<DateTime?>("StartedAt")
                         .HasColumnType("datetime2");
 
-                    b.HasKey("ExamId", "UserId");
+                    b.HasKey("ExamId", "UserId", "Grade");
 
                     b.HasIndex("UserId");
 
