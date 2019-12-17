@@ -73,7 +73,6 @@ else
         Data = await service.LoadExamByExamTypeAndYearAsync(Subject, Year);
         Data.YearOfCreation = Year;
         Data.ExamType = Subject;
-        this.StateHasChanged();
     }
 
     private async Task Solve()

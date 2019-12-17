@@ -5,6 +5,18 @@ namespace OnlineExamer.Models.Entities
 {
     public class UserExam
     {
+        public UserExam()
+        {
+
+        }
+        public UserExam(string userId, int examId, int points, double grade)
+        {
+            this.UserId = userId;
+            this.ExamId = examId;
+            this.Points = points;
+            this.Grade = grade;
+        }
+
         public string UserId { get; set; }
 
         public virtual OnlineExamerUser User { get; set; }
@@ -26,6 +38,8 @@ namespace OnlineExamer.Models.Entities
         public DateTime? StartedAt { get; private set; }
 
         public DateTime? FinishedAt { get; private set; }
+
+        public int TimesSolvedFully { get; set; }
 
         public void Finish()
         {

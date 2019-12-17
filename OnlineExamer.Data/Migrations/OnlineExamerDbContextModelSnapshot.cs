@@ -354,6 +354,9 @@ namespace OnlineExamer.Data.Migrations
                     b.Property<DateTime?>("StartedAt")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("TimesSolvedFully")
+                        .HasColumnType("int");
+
                     b.HasKey("ExamId", "UserId", "Grade");
 
                     b.HasIndex("UserId");

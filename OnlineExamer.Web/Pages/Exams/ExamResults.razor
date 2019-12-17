@@ -48,7 +48,6 @@
     protected override async Task OnInitializedAsync()
     {
         var authState = await AuthenticationStateTask;
-        int examId = ExamResultId;
-        ExamResult = await this.service.GetExamResultByExamIdAndUsernameAsync(examId, authState.User.Identity.Name);
+        ExamResult = await this.service.GetExamResultByExamIdAndUsernameAsync(ExamResultId, authState.User.Identity.Name);
     }
 }

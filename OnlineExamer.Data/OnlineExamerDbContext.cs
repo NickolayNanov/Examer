@@ -77,7 +77,7 @@ namespace OnlineExamer.Data
 
         private void SetPrimaryKeys(ModelBuilder builder)
         {
-            builder.Entity<UserExam>().HasKey(pk => new { pk.ExamId, pk.UserId, pk.Grade });
+            builder.Entity<UserExam>().HasKey(pk => new { pk.ExamId, pk.UserId, pk.Grade, });
             builder.Entity<Question>().HasKey(pk => pk.Id);
             builder.Entity<SchoolSubject>().HasKey(pk => pk.Id);
             builder.Entity<Answer>().HasKey(pk => pk.Id);

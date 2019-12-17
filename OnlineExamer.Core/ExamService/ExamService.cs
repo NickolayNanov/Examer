@@ -111,13 +111,36 @@ namespace OnlineExamer.Core.ExamService
         public async Task<ExamResult> GetExamResultByExamIdAndUsernameAsync(int examId, string username)
         {
             OnlineExamerUser user = await userManager.FindByNameAsync(username);
-            Exam exam = await context.Exams.Include(e => e.Questions).FirstOrDefaultAsync(e => e.Id == examId);
+            Exam exam = await context.Exams.FirstOrDefaultAsync(e => e.Id == examId);
             UserExam userExam = await context.UserExams.FirstOrDefaultAsync(ux => ux.ExamId == examId && ux.UserId == user.Id);
-            List<UserExam> examResults = context.UserExams.Where(ux => ux.UserId == user.Id && ux.Exam.ExamType.ToString().Equals(exam.ExamType)).Take(6).ToList();
+            List<UserExam> examResults;
+
+
+            if (userExam.TimesSolvedFully > 1)
+            {
+                examResults = context.UserExams
+                                     .Where(ux => ux.UserId == user.Id && ux.Exam.ExamType.Equals(exam.ExamType))
+                                     .Take(5)
+                                     .ToList();
+
+                if (examResults.Count < 5)
+                {
+                    while (examResults.Count < 5)
+                    {
+                        examResults.Add(new UserExam() { Grade = 6, Points = 50, ExamId = examId });
+                    }
+                }
+            }
+            else
+            {
+                examResults = context.UserExams
+                                     .Where(ux => ux.UserId == user.Id && ux.Exam.ExamType.Equals(exam.ExamType) && ux.ExamId != exam.Id)
+                                     .Take(5)
+                                     .ToList();
+            }
+
+
             string subject = ExamTypeParser.Parse(exam);
-
-            examResults.RemoveAt(examResults.Count - 1);
-
             var result = new ExamResult { Grade = userExam.Grade, Points = userExam.Points, MaxPoints = 50, ExamResultId = exam.Id };
 
             foreach (var item in examResults)
@@ -144,43 +167,34 @@ namespace OnlineExamer.Core.ExamService
             }
 
             OnlineExamerUser user = this.context.Users.FirstOrDefault(u => u.UserName == username);
-            Exam exam = CreateExam(data, type);
+            Exam exam = context.Exams.FirstOrDefault(e => e.YearOfCreation == data.YearOfCreation && e.ExamType == type);
+
             points = CalcPoints(data);
             grade = CalcGrade(points);
 
-            UserExam userExam = new UserExam()
-            {
-                Points = points,
-                UserId = user.Id,
-                ExamId = exam.Id,
-                Grade = grade,
-            };
+            UserExam userExam = new UserExam(user.Id, exam.Id, points, grade);
+            UserExam userExamFromDb = context.UserExams.FirstOrDefault(e => e.UserId == user.Id && e.ExamId == exam.Id && e.Grade == grade);
+            bool doesExist = userExamFromDb != null;
 
-            UserExam examFromDb = context.UserExams.FirstOrDefault(ux => ux.ExamId == exam.Id && ux.UserId == user.Id && ux.Grade == grade);
-
-            if (examFromDb != null)
+            if (doesExist)
             {
-                return examFromDb.ExamId;
+                userExamFromDb.TimesSolvedFully++;
+                context.Update(userExamFromDb);
+                context.SaveChanges();
+            }
+            else
+            {
+                context.UserExams.Add(userExam);
+                context.SaveChanges();
             }
 
-            context.UserExams.Add(userExam);
-            context.SaveChanges();
-
             return exam.Id;
-        }
-
-        private Exam CreateExam(ExamQuestionsViewModel data, ExamType type)
-        {
-            Exam exam = new Exam(type, data.YearOfCreation);
-            context.Exams.Add(exam);
-            context.SaveChanges();
-            return exam;
         }
 
         private double CalcGrade(int points)
         {
             points = 42;
-            if(points < 23)
+            if (points < 23)
             {
                 return 2.0;
             }
@@ -198,13 +212,13 @@ namespace OnlineExamer.Core.ExamService
                 {
                     if (question.Answers[i].IsSelected && (i + 1) == question.CorrectAnswer)
                     {
-                        points+= question.Points;
+                        points += question.Points;
                         break;
                     }
                 }
             }
 
             return points;
-        } 
+        }
     }
 }
