@@ -1,8 +1,9 @@
-﻿using Microsoft.AspNetCore.Identity;
-using System.Collections.Generic;
-
-namespace OnlineExamer.Models.Entities
+﻿namespace OnlineExamer.Models.Entities
 {
+    using System.Collections.Generic;
+
+    using Microsoft.AspNetCore.Identity;
+
     public class OnlineExamerUser : IdentityUser
     {
         public OnlineExamerUser()

@@ -1,20 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AutoMapper;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using OnlineExamer.Data;
-using OnlineExamer.Infrastructure;
-using OnlineExamer.Models.Entities;
-using OnlineExamer.Models.Entities.Enums;
-using OnlineExamer.Models.ViewModels.Answers;
-using OnlineExamer.Models.ViewModels.Exams;
-using OnlineExamer.Models.ViewModels.Questions;
-
-namespace OnlineExamer.Core.ExamService
+﻿namespace OnlineExamer.Core.ExamService
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+
+    using Microsoft.AspNetCore.Identity;
+    using Microsoft.EntityFrameworkCore;
+
+    using OnlineExamer.Data;
+    using OnlineExamer.Infrastructure;
+    using OnlineExamer.Models.Entities;
+    using OnlineExamer.Models.Entities.Enums;
+    using OnlineExamer.Models.ViewModels.Answers;
+    using OnlineExamer.Models.ViewModels.Exams;
+    using OnlineExamer.Models.ViewModels.Questions;
+
+    using AutoMapper;
+
     public class ExamService : IExamService
     {
         private readonly IMapper mapper;
@@ -115,28 +118,29 @@ namespace OnlineExamer.Core.ExamService
             UserExam userExam = await context.UserExams.FirstOrDefaultAsync(ux => ux.ExamId == examId && ux.UserId == user.Id);
             List<UserExam> examResults;
 
-
             if (userExam.TimesSolvedFully > 1)
             {
                 examResults = context.UserExams
-                                     .Where(ux => ux.UserId == user.Id && ux.Exam.ExamType.Equals(exam.ExamType))
+                                     .Where(ux => ux.UserId == user.Id && ux.Exam.ExamType == exam.ExamType)
                                      .Take(5)
                                      .ToList();
 
                 if (examResults.Count < 5)
                 {
-                    while (examResults.Count < 5)
+                    for (int i = 1; i <= userExam.TimesSolvedFully; i++)
                     {
-                        examResults.Add(new UserExam() { Grade = 6, Points = 50, ExamId = examId });
+                        examResults.Add(new UserExam() { Grade = userExam.Grade, Points = userExam.Points, ExamId = examId });
                     }
                 }
             }
             else
             {
                 examResults = context.UserExams
-                                     .Where(ux => ux.UserId == user.Id && ux.Exam.ExamType.Equals(exam.ExamType) && ux.ExamId != exam.Id)
+                                     .Where(ux => ux.UserId == user.Id && ux.Exam.ExamType == exam.ExamType)
                                      .Take(5)
                                      .ToList();
+
+                examResults.RemoveAt(0);
             }
 
 
@@ -173,7 +177,7 @@ namespace OnlineExamer.Core.ExamService
             grade = CalcGrade(points);
 
             UserExam userExam = new UserExam(user.Id, exam.Id, points, grade);
-            UserExam userExamFromDb = context.UserExams.FirstOrDefault(e => e.UserId == user.Id && e.ExamId == exam.Id && e.Grade == grade);
+            UserExam userExamFromDb = context.UserExams.FirstOrDefault(e => e.UserId == user.Id && e.ExamId == exam.Id && e.Grade == grade && e.Points == points);
             bool doesExist = userExamFromDb != null;
 
             if (doesExist)
@@ -193,7 +197,6 @@ namespace OnlineExamer.Core.ExamService
 
         private double CalcGrade(int points)
         {
-            points = 42;
             if (points < 23)
             {
                 return 2.0;

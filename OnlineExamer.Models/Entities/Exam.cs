@@ -1,10 +1,11 @@
-﻿using OnlineExamer.Models.Entities.Base;
-using OnlineExamer.Models.Entities.Enums;
-using System;
-using System.Collections.Generic;
-
-namespace OnlineExamer.Models.Entities
+﻿namespace OnlineExamer.Models.Entities
 {
+    using System;
+    using System.Collections.Generic;
+
+    using OnlineExamer.Models.Entities.Base;
+    using OnlineExamer.Models.Entities.Enums;
+
     public class Exam : BaseEntity<int>
     {
         public Exam()

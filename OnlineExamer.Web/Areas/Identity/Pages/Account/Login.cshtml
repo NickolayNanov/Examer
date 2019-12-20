@@ -1,5 +1,7 @@
-﻿@page "/authentication/login"
+﻿@page "/Authentication/Login"
+
 @model LoginModel
+
 @{
     ViewData["Title"] = "Вход";
 }
@@ -37,12 +39,9 @@
                     </div>
                     <div class="form-group">
                         <p>
-                            <a href="authentication/register">
+                            <a href="/Authentication/Register">
                                 Не сте регистрирани? Направете го сега!
                             </a>
-                        </p>
-                        <p>
-                            <a id="forgot-password" asp-page="./ForgotPassword">Забравена парола?</a>
                         </p>
                     </div>
                 </form>

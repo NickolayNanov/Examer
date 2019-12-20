@@ -336,6 +336,9 @@ namespace OnlineExamer.Data.Migrations
                     b.Property<double>("Grade")
                         .HasColumnType("float");
 
+                    b.Property<int>("Points")
+                        .HasColumnType("int");
+
                     b.Property<DateTime?>("DeletedOn")
                         .HasColumnType("datetime2");
 
@@ -348,16 +351,13 @@ namespace OnlineExamer.Data.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<int>("Points")
-                        .HasColumnType("int");
-
                     b.Property<DateTime?>("StartedAt")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("TimesSolvedFully")
                         .HasColumnType("int");
 
-                    b.HasKey("ExamId", "UserId", "Grade");
+                    b.HasKey("ExamId", "UserId", "Grade", "Points");
 
                     b.HasIndex("UserId");
 

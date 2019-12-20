@@ -1,8 +1,7 @@
-﻿using OnlineExamer.Models.Entities.Base;
-using System;
-
-namespace OnlineExamer.Models.Entities
+﻿namespace OnlineExamer.Models.Entities
 {
+    using System;
+
     public class UserExam
     {
         public UserExam()

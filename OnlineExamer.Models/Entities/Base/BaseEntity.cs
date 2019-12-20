@@ -1,7 +1,7 @@
-﻿using System;
-
-namespace OnlineExamer.Models.Entities.Base
+﻿namespace OnlineExamer.Models.Entities.Base
 {
+    using System;
+
     public abstract class BaseEntity<TKey>
     {
         protected BaseEntity()

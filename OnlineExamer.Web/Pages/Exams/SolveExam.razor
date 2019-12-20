@@ -1,15 +1,17 @@
 ﻿@page "/AllExams/{Subject}/{Year:int}"
-@inject IExamService service
+
 @using OnlineExamer.Models.ViewModels.Exams
 @using OnlineExamer.Core.ExamService
 @using OnlineExamer.Infrastructure
 @using Microsoft.JSInterop
+
 @inject NavigationManager NavigationManager
+@inject IExamService service
 
 @if (Data != null)
 {
     <h3 class="text-center">Изпит по @(ExamTypeParser.Parse<ExamQuestionsViewModel>(Data)) - @Year</h3>
-    <h3 class="text-center text-danger">@ErrorMsg</h3>
+    
     <form>
         <div class="container">
             <div class="row">
@@ -17,12 +19,6 @@
 
                     @for (int i = 0; i < Data.Questions.Count; i++)
                     {
-
-                        @if (i == 5)
-                        {
-                            i = 1;
-                        }
-
                         <span>@(i + 1). @(Data.Questions[i].Title)</span>
 
                         if (!Data.Questions[i].IsOpenAnswer)
@@ -45,9 +41,10 @@
                             </ul>
                         }
                     }
-                <a class="btn btn-primary" @onclick="Solve">
-                    <span class="oi oi-share-boxed" aria-hidden="true" style="color: white">     |Предай</span>
-                </a>
+                    <h5 class="text-danger">@ErrorMsg</h5>
+                    <a class="btn btn-primary" @onclick="Solve">
+                        <span class="oi oi-share-boxed" aria-hidden="true" style="color: white">     |Предай</span>
+                    </a>
                 </div>
             </div>
         </div>
@@ -59,14 +56,15 @@ else
 }
 
 @code {
-    string ErrorMsg = "";
     [Parameter] public string Subject { get; set; }
     [Parameter] public int Year { get; set; }
 
+    public static ExamQuestionsViewModel Data { get; set; }
+
+    private string ErrorMsg = "";
+
     [CascadingParameter]
     private Task<AuthenticationState> AuthenticationStateTask { get; set; }
-
-    public static ExamQuestionsViewModel Data { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
@@ -75,9 +73,16 @@ else
         Data.ExamType = Subject;
     }
 
+    [JSInvokable(identifier: "SelectAnswer")]
+    public static Task Select(int questionId, int answerId)
+    {
+        Data.Questions[questionId + 1].Answers[answerId].IsSelected = true;
+        return Task.CompletedTask;
+    }
+
     private async Task Solve()
     {
-        if(Data.Questions.Any(q => q.Answers.All(x => x.IsSelected == false)))
+        if (Data.Questions.Any(q => q.Answers.All(x => x.IsSelected == false)))
         {
             ErrorMsg = "Всички въпроси трябва да имат избран отговор!";
             return;
@@ -86,12 +91,5 @@ else
         var authState = await AuthenticationStateTask;
         int ExamResultId = this.service.SolveExamAsync(Data, authState.User.Identity.Name);
         NavigationManager.NavigateTo($"ExamResults/{Subject}/{Year}/{ExamResultId}", true);
-    }
-
-    [JSInvokable(identifier: "SelectAnswer")]
-    public static Task Select(int questionId, int answerId)
-    {
-        Data.Questions[questionId + 1].Answers[answerId].IsSelected = true;
-        return Task.CompletedTask;
-    }
+    } 
 }

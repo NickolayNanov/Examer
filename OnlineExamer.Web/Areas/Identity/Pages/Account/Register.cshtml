@@ -1,5 +1,7 @@
-﻿@page
+﻿@page "/Authentication/Register"
+
 @model RegisterModel
+
 @{
     ViewData["Title"] = "Регистрирай се";
 }
@@ -34,6 +36,13 @@
                     <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
                 </div>
                 <button type="submit" class="btn btn-primary form-control">Register</button>
+                <div class="form-group">
+                    <p>
+                        <a href="/Authentication/Login">
+                            Вече имате регистрация? Влезте от тук
+                        </a>
+                    </p>
+                </div>
             </form>
         </div>
     </div>

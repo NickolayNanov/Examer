@@ -27,9 +27,3 @@ function giveAnswer(questionId, ansewrId) {
     DotNet.invokeMethodAsync("OnlineExamer.Web", "SelectAnswer", questionId, ansewrId)
         .then(result => console.log(result));
 }
-
-window.clientFunctions = {
-    RedirectTo: (path) => {
-        window.location.href = 'https://localhost:44330' + path;
-    }
-}

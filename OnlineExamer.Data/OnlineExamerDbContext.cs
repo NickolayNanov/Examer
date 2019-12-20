@@ -1,10 +1,11 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore;
-using OnlineExamer.Models.Entities;
-
-namespace OnlineExamer.Data
+﻿namespace OnlineExamer.Data
 {
+    using Microsoft.AspNetCore.Identity;
+    using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore;
+
+    using OnlineExamer.Models.Entities;
+
     public class OnlineExamerDbContext : IdentityDbContext<OnlineExamerUser, IdentityRole, string>
     {
         public OnlineExamerDbContext(DbContextOptions<OnlineExamerDbContext> options) : base(options) { }
@@ -77,7 +78,7 @@ namespace OnlineExamer.Data
 
         private void SetPrimaryKeys(ModelBuilder builder)
         {
-            builder.Entity<UserExam>().HasKey(pk => new { pk.ExamId, pk.UserId, pk.Grade, });
+            builder.Entity<UserExam>().HasKey(pk => new { pk.ExamId, pk.UserId, pk.Grade, pk.Points});
             builder.Entity<Question>().HasKey(pk => pk.Id);
             builder.Entity<SchoolSubject>().HasKey(pk => pk.Id);
             builder.Entity<Answer>().HasKey(pk => pk.Id);

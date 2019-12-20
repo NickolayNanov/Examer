@@ -1,8 +1,7 @@
-﻿using OnlineExamer.Models.Entities;
-using OnlineExamer.Models.Entities.Enums;
-
-namespace OnlineExamer.Infrastructure
+﻿namespace OnlineExamer.Infrastructure
 {
+    using OnlineExamer.Models.Entities.Enums;
+
     public static class ExamTypeParser
     {
         public static string Parse<T>(this T exam)

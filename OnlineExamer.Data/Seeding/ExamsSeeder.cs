@@ -1,10 +1,11 @@
-﻿using OnlineExamer.Models.Entities;
-using OnlineExamer.Models.Entities.Enums;
-using System;
-using System.Linq;
-
-namespace OnlineExamer.Data.Seeding
+﻿namespace OnlineExamer.Data.Seeding
 {
+    using System;
+    using System.Linq;
+
+    using OnlineExamer.Models.Entities;
+    using OnlineExamer.Models.Entities.Enums;
+
     public class ExamsSeeder : ISeeder
     {
         public void Seed(OnlineExamerDbContext context, IServiceProvider serviceProvider)

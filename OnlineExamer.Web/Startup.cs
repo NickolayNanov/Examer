@@ -1,23 +1,23 @@
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using OnlineExamer.Web.Data;
-using OnlineExamer.Data;
-using OnlineExamer.Web.Areas.Identity.Pages.Account;
-using OnlineExamer.Data.Seeding;
-using OnlineExamer.Core.SchoolSubjects;
-using AutoMapper;
-using OnlineExamer.Infrastructure;
-using OnlineExamer.Core.ExamService;
-using Microsoft.AspNetCore.Components.Authorization;
-using OnlineExamer.Models.Entities;
-
 namespace OnlineExamer.Web
 {
+    using Microsoft.AspNetCore.Builder;
+    using Microsoft.AspNetCore.Hosting;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Hosting;
+    using Microsoft.AspNetCore.Components.Authorization;
+
+    using OnlineExamer.Infrastructure;
+    using OnlineExamer.Core.ExamService;
+    using OnlineExamer.Models.Entities;
+    using OnlineExamer.Data;
+    using OnlineExamer.Web.Areas.Identity.Pages.Account;
+    using OnlineExamer.Data.Seeding;
+    using OnlineExamer.Core.SchoolSubjects;
+
+    using AutoMapper;
+
     public class Startup
     {
         public Startup(IConfiguration configuration)
@@ -54,7 +54,6 @@ namespace OnlineExamer.Web
 
             services.AddRazorPages();
             services.AddServerSideBlazor();
-            services.AddSingleton<WeatherForecastService>();
             services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<OnlineExamerUser>>();
 
             services.AddScoped<ISchoolSubjectService, SchoolSubjectService>();

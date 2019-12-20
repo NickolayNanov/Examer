@@ -63,3 +63,16 @@ D:\Nikolay\Examer\OnlineExamer.Data\obj\Debug\netcoreapp3.0\OnlineExamer.Data.As
 D:\Nikolay\Examer\OnlineExamer.Data\obj\Debug\netcoreapp3.0\OnlineExamer.Data.csproj.CopyComplete
 D:\Nikolay\Examer\OnlineExamer.Data\obj\Debug\netcoreapp3.0\OnlineExamer.Data.dll
 D:\Nikolay\Examer\OnlineExamer.Data\obj\Debug\netcoreapp3.0\OnlineExamer.Data.pdb
+D:\Projects\Examer\OnlineExamer.Data\bin\Debug\netcoreapp3.0\OnlineExamer.Data.deps.json
+D:\Projects\Examer\OnlineExamer.Data\bin\Debug\netcoreapp3.0\OnlineExamer.Data.runtimeconfig.json
+D:\Projects\Examer\OnlineExamer.Data\bin\Debug\netcoreapp3.0\OnlineExamer.Data.runtimeconfig.dev.json
+D:\Projects\Examer\OnlineExamer.Data\bin\Debug\netcoreapp3.0\OnlineExamer.Data.dll
+D:\Projects\Examer\OnlineExamer.Data\bin\Debug\netcoreapp3.0\OnlineExamer.Data.pdb
+D:\Projects\Examer\OnlineExamer.Data\bin\Debug\netcoreapp3.0\OnlineExamer.Models.dll
+D:\Projects\Examer\OnlineExamer.Data\bin\Debug\netcoreapp3.0\OnlineExamer.Models.pdb
+D:\Projects\Examer\OnlineExamer.Data\obj\Debug\netcoreapp3.0\OnlineExamer.Data.csprojAssemblyReference.cache
+D:\Projects\Examer\OnlineExamer.Data\obj\Debug\netcoreapp3.0\OnlineExamer.Data.AssemblyInfoInputs.cache
+D:\Projects\Examer\OnlineExamer.Data\obj\Debug\netcoreapp3.0\OnlineExamer.Data.AssemblyInfo.cs
+D:\Projects\Examer\OnlineExamer.Data\obj\Debug\netcoreapp3.0\OnlineExamer.Data.csproj.CopyComplete
+D:\Projects\Examer\OnlineExamer.Data\obj\Debug\netcoreapp3.0\OnlineExamer.Data.dll
+D:\Projects\Examer\OnlineExamer.Data\obj\Debug\netcoreapp3.0\OnlineExamer.Data.pdb

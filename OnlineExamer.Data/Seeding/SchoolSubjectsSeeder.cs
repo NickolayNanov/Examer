@@ -1,9 +1,10 @@
-﻿using OnlineExamer.Models.Entities;
-using System;
-using System.Linq;
-
-namespace OnlineExamer.Data.Seeding
+﻿namespace OnlineExamer.Data.Seeding
 {
+    using System;
+    using System.Linq;
+
+    using OnlineExamer.Models.Entities;
+
     public class SchoolSubjectsSeeder : ISeeder
     {
         public void Seed(OnlineExamerDbContext context, IServiceProvider serviceProvider)

@@ -1,12 +1,12 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AutoMapper;
-using OnlineExamer.Data;
-using OnlineExamer.Models.ViewModels.SchoolSubjects;
-
-namespace OnlineExamer.Core.SchoolSubjects
+﻿namespace OnlineExamer.Core.SchoolSubjects
 {
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+
+    using OnlineExamer.Data;
+    using OnlineExamer.Models.ViewModels.SchoolSubjects;
+
     public class SchoolSubjectService : ISchoolSubjectService
     {
         private readonly OnlineExamerDbContext context;

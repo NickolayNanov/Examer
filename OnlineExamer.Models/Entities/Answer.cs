@@ -1,7 +1,7 @@
-﻿using OnlineExamer.Models.Entities.Base;
-
-namespace OnlineExamer.Models.Entities
+﻿namespace OnlineExamer.Models.Entities
 {
+    using OnlineExamer.Models.Entities.Base;
+
     public class Answer : BaseEntity<int>
     {
         public Answer(string content)

@@ -1,8 +1,10 @@
-﻿using OnlineExamer.Models.ViewModels.Answers;
-using System.Collections.Generic;
-
-namespace OnlineExamer.Models.ViewModels.Questions
+﻿namespace OnlineExamer.Models.ViewModels.Questions
 {
+    using System.Collections.Generic;
+
+    using OnlineExamer.Models.ViewModels.Answers;
+
+
     public class QuestionViewModel
     {
         public string Title { get; set; }

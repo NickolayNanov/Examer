@@ -5290,11 +5290,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Examer\\OnlineExamer.Data\\OnlineExamer.Data.csproj",
+      "projectUniqueName": "D:\\Projects\\Examer\\OnlineExamer.Data\\OnlineExamer.Data.csproj",
       "projectName": "OnlineExamer.Data",
-      "projectPath": "D:\\Examer\\OnlineExamer.Data\\OnlineExamer.Data.csproj",
+      "projectPath": "D:\\Projects\\Examer\\OnlineExamer.Data\\OnlineExamer.Data.csproj",
       "packagesPath": "C:\\Users\\Nick\\.nuget\\packages\\",
-      "outputPath": "D:\\Examer\\OnlineExamer.Data\\obj\\",
+      "outputPath": "D:\\Projects\\Examer\\OnlineExamer.Data\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -5313,8 +5313,8 @@
       "frameworks": {
         "netcoreapp3.0": {
           "projectReferences": {
-            "D:\\Examer\\OnlineExamer.Models\\OnlineExamer.Models.csproj": {
-              "projectPath": "D:\\Examer\\OnlineExamer.Models\\OnlineExamer.Models.csproj"
+            "D:\\Projects\\Examer\\OnlineExamer.Models\\OnlineExamer.Models.csproj": {
+              "projectPath": "D:\\Projects\\Examer\\OnlineExamer.Models\\OnlineExamer.Models.csproj"
             }
           }
         }
@@ -5363,12 +5363,18 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
+        "downloadDependencies": [
+          {
+            "name": "Microsoft.AspNetCore.App.Ref",
+            "version": "[3.0.1, 3.0.1]"
+          }
+        ],
         "frameworkReferences": {
           "Microsoft.NETCore.App": {
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.100-preview3-014645\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.100\\RuntimeIdentifierGraph.json"
       }
     }
   }

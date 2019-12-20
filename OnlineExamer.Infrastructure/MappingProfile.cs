@@ -1,14 +1,12 @@
-﻿using System;
-using AutoMapper;
-using AutoMapper.Configuration;
-using OnlineExamer.Models.Entities;
-using OnlineExamer.Models.ViewModels.Answers;
-using OnlineExamer.Models.ViewModels.Exams;
-using OnlineExamer.Models.ViewModels.Questions;
-using OnlineExamer.Models.ViewModels.SchoolSubjects;
-
-namespace OnlineExamer.Infrastructure
+﻿namespace OnlineExamer.Infrastructure
 {
+    using OnlineExamer.Models.Entities;
+    using OnlineExamer.Models.ViewModels.Answers;
+    using OnlineExamer.Models.ViewModels.Exams;
+    using OnlineExamer.Models.ViewModels.Questions;
+
+    using AutoMapper;
+
     public class MappingProfile : Profile
     {
         public MappingProfile()

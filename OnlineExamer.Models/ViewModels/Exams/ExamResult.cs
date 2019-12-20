@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-
-namespace OnlineExamer.Models.ViewModels.Exams
+﻿namespace OnlineExamer.Models.ViewModels.Exams
 {
+    using System.Collections.Generic;
+
     public class ExamResult
     {
         public ExamResult()

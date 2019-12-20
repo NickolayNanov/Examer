@@ -1,10 +1,11 @@
-﻿using OnlineExamer.Models.ViewModels.Answers;
-using OnlineExamer.Models.ViewModels.Questions;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-
-namespace OnlineExamer.Models.ViewModels.Exams
+﻿namespace OnlineExamer.Models.ViewModels.Exams
 {
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+
+    using OnlineExamer.Models.ViewModels.Answers;
+    using OnlineExamer.Models.ViewModels.Questions;
+
     public class ExamQuestionsViewModel
     {
         public string ExamType { get; set; }

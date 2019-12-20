@@ -1,7 +1,9 @@
 ﻿@page "/ExamResults/{Subject}/{Year:int}/{ExamResultId:int}"
-@inject IExamService service
+
 @using OnlineExamer.Core.ExamService
 @using OnlineExamer.Models.ViewModels.Exams
+@using System.Globalization
+@inject IExamService service
 
 @if (ExamResult != null)
 {
@@ -9,19 +11,21 @@
     {
         <div class="text-center">
             <h3>
-                <p>Вие изкарахте @ExamResult.Points/@ExamResult.MaxPoints, @ExamResult.Subject (@Year). Вашата оценка е около @ExamResult.Grade</p>
+                <p>
+                    Вие изкарахте @ExamResult.Points точки от @ExamResult.MaxPoints максимални, @ExamResult.Subject (@Year). Вашата оценка е @String.Format(CultureInfo.InvariantCulture, "{0:0.00}", ExamResult.Grade)
+                </p>
             </h3>
         </div>
 
         <div class="row">
             @foreach (var result in ExamResult.PastResults)
             {
-                <div class="col-md-3">
+                <div class="col-md-4">
 
-                    <div class="card" style="width: 18rem;">
+                    <div class="card" style="width: 18rem; border-radius: 4px;">
                         <div class="card-body">
-                            <h5 class="card-title">@Year</h5>
-                            <p class="card-text">@result.Points/@result.MaxPoints</p>
+                            <h5 class="card-title">Година: @Year</h5>
+                            <p class="card-text">Точки: @result.Points/@result.MaxPoints : Оценка: @String.Format(CultureInfo.InvariantCulture, "{0:0.00}", ExamResult.Grade)</p>
                         </div>
                     </div>
                 </div>
@@ -38,7 +42,6 @@
     [Parameter] public string Subject { get; set; }
     [Parameter] public int Year { get; set; }
     [Parameter] public int ExamResultId { get; set; }
-    
 
     [CascadingParameter]
     private Task<AuthenticationState> AuthenticationStateTask { get; set; }

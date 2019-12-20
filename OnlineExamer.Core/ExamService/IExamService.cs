@@ -1,9 +1,11 @@
-﻿using OnlineExamer.Models.ViewModels.Exams;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-
+﻿
 namespace OnlineExamer.Core.ExamService
 {
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
+
+    using OnlineExamer.Models.ViewModels.Exams;
+
     public interface IExamService
     {
         IEnumerable<ExamViewModel> AllExams();
