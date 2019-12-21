@@ -115,7 +115,7 @@
         {
             OnlineExamerUser user = await userManager.FindByNameAsync(username);
             Exam exam = await context.Exams.FirstOrDefaultAsync(e => e.Id == examId);
-            UserExam userExam = await context.UserExams.FirstOrDefaultAsync(ux => ux.ExamId == examId && ux.UserId == user.Id);
+            UserExam userExam = context.UserExams.Where(ux => ux.ExamId == examId && ux.UserId == user.Id).ToList()[context.UserExams.Count() - 1];
             List<UserExam> examResults;
 
             if (userExam.TimesSolvedFully > 1)
@@ -127,9 +127,11 @@
 
                 if (examResults.Count < 5)
                 {
-                    for (int i = 1; i <= userExam.TimesSolvedFully; i++)
+                    int count = examResults.Count;
+                    for (int i = 1; i <= userExam.TimesSolvedFully - 2; i++)
                     {
                         examResults.Add(new UserExam() { Grade = userExam.Grade, Points = userExam.Points, ExamId = examId });
+                        if (examResults.Count == 5) break;
                     }
                 }
             }
@@ -140,9 +142,11 @@
                                      .Take(5)
                                      .ToList();
 
-                examResults.RemoveAt(0);
+                if (examResults.Count == 1)
+                {
+                    examResults.RemoveAt(0);
+                }
             }
-
 
             string subject = ExamTypeParser.Parse(exam);
             var result = new ExamResult { Grade = userExam.Grade, Points = userExam.Points, MaxPoints = 50, ExamResultId = exam.Id };
@@ -222,6 +226,18 @@
             }
 
             return points;
+        }
+
+        public async Task<IEnumerable<ExamResult>> GetExamResultsByUsername(string username)
+        {
+            OnlineExamerUser user = await userManager.FindByNameAsync(username);
+            IEnumerable<ExamResult> result = this.mapper
+                                                    .ProjectTo<ExamResult>(context.UserExams.Include(x => x.Exam)
+                                                        .Where(ux => ux.UserId == user.Id))
+                                                    .ToList();
+
+
+            return result;
         }
     }
 }

@@ -3,6 +3,7 @@
 @using OnlineExamer.Core.ExamService
 @using OnlineExamer.Models.ViewModels.Exams
 @using System.Globalization
+
 @inject IExamService service
 
 @if (ExamResult != null)
@@ -10,11 +11,8 @@
     if (ExamResultId != 0)
     {
         <div class="text-center">
-            <h3>
-                <p>
-                    Вие изкарахте @ExamResult.Points точки от @ExamResult.MaxPoints максимални, @ExamResult.Subject (@Year). Вашата оценка е @String.Format(CultureInfo.InvariantCulture, "{0:0.00}", ExamResult.Grade)
-                </p>
-            </h3>
+            <h3> Вие изкарахте @ExamResult.Points точки от @ExamResult.MaxPoints максимални, @ExamResult.Subject (@Year). 
+            Вашата оценка е @String.Format(CultureInfo.InvariantCulture, "{0:0.00}", ExamResult.Grade)</h3>
         </div>
 
         <div class="row">

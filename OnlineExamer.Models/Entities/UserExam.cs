@@ -14,6 +14,7 @@
             this.ExamId = examId;
             this.Points = points;
             this.Grade = grade;
+            this.TimesSolvedFully = 1;
         }
 
         public string UserId { get; set; }

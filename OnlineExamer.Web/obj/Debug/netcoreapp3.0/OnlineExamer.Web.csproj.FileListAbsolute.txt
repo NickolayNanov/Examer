@@ -1162,3 +1162,5 @@ D:\Projects\Examer\OnlineExamer.Web\obj\Debug\netcoreapp3.0\OnlineExamer.Web.Vie
 D:\Projects\Examer\OnlineExamer.Web\obj\Debug\netcoreapp3.0\OnlineExamer.Web.csproj.CopyComplete
 D:\Projects\Examer\OnlineExamer.Web\obj\Debug\netcoreapp3.0\OnlineExamer.Web.dll
 D:\Projects\Examer\OnlineExamer.Web\obj\Debug\netcoreapp3.0\OnlineExamer.Web.pdb
+D:\Projects\Examer\OnlineExamer.Web\obj\Debug\netcoreapp3.0\RazorDeclaration\Pages\Exams\SolvedExams.razor.g.cs
+D:\Projects\Examer\OnlineExamer.Web\obj\Debug\netcoreapp3.0\Razor\Pages\Exams\SolvedExams.razor.g.cs

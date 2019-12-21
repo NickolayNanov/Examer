@@ -17,5 +17,7 @@ namespace OnlineExamer.Core.ExamService
         int SolveExamAsync(ExamQuestionsViewModel questions, string username);
 
         Task<ExamResult> GetExamResultByExamIdAndUsernameAsync(int examId, string username);
+
+        Task<IEnumerable<ExamResult>> GetExamResultsByUsername(string username);
     }
 }

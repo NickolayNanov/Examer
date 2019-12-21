@@ -7,6 +7,7 @@
         public ExamResult()
         {
             PastResults = new List<ExamResult>();
+            this.MaxPoints = 50;
         }
 
         public int? ExamResultId { get; set; }
@@ -18,6 +19,8 @@
         public double Grade { get; set; }
 
         public string Subject { get; set; }
+
+        public int Year { get; set; }
 
         public IList<ExamResult> PastResults { get; set; }
     }
