@@ -199,6 +199,19 @@
             return exam.Id;
         }
 
+        
+        public async Task<IEnumerable<ExamResult>> GetExamResultsByUsername(string username)
+        {
+            OnlineExamerUser user = await userManager.FindByNameAsync(username);
+            IEnumerable<ExamResult> result = this.mapper
+                                                    .ProjectTo<ExamResult>(context.UserExams.Include(x => x.Exam)
+                                                        .Where(ux => ux.UserId == user.Id))
+                                                    .ToList();
+
+
+            return result;
+        }
+
         private double CalcGrade(int points)
         {
             if (points < 23)
@@ -226,18 +239,6 @@
             }
 
             return points;
-        }
-
-        public async Task<IEnumerable<ExamResult>> GetExamResultsByUsername(string username)
-        {
-            OnlineExamerUser user = await userManager.FindByNameAsync(username);
-            IEnumerable<ExamResult> result = this.mapper
-                                                    .ProjectTo<ExamResult>(context.UserExams.Include(x => x.Exam)
-                                                        .Where(ux => ux.UserId == user.Id))
-                                                    .ToList();
-
-
-            return result;
-        }
+        }       
     }
 }
