@@ -15,8 +15,10 @@ namespace OnlineExamer.Web
     using OnlineExamer.Web.Areas.Identity.Pages.Account;
     using OnlineExamer.Data.Seeding;
     using OnlineExamer.Core.SchoolSubjects;
+    using OnlineExamer.Infrastructure.SendGrid;
 
     using AutoMapper;
+    using Microsoft.AspNetCore.Identity.UI.Services;
 
     public class Startup
     {
@@ -58,7 +60,9 @@ namespace OnlineExamer.Web
 
             services.AddScoped<ISchoolSubjectService, SchoolSubjectService>();
             services.AddScoped<IExamService, ExamService>();
+            services.AddScoped<SendGrid>();
             services.AddTransient<LogoutModel>();
+            services.AddTransient<SendGrid>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

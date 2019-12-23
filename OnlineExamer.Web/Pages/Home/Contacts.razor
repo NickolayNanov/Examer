@@ -1,9 +1,10 @@
 ﻿@page "/Contacts"
 
-@using Microsoft.AspNetCore.Identity.UI.Services
+@using OnlineExamer.Infrastructure.SendGrid
+@using OnlineExamer.Models.Dtos.SendGrid
 
-@inject IEmailSender emailSender
-
+@inject SendGrid emailSender
+@inject NavigationManager navigation
 <header>
     <h1 id="contacts-header">Contact us</h1>
 </header>
@@ -25,12 +26,17 @@
             <input @bind="Email" type="email" id="email" name="email" />
         </div>
 
+        <div class="formgroup" id="subject-form">
+            <label for="subject">Subject</label>
+            <input @bind="Subject" id="subject" name="subject"></input>
+        </div>
+
         <div class="formgroup" id="message-form">
             <label for="message">Your message</label>
             <textarea @bind="Message" id="message" name="message"></textarea>
         </div>
-
-        <input type="submit" value="Send your message!" />
+        <h5 class="text-danger">@ErrorMsg</h5>
+        <button class="btn btn-primary" @onclick="SendAsync">Send your message!</button>
     </form>
 </div>
 
@@ -38,6 +44,39 @@
     [Parameter] public string Name { get; set; }
     [Parameter] public string Email { get; set; }
     [Parameter] public string Message { get; set; }
+    [Parameter] public string Subject { get; set; }
 
-    //TODO: Implement email sending
+    string ErrorMsg = "";
+    string SuccessMsg = "";
+    bool sent = false;
+
+    protected override Task OnInitializedAsync()
+    {
+        this.ErrorMsg = "";
+        this.SuccessMsg = sent ? "Вашият имейл беше успешно изпратен!" : "";
+        return base.OnInitializedAsync();
+    }
+
+    private async Task SendAsync()
+    {
+        if (string.IsNullOrEmpty(Name) ||
+           string.IsNullOrEmpty(Email) ||
+           string.IsNullOrEmpty(Message) ||
+           string.IsNullOrEmpty(Subject))
+        {
+            ErrorMsg = "Попълнете всички полета преди да изпратите имейл!";
+            return;
+        }
+        else
+        {
+            EmailModel model = new EmailModel(Email, Name, Subject, Message);
+            var response = await emailSender.SendEmailAsync(model);
+
+            if (response.StatusCode == System.Net.HttpStatusCode.Accepted)
+            {
+                sent = true;
+                navigation.NavigateTo("/Contacts", true);   
+            }
+        }
+    }
 }

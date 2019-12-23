@@ -1223,6 +1223,18 @@
           }
         }
       },
+      "Sendgrid/9.12.0": {
+        "type": "package",
+        "dependencies": {
+          "Newtonsoft.Json": "9.0.1"
+        },
+        "compile": {
+          "lib/netstandard2.0/SendGrid.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/SendGrid.dll": {}
+        }
+      },
       "System.AppContext/4.3.0": {
         "type": "package",
         "dependencies": {
@@ -2719,7 +2731,10 @@
         },
         "runtime": {
           "bin/placeholder/OnlineExamer.Core.dll": {}
-        }
+        },
+        "frameworkReferences": [
+          "Microsoft.AspNetCore.App"
+        ]
       },
       "OnlineExamer.Data/1.0.0": {
         "type": "project",
@@ -2742,14 +2757,18 @@
         "framework": ".NETCoreApp,Version=v3.0",
         "dependencies": {
           "AutoMapper": "9.0.0",
-          "OnlineExamer.Models": "1.0.0"
+          "OnlineExamer.Models": "1.0.0",
+          "Sendgrid": "9.12.0"
         },
         "compile": {
           "bin/placeholder/OnlineExamer.Infrastructure.dll": {}
         },
         "runtime": {
           "bin/placeholder/OnlineExamer.Infrastructure.dll": {}
-        }
+        },
+        "frameworkReferences": [
+          "Microsoft.AspNetCore.App"
+        ]
       },
       "OnlineExamer.Models/1.0.0": {
         "type": "project",
@@ -4577,6 +4596,26 @@
         "runtimes/win-x86/native/sni.dll",
         "useSharedDesignerContext.txt",
         "version.txt"
+      ]
+    },
+    "Sendgrid/9.12.0": {
+      "sha512": "HrH336vKylh6Yy4bqKFNPf0Rk1C7CDd4WX7D2f7D/g0Dy584Wx2Qh7vdM+NgAkHTWQ7bKwl7K9DZ9BiFKbimdA==",
+      "type": "package",
+      "path": "sendgrid/9.12.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net452/SendGrid.dll",
+        "lib/net452/SendGrid.pdb",
+        "lib/net452/SendGrid.xml",
+        "lib/netstandard1.3/SendGrid.dll",
+        "lib/netstandard1.3/SendGrid.pdb",
+        "lib/netstandard1.3/SendGrid.xml",
+        "lib/netstandard2.0/SendGrid.dll",
+        "lib/netstandard2.0/SendGrid.pdb",
+        "lib/netstandard2.0/SendGrid.xml",
+        "sendgrid.9.12.0.nupkg.sha512",
+        "sendgrid.nuspec"
       ]
     },
     "System.AppContext/4.3.0": {

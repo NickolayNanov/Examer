@@ -1296,6 +1296,20 @@
           }
         }
       },
+      "Sendgrid/9.12.0": {
+        "dependencies": {
+          "Newtonsoft.Json": "12.0.2"
+        },
+        "runtime": {
+          "lib/netstandard2.0/SendGrid.dll": {
+            "assemblyVersion": "9.12.0.0",
+            "fileVersion": "9.12.0.0"
+          }
+        },
+        "compile": {
+          "lib/netstandard2.0/SendGrid.dll": {}
+        }
+      },
       "System.AppContext/4.3.0": {
         "dependencies": {
           "System.Runtime": "4.3.0"
@@ -2249,7 +2263,8 @@
       "OnlineExamer.Infrastructure/1.0.0": {
         "dependencies": {
           "AutoMapper": "9.0.0",
-          "OnlineExamer.Models": "1.0.0"
+          "OnlineExamer.Models": "1.0.0",
+          "Sendgrid": "9.12.0"
         },
         "runtime": {
           "OnlineExamer.Infrastructure.dll": {}
@@ -4477,6 +4492,13 @@
       "sha512": "sha512-YhEdSQUsTx+C8m8Bw7ar5/VesXvCFMItyZF7G1AUY+OM0VPZUOeAVpJ4Wl6fydBGUYZxojTDR3I6Bj/+BPkJNA==",
       "path": "runtime.win-x86.runtime.native.system.data.sqlclient.sni/4.4.0",
       "hashPath": "runtime.win-x86.runtime.native.system.data.sqlclient.sni.4.4.0.nupkg.sha512"
+    },
+    "Sendgrid/9.12.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-HrH336vKylh6Yy4bqKFNPf0Rk1C7CDd4WX7D2f7D/g0Dy584Wx2Qh7vdM+NgAkHTWQ7bKwl7K9DZ9BiFKbimdA==",
+      "path": "sendgrid/9.12.0",
+      "hashPath": "sendgrid.9.12.0.nupkg.sha512"
     },
     "System.AppContext/4.3.0": {
       "type": "package",
