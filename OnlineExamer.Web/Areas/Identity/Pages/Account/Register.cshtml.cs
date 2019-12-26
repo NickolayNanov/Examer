@@ -22,19 +22,19 @@ namespace OnlineExamer.Web.Areas.Identity.Pages.Account
     {
         private readonly SignInManager<OnlineExamerUser> _signInManager;
         private readonly UserManager<OnlineExamerUser> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
         private readonly ILogger<RegisterModel> _logger;
-        private readonly IEmailSender _emailSender;
 
         public RegisterModel(
             UserManager<OnlineExamerUser> userManager,
+            RoleManager<IdentityRole> roleManager,
             SignInManager<OnlineExamerUser> signInManager,
-            ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+            ILogger<RegisterModel> logger)
         {
             _userManager = userManager;
+            _roleManager = roleManager;
             _signInManager = signInManager;
             _logger = logger;
-            _emailSender = emailSender;
         }
 
         [BindProperty]
@@ -69,8 +69,28 @@ namespace OnlineExamer.Web.Areas.Identity.Pages.Account
 
         public async Task OnGetAsync(string returnUrl = null)
         {
+            if (!_userManager.Users.Any() && !_roleManager.Roles.Any())
+            {
+                await Seed();
+            }
+
             ReturnUrl = returnUrl;
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+        }
+
+        private async Task Seed()
+        {
+            IdentityRole adminRole = new IdentityRole("Admin");
+            IdentityRole userRole = new IdentityRole("User");
+
+            await _roleManager.CreateAsync(adminRole);
+            await _roleManager.CreateAsync(userRole);
+
+            OnlineExamerUser admin = new OnlineExamerUser("nickolaynanov17@gmail.com");
+            admin.UserName = "admin";
+
+            await _userManager.CreateAsync(admin, "fr3s7ed23");
+            await _userManager.AddToRoleAsync(admin, "Admin");
         }
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
@@ -81,6 +101,7 @@ namespace OnlineExamer.Web.Areas.Identity.Pages.Account
             {
                 var user = new OnlineExamerUser { UserName = Input.Username, Email = Input.Email };
                 var result = await _userManager.CreateAsync(user, Input.Password);
+                await _userManager.AddToRoleAsync(user, "User");
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");
@@ -92,9 +113,6 @@ namespace OnlineExamer.Web.Areas.Identity.Pages.Account
                         pageHandler: null,
                         values: new { area = "Identity", userId = user.Id, code = code },
                         protocol: Request.Scheme);
-
-                    await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
-                        $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 
                     if (_userManager.Options.SignIn.RequireConfirmedAccount)
                     {

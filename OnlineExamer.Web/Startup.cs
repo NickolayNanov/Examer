@@ -19,6 +19,7 @@ namespace OnlineExamer.Web
 
     using AutoMapper;
     using Microsoft.AspNetCore.Identity.UI.Services;
+    using Microsoft.AspNetCore.Identity;
 
     public class Startup
     {
@@ -37,14 +38,15 @@ namespace OnlineExamer.Web
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddDefaultIdentity<OnlineExamerUser>(options =>
+            services.AddIdentity<OnlineExamerUser, IdentityRole>(options =>
             {
                 options.Password.RequireDigit = false;
                 options.Password.RequiredLength = 6;
                 options.Password.RequiredUniqueChars = 0;
                 options.Password.RequireNonAlphanumeric = false;
                 options.Password.RequireUppercase = false;
-            }).AddEntityFrameworkStores<OnlineExamerDbContext>();
+            }).AddEntityFrameworkStores<OnlineExamerDbContext>()
+            .AddRoles<IdentityRole>();
 
             MapperConfiguration mappingConfig = new MapperConfiguration(mc =>
             {
