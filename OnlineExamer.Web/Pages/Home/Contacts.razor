@@ -6,37 +6,40 @@
 @inject SendGrid emailSender
 @inject NavigationManager navigation
 <header>
-    <h1 id="contacts-header">Contact us</h1>
+    <h1 id="contacts-header">Пишете ни</h1>
 </header>
 
 <div id="form">
 
     <div class="fish" id="fish"></div>
     <div class="fish" id="fish2"></div>
-
-    <form id="waterform" method="post">
+    <h5 class="text-success">@SuccessMsg</h5>
+    <form id="waterform">
 
         <div class="formgroup" id="name-form">
-            <label for="name">Your name*</label>
+            <label for="name">Име</label>
             <input @bind="Name" type="text" id="name" name="name" />
         </div>
 
         <div class="formgroup" id="email-form">
-            <label for="email">Your e-mail*</label>
+            <label for="email">Е-Поща</label>
             <input @bind="Email" type="email" id="email" name="email" />
         </div>
 
         <div class="formgroup" id="subject-form">
-            <label for="subject">Subject</label>
-            <input @bind="Subject" id="subject" name="subject"></input>
+            <label for="subject">Тема</label>
+            <input @bind="Subject" type="text" id="subject" name="subject" />
         </div>
 
         <div class="formgroup" id="message-form">
-            <label for="message">Your message</label>
+            <label for="message">Съобщение</label>
             <textarea @bind="Message" id="message" name="message"></textarea>
         </div>
         <h5 class="text-danger">@ErrorMsg</h5>
-        <button class="btn btn-primary" @onclick="SendAsync">Send your message!</button>
+
+        <div class="form-group" id="email-form">
+            <input value="Изпрати" type="submit" class="btn btn-primary" @onclick="SendAsync" />
+        </div>
     </form>
 </div>
 
@@ -48,12 +51,11 @@
 
     string ErrorMsg = "";
     string SuccessMsg = "";
-    bool sent = false;
 
     protected override Task OnInitializedAsync()
     {
         this.ErrorMsg = "";
-        this.SuccessMsg = sent ? "Вашият имейл беше успешно изпратен!" : "";
+        this.SuccessMsg = "";
         return base.OnInitializedAsync();
     }
 
@@ -64,7 +66,7 @@
            string.IsNullOrEmpty(Message) ||
            string.IsNullOrEmpty(Subject))
         {
-            ErrorMsg = "Попълнете всички полета преди да изпратите имейл!";
+            this.ErrorMsg = "Попълнете всички полета преди да изпратите имейл!";
             return;
         }
         else
@@ -74,8 +76,9 @@
 
             if (response.StatusCode == System.Net.HttpStatusCode.Accepted)
             {
-                sent = true;
-                navigation.NavigateTo("/Contacts", true);   
+                navigation.NavigateTo("/Contacts", true);
+                this.SuccessMsg = "Вашият имейл беше успешно изпратен!";
+                
             }
         }
     }
