@@ -7,9 +7,7 @@ $('.rolldown-list li').each(() => {
         mozAnimationDelay: delay,
         animationDelay: delay
     });
-});
-
-
+});	
 
 function giveAnswer(questionId, ansewrId) {
 

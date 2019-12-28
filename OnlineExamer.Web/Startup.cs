@@ -20,6 +20,7 @@ namespace OnlineExamer.Web
     using AutoMapper;
     using Microsoft.AspNetCore.Identity.UI.Services;
     using Microsoft.AspNetCore.Identity;
+    using OnlineExamer.Core;
 
     public class Startup
     {
@@ -65,6 +66,7 @@ namespace OnlineExamer.Web
             services.AddScoped<SendGrid>();
             services.AddTransient<LogoutModel>();
             services.AddTransient<SendGrid>();
+            services.AddTransient<UserRolesSeeder>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

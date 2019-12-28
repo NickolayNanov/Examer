@@ -69,28 +69,8 @@ namespace OnlineExamer.Web.Areas.Identity.Pages.Account
 
         public async Task OnGetAsync(string returnUrl = null)
         {
-            if (!_userManager.Users.Any() && !_roleManager.Roles.Any())
-            {
-                await Seed();
-            }
-
             ReturnUrl = returnUrl;
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
-        }
-
-        private async Task Seed()
-        {
-            IdentityRole adminRole = new IdentityRole("Admin");
-            IdentityRole userRole = new IdentityRole("User");
-
-            await _roleManager.CreateAsync(adminRole);
-            await _roleManager.CreateAsync(userRole);
-
-            OnlineExamerUser admin = new OnlineExamerUser("nickolaynanov17@gmail.com");
-            admin.UserName = "admin";
-
-            await _userManager.CreateAsync(admin, "fr3s7ed23");
-            await _userManager.AddToRoleAsync(admin, "Admin");
         }
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
@@ -104,33 +84,16 @@ namespace OnlineExamer.Web.Areas.Identity.Pages.Account
                 await _userManager.AddToRoleAsync(user, "User");
                 if (result.Succeeded)
                 {
-                    _logger.LogInformation("User created a new account with password.");
-
-                    var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                    code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
-                    var callbackUrl = Url.Page(
-                        "/Account/ConfirmEmail",
-                        pageHandler: null,
-                        values: new { area = "Identity", userId = user.Id, code = code },
-                        protocol: Request.Scheme);
-
-                    if (_userManager.Options.SignIn.RequireConfirmedAccount)
-                    {
-                        return RedirectToPage("RegisterConfirmation", new { email = Input.Email });
-                    }
-                    else
-                    {
                         await _signInManager.SignInAsync(user, isPersistent: false);
                         return LocalRedirect(returnUrl);
-                    }
                 }
+
                 foreach (var error in result.Errors)
                 {
                     ModelState.AddModelError(string.Empty, error.Description);
                 }
             }
 
-            // If we got this far, something failed, redisplay form
             return Page();
         }
     }

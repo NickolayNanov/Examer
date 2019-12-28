@@ -1,5 +1,7 @@
 ﻿@page "/AllExams/{Subject}/{Year:int}"
 
+@attribute [Authorize]
+
 @using OnlineExamer.Models.ViewModels.Exams
 @using OnlineExamer.Core.ExamService
 @using OnlineExamer.Infrastructure
@@ -11,48 +13,45 @@
 @if (Data != null)
 {
     <h3 class="text-center">Изпит по @(ExamTypeParser.Parse<ExamQuestionsViewModel>(Data)) - @Year</h3>
-    
-    <form>
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    @for (int i = 0; i < Data.Questions.Count; i++)
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                @for (int i = 0; i < Data.Questions.Count; i++)
+                {
+                    <span>@(i + 1). @(Data.Questions[i].Title)</span>
+
+                    if (!Data.Questions[i].IsOpenAnswer)
                     {
-                        <span>@(i + 1). @(Data.Questions[i].Title)</span>
-
-                        if (!Data.Questions[i].IsOpenAnswer)
-                        {
-                            <ul class="list-group" id="question_@(i - 1)">
-                                @for (int j = 0; j < Data.Questions[i].Answers.Count; j++)
-                                {
-                                    <li onclick="giveAnswer(@(i - 1), @j)"
-                                        style="background: @Data.Questions[i].Answers[j].BackgroundColor"
-                                        class="list-group-item mb-3 marked-answer"
-                                        id="question_@(i - 1)_answer_@j">
-                                        <input @bind="@Data.Questions[i].Answers[j].IsSelected"
-                                               type="checkbox"
-                                               id="input_@(i - 1)_question_@j"
-                                               class="check"
-                                               style="display:none" />
-                                        <label>@Data.Questions[i].Answers[j].Content</label>
-                                    </li>
-                                }
-                            </ul>
-                        }
+                        <ul class="list-group" id="question_@(i - 1)">
+                            @for (int j = 0; j < Data.Questions[i].Answers.Count; j++)
+                            {
+                                <li onclick="giveAnswer(@(i - 1), @j)"
+                                    style="background: @Data.Questions[i].Answers[j].BackgroundColor"
+                                    class="list-group-item mb-3 marked-answer"
+                                    id="question_@(i - 1)_answer_@j">
+                                    <input @bind="@Data.Questions[i].Answers[j].IsSelected"
+                                           type="checkbox"
+                                           id="input_@(i - 1)_question_@j"
+                                           class="check"
+                                           style="display:none" />
+                                    <label>@Data.Questions[i].Answers[j].Content</label>
+                                </li>
+                            }
+                        </ul>
                     }
-                    <h5 class="text-danger">@ErrorMsg</h5>
+                }
+                <h5 class="text-danger">@ErrorMsg</h5>
 
-                    <div class="row">
-                        <div class="col-md-5"></div>
-                        <a class="btn btn-primary mb-4" @onclick="Solve">
-                            <span aria-hidden="true" style="color: white">Предай</span>
-                        </a>
-                    </div>
-                    
+                <div class="row">
+                    <div class="col-md-5"></div>
+                    <a class="btn btn-primary mb-4" @onclick="Solve">
+                        <span aria-hidden="true" style="color: white">Предай</span>
+                    </a>
                 </div>
             </div>
         </div>
-    </form>
+    </div>
 }
 else
 {
@@ -95,5 +94,5 @@ else
         var authState = await AuthenticationStateTask;
         int ExamResultId = this.service.SolveExamAsync(Data, authState.User.Identity.Name);
         NavigationManager.NavigateTo($"ExamResults/{Subject}/{Year}/{ExamResultId}", true);
-    } 
+    }
 }

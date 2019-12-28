@@ -6,7 +6,7 @@
 @inject SendGrid emailSender
 @inject NavigationManager navigation
 <header>
-    <h1 id="contacts-header">Пишете ни</h1>
+    <h1 id="contacts-header" class="text-center">Пишете ни</h1>
 </header>
 
 <div id="form">
@@ -17,22 +17,22 @@
     <form id="waterform">
 
         <div class="formgroup" id="name-form">
-            <label for="name">Име</label>
+            <label class="contacts-label" for="name">Име</label>
             <input @bind="Name" type="text" id="name" name="name" />
         </div>
 
         <div class="formgroup" id="email-form">
-            <label for="email">Е-Поща</label>
+            <label class="contacts-label" for="email">Е-Поща</label>
             <input @bind="Email" type="email" id="email" name="email" />
         </div>
 
         <div class="formgroup" id="subject-form">
-            <label for="subject">Тема</label>
+            <label class="contacts-label" for="subject">Тема</label>
             <input @bind="Subject" type="text" id="subject" name="subject" />
         </div>
 
         <div class="formgroup" id="message-form">
-            <label for="message">Съобщение</label>
+            <label class="contacts-label" for="message">Съобщение</label>
             <textarea @bind="Message" id="message" name="message"></textarea>
         </div>
         <h5 class="text-danger">@ErrorMsg</h5>
