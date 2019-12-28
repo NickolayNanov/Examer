@@ -6,6 +6,7 @@ namespace OnlineExamer.Web
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
+    using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Components.Authorization;
 
     using OnlineExamer.Infrastructure;
@@ -15,12 +16,11 @@ namespace OnlineExamer.Web
     using OnlineExamer.Web.Areas.Identity.Pages.Account;
     using OnlineExamer.Data.Seeding;
     using OnlineExamer.Core.SchoolSubjects;
-    using OnlineExamer.Infrastructure.SendGrid;
+    using OnlineExamer.Infrastructure.SendGrid;   
+    using OnlineExamer.Core;
+    using OnlineExamer.Core.AdminService;
 
     using AutoMapper;
-    using Microsoft.AspNetCore.Identity.UI.Services;
-    using Microsoft.AspNetCore.Identity;
-    using OnlineExamer.Core;
 
     public class Startup
     {
@@ -31,8 +31,6 @@ namespace OnlineExamer.Web
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
-        // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<OnlineExamerDbContext>(options =>
@@ -59,11 +57,14 @@ namespace OnlineExamer.Web
 
             services.AddRazorPages();
             services.AddServerSideBlazor();
-            services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<OnlineExamerUser>>();
 
-            services.AddScoped<ISchoolSubjectService, SchoolSubjectService>();
+            services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<OnlineExamerUser>>();
+           
             services.AddScoped<IExamService, ExamService>();
-            services.AddScoped<SendGrid>();
+            services.AddScoped<IAdminService, AdminService>();
+            services.AddScoped<ISchoolSubjectService, SchoolSubjectService>();
+
+            services.AddTransient<SendGrid>();
             services.AddTransient<LogoutModel>();
             services.AddTransient<SendGrid>();
             services.AddTransient<UserRolesSeeder>();
@@ -85,8 +86,7 @@ namespace OnlineExamer.Web
             }
             else
             {
-                app.UseExceptionHandler("/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+                app.UseExceptionHandler("/Error");  
                 app.UseHsts();
             }
 
