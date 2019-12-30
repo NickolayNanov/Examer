@@ -115,7 +115,7 @@
         {
             OnlineExamerUser user = await userManager.FindByNameAsync(username);
             Exam exam = await context.Exams.FirstOrDefaultAsync(e => e.Id == examId);
-            UserExam userExam = context.UserExams.Where(ux => ux.ExamId == examId && ux.UserId == user.Id).ToList()[context.UserExams.Count() - 1];
+            UserExam userExam = context.UserExams.Where(ux => ux.ExamId == examId && ux.UserId == user.Id).ToList().Last();
             List<UserExam> examResults;
 
             if (userExam.TimesSolvedFully > 1)
