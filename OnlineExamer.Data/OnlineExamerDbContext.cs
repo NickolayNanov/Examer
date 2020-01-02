@@ -39,8 +39,6 @@
 
         private void AnswerModelSettings(ModelBuilder builder)
         {
-            
-
             builder.Entity<Answer>()
                             .Property(answer => answer.Content)
                             .IsUnicode()
@@ -78,7 +76,7 @@
 
         private void SetPrimaryKeys(ModelBuilder builder)
         {
-            builder.Entity<UserExam>().HasKey(pk => new { pk.ExamId, pk.UserId, pk.Grade, pk.Points});
+            builder.Entity<UserExam>().HasKey(pk => new { pk.ExamId, pk.UserId, pk.SolvedOn});
             builder.Entity<Question>().HasKey(pk => pk.Id);
             builder.Entity<SchoolSubject>().HasKey(pk => pk.Id);
             builder.Entity<Answer>().HasKey(pk => pk.Id);

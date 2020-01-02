@@ -32,7 +32,8 @@
                 .ForMember(x => x.Points, y => y.MapFrom(z => z.Points))
                 .ForMember(x => x.Grade, y => y.MapFrom(y => y.Grade))
                 .ForMember(x => x.Subject, y => y.MapFrom(y => y.Exam.Parse()))
-                .ForMember(x => x.Year, y => y.MapFrom(y => y.Exam.YearOfCreation));
+                .ForMember(x => x.Year, y => y.MapFrom(y => y.Exam.YearOfCreation))
+                .ForMember(x => x.SolvedOn, y => y.MapFrom(z => z.SolvedOn));
 
             this.CreateMap<AnswerCreate, Answer>()
                 .ForMember(x => x.Content, y => y.MapFrom(z => z.Content));

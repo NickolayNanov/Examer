@@ -1,0 +1,55 @@
+﻿@page "/SolvedExams"
+
+@attribute [Authorize]
+
+@using OnlineExamer.Core.ExamService
+@using OnlineExamer.Models.ViewModels.Exams
+@using System.Globalization
+
+@inject IExamService service
+
+@if (Model != null)
+{
+    @if (Model.Any())
+    {
+        <h3 class="text-center">Всички решавани изпити</h3>
+        <div class="row">
+            @foreach (var result in Model)
+            {
+                <div class="col-md-4">
+
+                    <div class="card" style="width: 18rem; border-radius: 4px;">
+                        <div class="card-body">
+                            <h5 class="card-header-tabs mb-4 ml-5">@result.Subject</h5>
+                            <h5 class="card-title">Година: @result.Year</h5>
+                            <p class="card-text">Точки: @result.Points/@result.MaxPoints : Оценка: @String.Format(CultureInfo.InvariantCulture, "{0:0.00}", result.Grade)</p>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <h2 class="text-center">Нямате решени изпити</h2>
+    }
+
+}
+else
+{
+    <h2>Loading...</h2>
+}
+
+@code {
+
+    [CascadingParameter]
+    private Task<AuthenticationState> AuthenticationStateTask { get; set; }
+
+    IEnumerable<ExamResult> Model { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        AuthenticationState state = await AuthenticationStateTask;
+        Model = await service.GetExamResultsByUsername(state.User.Identity.Name);
+    }
+}

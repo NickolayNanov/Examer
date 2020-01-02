@@ -116,53 +116,35 @@
             OnlineExamerUser user = await userManager.FindByNameAsync(username);
             Exam exam = await context.Exams.FirstOrDefaultAsync(e => e.Id == examId);
             UserExam userExam = context.UserExams.Where(ux => ux.ExamId == examId && ux.UserId == user.Id).ToList().Last();
-            List<UserExam> examResults;
+            List<UserExam> examResults = context.UserExams
+                                                    .Include(x => x.Exam)
+                                                    .Where(ux => ux.UserId == user.Id && ux.Exam.ExamType == exam.ExamType)
+                                                    .Take(5)
+                                                    .ToList();
 
-            if (userExam.TimesSolvedFully > 1)
+            if (examResults.Count == 1)
             {
-                examResults = context.UserExams
-                                     .Where(ux => ux.UserId == user.Id && ux.Exam.ExamType == exam.ExamType)
-                                     .Take(5)
-                                     .ToList();
-
-                if (examResults.Count < 5)
-                {
-                    int count = examResults.Count;
-                    for (int i = 1; i <= userExam.TimesSolvedFully - 2; i++)
-                    {
-                        examResults.Add(new UserExam() { Grade = userExam.Grade, Points = userExam.Points, ExamId = examId });
-                        if (examResults.Count == 5) break;
-                    }
-                }
+                examResults.RemoveAt(0);
             }
             else
             {
-                examResults = context.UserExams
-                                     .Where(ux => ux.UserId == user.Id && ux.Exam.ExamType == exam.ExamType)
-                                     .Take(5)
-                                     .ToList();
-
-                if (examResults.Count == 1)
-                {
-                    examResults.RemoveAt(0);
-                }
+                examResults.RemoveAt(examResults.Count - 1);
             }
 
-            string subject = ExamTypeParser.Parse(exam);
-            var result = new ExamResult { Grade = userExam.Grade, Points = userExam.Points, MaxPoints = 50, ExamResultId = exam.Id };
-
-            foreach (var item in examResults)
+            ExamResult result = new ExamResult
             {
-                var currentExam = context.Exams.Include(e => e.Questions).FirstOrDefault(x => x.Id == item.ExamId);
-                result.PastResults.Add(new ExamResult { Grade = item.Grade, Points = item.Points, MaxPoints = 50, ExamResultId = item.ExamId });
-            }
-
-            result.Subject = subject;
+                Grade = userExam.Grade,
+                Points = userExam.Points,
+                MaxPoints = exam.MaxPoints,
+                ExamResultId = exam.Id,
+                Subject = ExamTypeParser.Parse(exam),
+                PastResults = FillPastResults(examResults)
+            };
 
             return result;
         }
 
-        public int SolveExamAsync(ExamQuestionsViewModel data, string username)
+        public async Task<int> SolveExamAsync(ExamQuestionsViewModel data, string username)
         {
             int points = 0;
             double grade = 0.0;
@@ -174,39 +156,28 @@
                 return 0;
             }
 
-            OnlineExamerUser user = this.context.Users.FirstOrDefault(u => u.UserName == username);
-            Exam exam = context.Exams.FirstOrDefault(e => e.YearOfCreation == data.YearOfCreation && e.ExamType == type);
+            OnlineExamerUser user = await this.context.Users.FirstOrDefaultAsync(u => u.UserName == username);
+            Exam exam = await context.Exams.FirstOrDefaultAsync(e => e.YearOfCreation == data.YearOfCreation && e.ExamType == type);
 
             points = CalcPoints(data);
             grade = CalcGrade(points);
 
-            UserExam userExam = new UserExam(user.Id, exam.Id, points, grade);
-            UserExam userExamFromDb = context.UserExams.FirstOrDefault(e => e.UserId == user.Id && e.ExamId == exam.Id && e.Grade == grade && e.Points == points);
-            bool doesExist = userExamFromDb != null;
+            UserExam userExam = new UserExam(user.Id, exam.Id, DateTime.Now, points, grade);
 
-            if (doesExist)
-            {
-                userExamFromDb.TimesSolvedFully++;
-                context.Update(userExamFromDb);
-                context.SaveChanges();
-            }
-            else
-            {
-                context.UserExams.Add(userExam);
-                context.SaveChanges();
-            }
+            context.UserExams.Add(userExam);
+            context.SaveChanges();
 
             return exam.Id;
         }
 
-        
         public async Task<IEnumerable<ExamResult>> GetExamResultsByUsername(string username)
         {
             OnlineExamerUser user = await userManager.FindByNameAsync(username);
             IEnumerable<ExamResult> result = this.mapper
                                                     .ProjectTo<ExamResult>(context.UserExams.Include(x => x.Exam)
                                                         .Where(ux => ux.UserId == user.Id))
-                                                    .ToList();
+                                                    .ToList()
+                                                    .OrderByDescending(e => e.SolvedOn);
 
 
             return result;
@@ -239,6 +210,14 @@
             }
 
             return points;
-        }       
+        }
+
+        private IEnumerable<ExamResult> FillPastResults(List<UserExam> examResults)
+        {
+            foreach (UserExam examResult in examResults)
+            {
+                yield return new ExamResult { Grade = examResult.Grade, Points = examResult.Points, MaxPoints = examResult.Exam.MaxPoints, ExamResultId = examResult.ExamId };
+            }
+        }
     }
 }

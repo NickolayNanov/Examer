@@ -1,11 +1,19 @@
 ﻿<Router AppAssembly="@typeof(Program).Assembly">
     <Found Context="routeData">
-        <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />        
+        <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)">
+            <NotAuthorized>
+                <p class="text-danger">Съжаляваме, нямате достъп до тази страница.</p>
+                <p class="text-danger">За да достъпите този ресурс трябва да имате съответните права.</p>
+            </NotAuthorized>
+            <Authorizing>
+                <h1>Верифицира се...</h1>
+            </Authorizing>
+        </AuthorizeRouteView>
     </Found>
     <NotFound>
         <CascadingAuthenticationState>
             <LayoutView Layout="@typeof(MainLayout)">
-                <p>Sorry, there's nothing at this address.</p>
+                <p>Няма нищо на този адрес</p>
             </LayoutView>
         </CascadingAuthenticationState>
     </NotFound>

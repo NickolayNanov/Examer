@@ -1,6 +1,5 @@
 ﻿namespace OnlineExamer.Models.Entities
 {
-    using System;
     using System.Collections.Generic;
 
     using OnlineExamer.Models.Entities.Base;
@@ -28,13 +27,8 @@
 
         public ICollection<UserExam> ExamUsers { get; set; }
 
-        public IList<Question> Questions { get; set; }      
-        
-        public DateTime? LastSolved { get; set; }
+        public IList<Question> Questions { get; set; }     
 
-        public void Solve()
-        {
-            this.LastSolved = DateTime.Now;
-        }
+        public int MaxPoints { get; set; }
     }
 }

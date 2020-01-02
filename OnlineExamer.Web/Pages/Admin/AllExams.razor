@@ -24,8 +24,29 @@
                     <td>@exam.Parse()</td>
                     <td>@exam.YearOfCreation</td>
                     <td>
-                        <button class="btn btn-primary mr-2">Обнови</button>
-                        <button class="btn btn-danger">Изтрий</button>
+                        <button class="btn btn-danger"
+                                data-toggle="modal"
+                                data-target="#removeExamModal">
+                            Изтрий
+                        </button>
+
+                        <div class="modal fade" id="removeExamModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Сигурни ли сте че искате да изтриете тази матура?</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Затвори</button>
+                                        <button type="button" class="btn btn-danger" 
+                                                @onclick="() => Delete(exam.ExamType, exam.YearOfCreation)" data-dismiss="modal">Изтрий</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </td>
                 </tr>
             }
@@ -41,6 +62,16 @@ else
 @code {
 
     public ExamsAll Model { get; set; }
+
+    private void Delete(string examType, int year)
+    {
+        if(string.IsNullOrEmpty(examType) || year < 0 || year > 2030)
+        {
+            return;
+        }
+
+        service.Delete(examType, year);
+    }
 
     protected override async Task OnInitializedAsync()
     {

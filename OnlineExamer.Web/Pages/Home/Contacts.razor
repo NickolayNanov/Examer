@@ -30,15 +30,15 @@
             <label class="contacts-label" for="subject">Тема</label>
             <input @bind="Subject" type="text" id="subject" name="subject" />
         </div>
-
+            
         <div class="formgroup" id="message-form">
             <label class="contacts-label" for="message">Съобщение</label>
             <textarea @bind="Message" id="message" name="message"></textarea>
         </div>
         <h5 class="text-danger">@ErrorMsg</h5>
 
-        <div class="form-group" id="email-form">
-            <input value="Изпрати" type="submit" class="btn btn-primary" @onclick="SendAsync" />
+        <div class="form-group mt-4" id="email-form">
+            <a class="btn btn-primary form-control" @onclick="SendAsync">Изпрати</a>
         </div>
     </form>
 </div>
@@ -54,8 +54,6 @@
 
     protected override Task OnInitializedAsync()
     {
-        this.ErrorMsg = "";
-        this.SuccessMsg = "";
         return base.OnInitializedAsync();
     }
 

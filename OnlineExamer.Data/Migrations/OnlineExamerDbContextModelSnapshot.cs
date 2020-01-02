@@ -97,12 +97,10 @@ namespace OnlineExamer.Data.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ProviderKey")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ProviderDisplayName")
                         .HasColumnType("nvarchar(max)");
@@ -139,12 +137,10 @@ namespace OnlineExamer.Data.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Value")
                         .HasColumnType("nvarchar(max)");
@@ -192,8 +188,8 @@ namespace OnlineExamer.Data.Migrations
                     b.Property<int>("ExamType")
                         .HasColumnType("int");
 
-                    b.Property<DateTime?>("LastSolved")
-                        .HasColumnType("datetime2");
+                    b.Property<int>("MaxPoints")
+                        .HasColumnType("int");
 
                     b.Property<int>("YearOfCreation")
                         .HasColumnType("int");
@@ -210,9 +206,6 @@ namespace OnlineExamer.Data.Migrations
 
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
-
-                    b.Property<double?>("AverageGrade")
-                        .HasColumnType("float");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
@@ -333,31 +326,16 @@ namespace OnlineExamer.Data.Migrations
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<DateTime>("SolvedOn")
+                        .HasColumnType("datetime2");
+
                     b.Property<double>("Grade")
                         .HasColumnType("float");
 
                     b.Property<int>("Points")
                         .HasColumnType("int");
 
-                    b.Property<DateTime?>("DeletedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("FinishedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("HasBeenStarted")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime?>("StartedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("TimesSolvedFully")
-                        .HasColumnType("int");
-
-                    b.HasKey("ExamId", "UserId", "Grade", "Points");
+                    b.HasKey("ExamId", "UserId", "SolvedOn");
 
                     b.HasIndex("UserId");
 

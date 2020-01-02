@@ -79,7 +79,7 @@ namespace OnlineExamer.Web
                 Seeder.Seed(dbContext, serviceScope.ServiceProvider);
             }
 
-            if (env.IsDevelopment())
+            if (!env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();

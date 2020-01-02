@@ -85,14 +85,14 @@ else
 
     private async Task Solve()
     {
-        if (Data.Questions.Any(q => q.Answers.All(x => x.IsSelected == false)))
+        if (Data.Questions.Any(q => q.Answers.All(x => x.IsSelected == false)) || Data.Questions?.Count == 0)
         {
             ErrorMsg = "Всички въпроси трябва да имат избран отговор!";
             return;
         }
 
-        var authState = await AuthenticationStateTask;
-        int ExamResultId = this.service.SolveExamAsync(Data, authState.User.Identity.Name);
+        AuthenticationState authState = await AuthenticationStateTask;
+        int ExamResultId = await this.service.SolveExamAsync(Data, authState.User.Identity.Name);
         NavigationManager.NavigateTo($"ExamResults/{Subject}/{Year}/{ExamResultId}", true);
     }
 }

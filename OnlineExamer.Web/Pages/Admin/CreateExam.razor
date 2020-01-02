@@ -183,9 +183,9 @@
     private void CreateQuestion()
     {
         bool[] checks = { isCorrect1, isCorrect2, isCorrect3, isCorrect4 };
-        if (checks.All(x => x == false) || checks.Count(x => x == true) > 1 || Answer1 == "" || Answer2 == "" || Answer3 == "" || Answer4 == "")
+        if (checks.All(x => x == false) || Answer1 == "" || Answer2 == "" || Answer3 == "" || Answer4 == "")
         {
-            CreateQuestionErrMesg = "Изберете само един верен отговор и попълнете всички отговори!";
+            CreateQuestionErrMesg = "Изберете поне един верен отговор и попълнете всички полета!";
             data_dismiss = "";
             return;
         }
@@ -215,10 +215,12 @@
         if (result)
         {
             SuccessMessage = "Изпит/Матура е саздаден успешно";
+            ErrorMessage = "";
         }
         else
         {
             ErrorMessage = "Невалидни данни! Моля опитайте отново.";
+            SuccessMessage = "";
             Clear();
         }
 
@@ -238,20 +240,7 @@
         this.isCorrect3 = false;
         this.isCorrect4 = false;
         this.CreateQuestionErrMesg = "";
-    }
-
-    class Answer
-    {
-        public Answer(string content, bool isCorrect)
-        {
-            this.Content = content;
-            this.IsCorrect = isCorrect;
-        }
-
-        public string Content { get; set; }
-
-        public bool IsCorrect { get; set; }
-    }
+    }    
 
     string data_dismiss = "";
     string CreateQuestionErrMesg = "";

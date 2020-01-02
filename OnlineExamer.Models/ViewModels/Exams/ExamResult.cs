@@ -1,5 +1,6 @@
 ﻿namespace OnlineExamer.Models.ViewModels.Exams
 {
+    using System;
     using System.Collections.Generic;
 
     public class ExamResult
@@ -22,6 +23,8 @@
 
         public int Year { get; set; }
 
-        public IList<ExamResult> PastResults { get; set; }
+        public DateTime SolvedOn { get; set; }
+
+        public IEnumerable<ExamResult> PastResults { get; set; }
     }
 }

@@ -12,12 +12,11 @@
 {
     if (ExamResultId != 0)
     {
-        <div class="text-center">
-            <h3>
-                Вие изкарахте @ExamResult.Points точки от @ExamResult.MaxPoints максимални, @ExamResult.Subject (@Year).
-                Вашата оценка е @String.Format(CultureInfo.InvariantCulture, "{0:0.00}", ExamResult.Grade)
-            </h3>
-        </div>
+        <h3 class="text-center">@ExamResult.Subject (@Year)</h3>
+        <h3 class="text-center">
+            Вие изкарахте @ExamResult.Points точки от @ExamResult.MaxPoints максимални
+            @*Вашата оценка е @String.Format(CultureInfo.InvariantCulture, "{0:0.00}", ExamResult.Grade)*@
+        </h3>
 
         <div class="row">
             @foreach (var result in ExamResult.PastResults)
@@ -27,7 +26,7 @@
                     <div class="card" style="width: 18rem; border-radius: 4px;">
                         <div class="card-body">
                             <h5 class="card-title">Година: @Year</h5>
-                            <p class="card-text">Точки: @result.Points/@result.MaxPoints : Оценка: @String.Format(CultureInfo.InvariantCulture, "{0:0.00}", ExamResult.Grade)</p>
+                            <p class="card-text">Точки: @result.Points/@result.MaxPoints</p>
                         </div>
                     </div>
                 </div>
@@ -36,7 +35,7 @@
     }
     else
     {
-        <h3>Не успяхте да подобрите оценката си.</h3>
+        <h3>Не успяхте да подобрите резултата си.</h3>
     }
 }
 

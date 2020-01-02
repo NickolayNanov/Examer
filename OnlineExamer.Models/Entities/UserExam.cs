@@ -8,47 +8,28 @@
         {
 
         }
-        public UserExam(string userId, int examId, int points, double grade)
+
+        public UserExam(string userId, int examId, DateTime solvedOn, int points, double grade)
         {
             this.UserId = userId;
             this.ExamId = examId;
+            this.SolvedOn = solvedOn;
             this.Points = points;
             this.Grade = grade;
-            this.TimesSolvedFully = 1;
         }
 
         public string UserId { get; set; }
 
-        public virtual OnlineExamerUser User { get; set; }
+        public OnlineExamerUser User { get; set; }
 
         public int ExamId { get; set; }
 
-        public virtual Exam Exam { get; set; }
+        public Exam Exam { get; set; }
 
         public double Grade { get; set; }
 
-        public bool HasBeenStarted { get; set; }
-            
         public int Points { get; set; }
 
-        public bool IsDeleted { get; set; }
-
-        public DateTime? DeletedOn { get; set; }
-
-        public DateTime? StartedAt { get; private set; }
-
-        public DateTime? FinishedAt { get; private set; }
-
-        public int TimesSolvedFully { get; set; }
-
-        public void Finish()
-        {
-            this.FinishedAt = DateTime.Now;
-        }
-
-        public void Start()
-        {
-            this.FinishedAt = DateTime.Now;
-        }
+        public DateTime SolvedOn { get; set; }
     }
 }

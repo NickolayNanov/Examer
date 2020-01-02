@@ -17,8 +17,6 @@
             this.UserExams = new HashSet<UserExam>();
         }
 
-        public double? AverageGrade { get; set; }
-
         public ICollection<UserExam> UserExams { get; set; }
     }
 }
