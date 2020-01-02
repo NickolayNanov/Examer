@@ -1,0 +1,49 @@
+﻿@page "/Admin/AllExams"
+
+@using OnlineExamer.Core.AdminService
+@using OnlineExamer.Models.ViewModels.Exams
+
+@attribute [Authorize(Roles = "Admin")]
+
+@inject IAdminService service
+
+@if (Model != null)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Предмет</th>
+                <th scope="col">Година</th>
+                <th scope="col">Действие</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var exam in Model.Data)
+            {
+                <tr>
+                    <td>@exam.Parse()</td>
+                    <td>@exam.YearOfCreation</td>
+                    <td>
+                        <button class="btn btn-primary mr-2">Обнови</button>
+                        <button class="btn btn-danger">Изтрий</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <h3>Loading...</h3>
+}
+
+
+@code {
+
+    public ExamsAll Model { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        Model = await service.AllExams();
+    }
+}

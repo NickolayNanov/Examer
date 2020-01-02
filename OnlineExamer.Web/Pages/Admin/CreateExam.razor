@@ -1,0 +1,268 @@
+﻿@page "/Admin/Create"
+
+@using OnlineExamer.Core.SchoolSubjects
+@using OnlineExamer.Models.ViewModels.SchoolSubjects
+@using OnlineExamer.Models.Dtos.Admin
+@using OnlineExamer.Core.AdminService
+
+@attribute [Authorize(Roles = "Admin")]
+
+@inject ISchoolSubjectService subjectsService
+@inject IAdminService adminService
+
+@if (Subjects != null)
+{
+    <form>
+        <div class="form-group col-md-8">
+            <input @bind="Year" type="number" class="form-control" placeholder="Година...">
+        </div>
+
+        <div class="form-group col-md-8">
+            <select @bind="Subject" id="inputState" class="form-control">
+                <option selected>Избери...</option>
+                @foreach (SchoolSubjectViewModel subject in Subjects)
+                {
+                    <option>@subject.Name</option>
+                }
+            </select>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-5">
+                <button type="button" class="btn btn-primary form-control" data-toggle="modal" data-target="#exampleModal">
+                    Добави въпрос
+                </button>
+
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title text-center" id="exampleModalLabel" style="color:black">Добави въпрос</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div>
+                                    <div class="row mb-3">
+                                        <input @bind="QuestionContent" type="text" class="col-md-10" placeholder="Въпрос..." />
+                                    </div>
+                                    <div class="row mb-3">
+                                        <input @bind="Points" type="number" class="col-md-10" placeholder="Точки..." />
+                                    </div>
+                                    <hr class="text-primary" />
+                                    <div class="row mb-3">
+                                        <input @bind="Answer1" type="text" class="col-md-10" placeholder="Отговор 1" />
+                                        <input @bind="isCorrect1" type="checkbox" class="col-md-2" />
+                                    </div>
+                                    <div class="row mb-3">
+                                        <input @bind="Answer2" type="text" class="col-md-10" placeholder="Отговор 2" />
+                                        <input @bind="isCorrect2" type="checkbox" class="col-md-2" />
+                                    </div>
+                                    <div class="row mb-3">
+                                        <input @bind="Answer3" type="text" class="col-md-10" placeholder="Отговор 3" />
+                                        <input @bind="isCorrect3" type="checkbox" class="col-md-2" />
+                                    </div>
+                                    <div class="row mb-3">
+                                        <input @bind="Answer4" type="text" class="col-md-10" placeholder="Отговор 4" />
+                                        <input @bind="isCorrect4" type="checkbox" class="col-md-2" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <p class="text-danger">@CreateQuestionErrMesg</p>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Отказ</button>
+                                <button type="button" class="btn btn-primary" data-dismiss="@data_dismiss" @onclick="CreateQuestion">Създай</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group col-md-5 ">
+                <button type="button" class="btn btn-primary form-control" data-toggle="modal" data-target="#questionsModal">
+                    Всички въпроси (@Questions.Count)
+                </button>
+
+                <!-- Modal -->
+                <div class="modal fade" id="questionsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title text-center" id="exampleModalLabel" style="color:black">Всички въпроси</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="form-row">
+                                    @for (int i = 0; i < Questions.Count; i++)
+                                    {
+                                        <div class="mb-3 col-md-12 row">
+                                            <p class="col-md-6" style="color:black">@(i + 1). @string.Join("", Questions[i].Content.Take(20))...</p>
+                                            <a class="btn btn-danger col-md-6" data-toggle="modal" data-target="#editQuestionModal">Редактирай</a>
+
+                                            <div class="modal fade" id="editQuestionModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title text-center" id="exampleModalLabel" style="color:black">Редактирай въпрос номер @(i + 1)</h5>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <div>
+                                                                <div class="row mb-3">
+                                                                    <input @bind="Questions[i].Content" type="text" class="col-md-10" placeholder="Въпрос..." />
+                                                                </div>
+                                                                <div class="row mb-3">
+                                                                    <input @bind="Questions[i].Points" type="number" class="col-md-10" placeholder="Точки..." />
+                                                                </div>
+                                                                <hr class="text-primary" />
+                                                                <div class="row mb-3">
+                                                                    <input @bind="Questions[i].Answers[0].Content" type="text" class="col-md-10" placeholder="Отговор 1" />
+                                                                    <input @bind="Questions[i].Answers[0].IsCorrect" type="checkbox" class="col-md-2" />
+                                                                </div>
+                                                                <div class="row mb-3">
+                                                                    <input @bind="Questions[i].Answers[1].Content" type="text" class="col-md-10" placeholder="Отговор 2" />
+                                                                    <input @bind="Questions[i].Answers[1].IsCorrect" type="checkbox" class="col-md-2" />
+                                                                </div>
+                                                                <div class="row mb-3">
+                                                                    <input @bind="Questions[i].Answers[2].Content" type="text" class="col-md-10" placeholder="Отговор 3" />
+                                                                    <input @bind="Questions[i].Answers[2].IsCorrect" type="checkbox" class="col-md-2" />
+                                                                </div>
+                                                                <div class="row mb-3">
+                                                                    <input @bind="Questions[i].Answers[3].Content" type="text" class="col-md-10" placeholder="Отговор 4" />
+                                                                    <input @bind="Questions[i].Answers[3].IsCorrect" type="checkbox" class="col-md-2" />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <p class="text-danger">@CreateQuestionErrMesg</p>
+                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Отказ</button>
+                                                            <button type="button" class="btn btn-primary" data-dismiss="@data_dismiss" @onclick="CreateQuestion">Запиши</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Затвори</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group col-md-8">
+            <p class="text-danger">@ErrorMessage</p>
+            <p class="text-success">@SuccessMessage</p>
+            <a class="btn btn-primary form-control" @onclick="Create">Създай</a>
+        </div>
+    </form>
+}
+
+@code {
+    string ErrorMessage = "";
+    string SuccessMessage = "";
+    [Parameter] public int Year { get; set; }
+    [Parameter] public string Subject { get; set; }
+
+    IEnumerable<SchoolSubjectViewModel> Subjects;
+
+    List<QuestionCreate> Questions = new List<QuestionCreate>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        Subjects = await subjectsService.GetAll();
+    }
+
+    private void CreateQuestion()
+    {
+        bool[] checks = { isCorrect1, isCorrect2, isCorrect3, isCorrect4 };
+        if (checks.All(x => x == false) || checks.Count(x => x == true) > 1 || Answer1 == "" || Answer2 == "" || Answer3 == "" || Answer4 == "")
+        {
+            CreateQuestionErrMesg = "Изберете само един верен отговор и попълнете всички отговори!";
+            data_dismiss = "";
+            return;
+        }
+
+        AnswerCreate first = new AnswerCreate(Answer1, isCorrect1);
+        AnswerCreate second = new AnswerCreate(Answer2, isCorrect2);
+        AnswerCreate third = new AnswerCreate(Answer3, isCorrect3);
+        AnswerCreate forth = new AnswerCreate(Answer4, isCorrect4);
+
+        List<AnswerCreate> answers = new List<AnswerCreate>() { first, second, third, forth };
+        QuestionCreate question = new QuestionCreate(Points, QuestionContent, answers);
+        Questions.Add(question);
+        data_dismiss = "modal";
+        Clear();
+    }
+
+    private async Task Create()
+    {
+        if (string.IsNullOrEmpty(Subject) || Year < 1990 || Year > 2030 || Questions.Count == 0)
+        {
+            ErrorMessage = "Всички полета трябва да се попълнят!";
+            return;
+        }
+
+        ExamCreate exam = new ExamCreate(Subject, Year, Questions);
+        bool result = await adminService.CreateExam(exam);
+        if (result)
+        {
+            SuccessMessage = "Изпит/Матура е саздаден успешно";
+        }
+        else
+        {
+            ErrorMessage = "Невалидни данни! Моля опитайте отново.";
+            Clear();
+        }
+
+        return;
+    }
+
+    private void Clear()
+    {
+        this.QuestionContent = "";
+        this.Points = 0;
+        this.Answer1 = "";
+        this.Answer2 = "";
+        this.Answer3 = "";
+        this.Answer4 = "";
+        this.isCorrect1 = false;
+        this.isCorrect2 = false;
+        this.isCorrect3 = false;
+        this.isCorrect4 = false;
+        this.CreateQuestionErrMesg = "";
+    }
+
+    class Answer
+    {
+        public Answer(string content, bool isCorrect)
+        {
+            this.Content = content;
+            this.IsCorrect = isCorrect;
+        }
+
+        public string Content { get; set; }
+
+        public bool IsCorrect { get; set; }
+    }
+
+    string data_dismiss = "";
+    string CreateQuestionErrMesg = "";
+    string QuestionContent = "";
+    int Points = 0;
+    string Answer1 = "";
+    bool isCorrect1 = false;
+    string Answer2 = "";
+    bool isCorrect2 = false;
+    string Answer3 = "";
+    bool isCorrect3 = false;
+    string Answer4 = "";
+    bool isCorrect4 = false;
+}

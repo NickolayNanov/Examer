@@ -1,0 +1,38 @@
+﻿@page "/Admin"
+
+@using OnlineExamer.Core.AdminService
+@using OnlineExamer.Models.ViewModels.Admin
+
+@attribute [Authorize(Roles = "Admin")]
+
+@inject IAdminService service
+@inject NavigationManager navigation
+
+@if(Model != null)
+{
+    <div class="d-flex justify-content-between">
+        <strong>Потребители: @Model.UsersCount</strong>
+        <strong>Изпити: @Model.ExamsCount</strong>
+    </div>
+}
+
+<AuthorizeView Roles="Admin">
+    <div class="row mt-5">
+        <div class="col-md-2"></div>
+        <div class="col-md-5">
+            <a class="btn btn-primary" style="color: white;" href="Admin/Create">Нов тест/матура</a>
+        </div>
+        <div class="col-md-5">
+            <a class="btn btn-primary" style="color: white;" href="Admin/AllExams">Всички матури</a>
+        </div>
+    </div>
+</AuthorizeView>
+
+@code { 
+    public AdminModel Model { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        Model = await service.Data();
+    }
+}
