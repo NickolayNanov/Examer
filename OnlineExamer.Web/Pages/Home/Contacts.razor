@@ -5,43 +5,70 @@
 
 @inject SendGrid emailSender
 @inject NavigationManager navigation
-<header>
-    <h1 id="contacts-header" class="text-center">Пишете ни</h1>
-</header>
+<section class="mb-4">
 
-<div id="form">
+    <!--Section heading-->
+    <h2 class="h1-responsive font-weight-bold text-center my-4">Контакти</h2>
+    <!--Section description-->
+    <p class="text-center w-responsive mx-auto mb-5">
+        Имате въпрос? Моля не се колебайте и се свържете с нас и ще получите отговор по възможно най-бързия начин!
+    </p>
+    <div class="text-center">
+        <p class="text-danger">@ErrorMsg</p>
+    </div>
+    <div class="row">
 
-    <div class="fish" id="fish"></div>
-    <div class="fish" id="fish2"></div>
-    <h5 class="text-success">@SuccessMsg</h5>
-    <form id="waterform">
+        <!--Grid column-->
+        <div class="col-md-9 mb-md-0 mb-5">
+            <div >
 
-        <div class="formgroup" id="name-form">
-            <label class="contacts-label" for="name">Име</label>
-            <input @bind="Name" type="text" id="name" name="name" />
+                <!--Grid row-->
+                <div class="row mb-3">
+
+                    <div class="col-md-6">
+                        <div class="md-form mb-3">
+                            <input @bind="Name" type="text" id="name" name="name" class="form-control" placeholder="Вашето име..." />
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="md-form mb-0">
+                            <input @bind="Email" type="text" id="email" name="email" class="form-control" placeholder="Е-Поща..." />
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-12">
+                        <div class="md-form mb-0">
+                            <input @bind="Subject" type="text" id="subject" name="subject" class="form-control" placeholder="Тема..." />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+
+                    <div class="col-md-12">
+
+                        <div class="md-form">
+                            <textarea @bind="Message" type="text" id="message" name="message" rows="2" class="form-control md-textarea" placeholder="Съобщение..."></textarea>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="text-center text-md-left">
+                <button class="btn btn-primary" @onclick="SendAsync" style="color: white">Изпрати</button>
+            </div>
+
+            <div class="status"></div>
         </div>
+    </div>
 
-        <div class="formgroup" id="email-form">
-            <label class="contacts-label" for="email">Е-Поща</label>
-            <input @bind="Email" type="email" id="email" name="email" />
-        </div>
-
-        <div class="formgroup" id="subject-form">
-            <label class="contacts-label" for="subject">Тема</label>
-            <input @bind="Subject" type="text" id="subject" name="subject" />
-        </div>
-            
-        <div class="formgroup" id="message-form">
-            <label class="contacts-label" for="message">Съобщение</label>
-            <textarea @bind="Message" id="message" name="message"></textarea>
-        </div>
-        <h5 class="text-danger">@ErrorMsg</h5>
-
-        <div class="form-group mt-4" id="email-form">
-            <a class="btn btn-primary form-control" @onclick="SendAsync">Изпрати</a>
-        </div>
-    </form>
-</div>
+</section>
 
 @code{
     [Parameter] public string Name { get; set; }
@@ -50,7 +77,6 @@
     [Parameter] public string Subject { get; set; }
 
     string ErrorMsg = "";
-    string SuccessMsg = "";
 
     protected override Task OnInitializedAsync()
     {
@@ -75,8 +101,7 @@
             if (response.StatusCode == System.Net.HttpStatusCode.Accepted)
             {
                 navigation.NavigateTo("/Contacts", true);
-                this.SuccessMsg = "Вашият имейл беше успешно изпратен!";
-                
+                this.ErrorMsg = "";
             }
         }
     }
