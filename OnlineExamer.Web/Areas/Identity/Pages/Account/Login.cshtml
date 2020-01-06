@@ -17,12 +17,12 @@
                     <div asp-validation-summary="All" class="text-danger"></div>
 
                     <div class="form-group">
-                        <label asp-for="Input.Username"></label>
+                        <label asp-for="Input.Username">Потребителско име</label>
                         <input type="text" class="form-control" asp-for="Input.Username" />
                         <span asp-validation-for="Input.Username" class="text-danger"></span>
                     </div>
                     <div class="form-group">
-                        <label asp-for="Input.Password"></label>
+                        <label asp-for="Input.Password">Парола</label>
                         <input type="password" asp-for="Input.Password" class="form-control" />
                         <span asp-validation-for="Input.Password" class="text-danger"></span>
                     </div>
