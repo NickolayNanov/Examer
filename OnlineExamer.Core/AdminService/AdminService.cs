@@ -33,7 +33,7 @@
 
             await Task.Run(() =>
             {
-                model.Data = this.mapper.ProjectTo<ExamViewModel>(this.context.Exams.OrderBy(x => x.ExamType));                
+                model.Data = this.mapper.ProjectTo<ExamViewModel>(this.context.Exams.OrderBy(x => x.ExamType)).ToList();                
             });
 
             return model;
@@ -132,6 +132,20 @@
                 context.Exams.Remove(exam);
                 context.SaveChanges();
             }
+        }
+
+        public async Task<bool> CreateSubjectAsync(string subject)
+        {
+            if (await context.SchoolSubjects.AnyAsync(s => s.Name == subject))
+            {
+                return false;
+            }
+
+            SchoolSubject subjectForDb = new SchoolSubject(subject);
+            context.SchoolSubjects.Add(subjectForDb);
+            await context.SaveChangesAsync();
+
+            return true;
         }
     }
 }

@@ -18,6 +18,7 @@
             </tr>
         </thead>
         <tbody>
+            
             @foreach (var exam in Model.Data)
             {
                 <tr>
@@ -26,15 +27,15 @@
                     <td>
                         <button class="btn btn-danger"
                                 data-toggle="modal"
-                                data-target="#removeExamModal">
+                                data-target="#removeExamModal_@(exam.ExamType)_@exam.YearOfCreation">
                             Изтрий
                         </button>
 
-                        <div class="modal fade" id="removeExamModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal fade" id="removeExamModal_@(exam.ExamType)_@exam.YearOfCreation" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Сигурни ли сте че искате да изтриете тази матура?</h5>
+                                        <h5 class="modal-title" id="exampleModalLabel">Сигурни ли сте че искате да изтриете матура @exam.ExamType, @exam.YearOfCreation?</h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>

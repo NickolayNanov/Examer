@@ -73,16 +73,16 @@ namespace OnlineExamer.Web
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            using (IServiceScope serviceScope = app.ApplicationServices.CreateScope())
-            {
-                var dbContext = serviceScope.ServiceProvider.GetRequiredService<OnlineExamerDbContext>();
-                Seeder.Seed(dbContext, serviceScope.ServiceProvider);
-            }
-
-            if (!env.IsDevelopment())
+            if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();
+
+                using (IServiceScope serviceScope = app.ApplicationServices.CreateScope())
+                {
+                    OnlineExamerDbContext dbContext = serviceScope.ServiceProvider.GetRequiredService<OnlineExamerDbContext>();
+                    Seeder.Seed(dbContext, serviceScope.ServiceProvider);
+                }
             }
             else
             {

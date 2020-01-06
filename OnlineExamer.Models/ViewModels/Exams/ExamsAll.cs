@@ -4,6 +4,6 @@
 
     public class ExamsAll
     {
-        public IEnumerable<ExamViewModel> Data { get; set; }
+        public IList<ExamViewModel> Data { get; set; }
     }
 }

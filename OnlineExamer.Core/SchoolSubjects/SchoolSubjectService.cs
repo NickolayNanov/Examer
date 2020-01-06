@@ -5,6 +5,7 @@
     using System.Threading.Tasks;
 
     using OnlineExamer.Data;
+    using OnlineExamer.Infrastructure;
     using OnlineExamer.Models.ViewModels.SchoolSubjects;
 
     public class SchoolSubjectService : ISchoolSubjectService
@@ -18,11 +19,11 @@
 
         public async Task<IEnumerable<SchoolSubjectViewModel>> GetAll()
         {
-            IEnumerable<SchoolSubjectViewModel> schoolSubjects = new List<SchoolSubjectViewModel>();
+            List<SchoolSubjectViewModel> schoolSubjects = new List<SchoolSubjectViewModel>();
 
             await Task.Run(() =>
             {
-                schoolSubjects = context.SchoolSubjects.Select(x => new SchoolSubjectViewModel(x.Name)).AsEnumerable();
+                schoolSubjects = context.SchoolSubjects.Select(x => new SchoolSubjectViewModel(x.Name)).ToList();
             });
 
             return schoolSubjects;
