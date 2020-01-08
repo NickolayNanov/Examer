@@ -106,6 +106,12 @@ namespace OnlineExamer.Web
             using (IServiceScope serviceScope = app.ApplicationServices.CreateScope())
             {
                 OnlineExamerDbContext dbContext = serviceScope.ServiceProvider.GetRequiredService<OnlineExamerDbContext>();
+
+                if(dbContext != null)
+                {
+                    dbContext.Database.EnsureCreated();
+                }
+
                 Seeder.Seed(dbContext, serviceScope.ServiceProvider);
             }
         }
