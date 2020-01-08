@@ -77,12 +77,7 @@ namespace OnlineExamer.Web
             {
                 app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();
-
-                using (IServiceScope serviceScope = app.ApplicationServices.CreateScope())
-                {
-                    OnlineExamerDbContext dbContext = serviceScope.ServiceProvider.GetRequiredService<OnlineExamerDbContext>();
-                    Seeder.Seed(dbContext, serviceScope.ServiceProvider);
-                }
+                SeedData(app);
             }
             else
             {
@@ -104,6 +99,15 @@ namespace OnlineExamer.Web
                 endpoints.MapBlazorHub();
                 endpoints.MapFallbackToPage("/_Host");
             });
+        }
+
+        private static void SeedData(IApplicationBuilder app)
+        {
+            using (IServiceScope serviceScope = app.ApplicationServices.CreateScope())
+            {
+                OnlineExamerDbContext dbContext = serviceScope.ServiceProvider.GetRequiredService<OnlineExamerDbContext>();
+                Seeder.Seed(dbContext, serviceScope.ServiceProvider);
+            }
         }
     }
 }

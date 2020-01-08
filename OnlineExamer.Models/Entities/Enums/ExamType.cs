@@ -9,6 +9,9 @@
         English = 4,
         Bulgarian = 5,
         Psychology = 6,
-        Chemistry = 7
+        Chemistry = 7,
+        French = 8,
+        Spanish = 9,
+        Deutsche = 10,
     }
 }

@@ -34,6 +34,7 @@
         public IEnumerable<ExamViewModel> AllExams()
         {
             IEnumerable<ExamViewModel> exams = this.mapper.ProjectTo<ExamViewModel>(context.SchoolSubjects);
+
             foreach (var exam in exams)
             {
                 exam.ExamType = ExamTypeParser.ReverseParse(exam);
@@ -44,8 +45,7 @@
 
         public async Task<IEnumerable<ExamViewModel>> AllExamsByExamTypeAsync(string examType)
         {
-            ExamViewModel exam = new ExamViewModel();
-            exam.ExamType = examType;
+            ExamViewModel exam = new ExamViewModel(examType);            
             exam.ExamType = ExamTypeParser.ReverseParse(exam);
 
             bool doesParse = Enum.TryParse(exam.ExamType, out ExamType type);
@@ -86,7 +86,7 @@
             }
 
             ExamQuestionsViewModel dto = null;
-            var examm = await context.Exams
+            Exam examm = await context.Exams
                                       .Include(x => x.Questions)
                                       .ThenInclude(x => x.Answers)
                                       .FirstOrDefaultAsync(x => x.YearOfCreation == year && x.ExamType == type);
@@ -183,6 +183,7 @@
             return result;
         }
 
+        //TODO: Make use of a grade
         private double CalcGrade(int points)
         {
             if (points < 23)

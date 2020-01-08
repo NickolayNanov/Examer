@@ -1,5 +1,3 @@
-//import blazor from './BlazorScripts'
-
 $('.rolldown-list li').each(() => {
     let delay = ($(this).index() / 4) + 's';
     $(this).css({

@@ -1178,3 +1178,5 @@ D:\Nikolay\Examer\OnlineExamer.Web\obj\Debug\netcoreapp3.0\Razor\Pages\Admin\Ind
 D:\Nikolay\Examer\OnlineExamer.Web\obj\Debug\netcoreapp3.0\Razor\Pages\Exams\SolvedExams.razor.g.cs
 D:\Nikolay\Examer\OnlineExamer.Web\obj\Debug\netcoreapp3.0\RazorDeclaration\Pages\Admin\CreateSubject.razor.g.cs
 D:\Nikolay\Examer\OnlineExamer.Web\obj\Debug\netcoreapp3.0\Razor\Pages\Admin\CreateSubject.razor.g.cs
+D:\Projects\Examer\OnlineExamer.Web\obj\Debug\netcoreapp3.0\RazorDeclaration\Pages\Admin\CreateSubject.razor.g.cs
+D:\Projects\Examer\OnlineExamer.Web\obj\Debug\netcoreapp3.0\Razor\Pages\Admin\CreateSubject.razor.g.cs

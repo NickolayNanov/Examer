@@ -14,7 +14,7 @@
 
         Task<bool> CreateExam(ExamCreate questions);
 
-        void Delete(string examType, int year);
+        bool Delete(string examType, int year);
 
         Task<bool> CreateSubjectAsync(string subject);
     }  

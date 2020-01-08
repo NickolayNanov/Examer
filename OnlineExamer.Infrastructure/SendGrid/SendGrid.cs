@@ -1,8 +1,11 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using System.Threading.Tasks;
+
+using Microsoft.Extensions.Configuration;
+
 using OnlineExamer.Models.Dtos.SendGrid;
+
 using SendGrid;
 using SendGrid.Helpers.Mail;
-using System.Threading.Tasks;
 
 namespace OnlineExamer.Infrastructure.SendGrid
 {

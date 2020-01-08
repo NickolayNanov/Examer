@@ -1,20 +1,22 @@
 ﻿namespace OnlineExamer.Core.AdminService
 {
+    using System;
     using System.Linq;
     using System.Threading.Tasks;
+    using System.Collections.Generic;
+
+    using Microsoft.EntityFrameworkCore;
 
     using OnlineExamer.Data;
     using OnlineExamer.Models.ViewModels.Admin;
     using OnlineExamer.Models.ViewModels.Exams;
 
-    using AutoMapper;
-    using System.Collections.Generic;
     using OnlineExamer.Models.Dtos.Admin;
     using OnlineExamer.Models.Entities;
-    using System;
     using OnlineExamer.Models.Entities.Enums;
     using OnlineExamer.Infrastructure;
-    using Microsoft.EntityFrameworkCore;
+
+    using AutoMapper;
 
     public class AdminService : IAdminService
     {
@@ -112,9 +114,9 @@
             }
         }
 
-        public void Delete(string examType, int year)
+        public bool Delete(string examType, int year)
         {
-            bool doesParse = Enum.TryParse(examType, out ExamType type);
+            bool doesParse = Enum.TryParse(examType, out ExamType type);            
 
             if (doesParse)
             {
@@ -123,15 +125,25 @@
                     .ThenInclude(q => q.Answers)
                     .FirstOrDefault(ex => ex.ExamType == type && ex.YearOfCreation == year);
 
-                foreach (var question in exam.Questions)
+                try
                 {
-                    context.RemoveRange(question.Answers);
-                }
+                    foreach (var question in exam.Questions)
+                    {
+                        context.RemoveRange(question.Answers);
+                    }
 
-                context.Questions.RemoveRange(exam.Questions);
-                context.Exams.Remove(exam);
-                context.SaveChanges();
+                    context.Questions.RemoveRange(exam.Questions);
+                    context.Exams.Remove(exam);
+                    context.SaveChanges();
+                    return true;
+                }
+                catch
+                {
+                    return false;
+                }
             }
+
+            return false;
         }
 
         public async Task<bool> CreateSubjectAsync(string subject)
