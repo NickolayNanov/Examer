@@ -109,7 +109,7 @@ namespace OnlineExamer.Web
 
                 if(dbContext != null)
                 {
-                    dbContext.Database.Migrate();
+                    dbContext.Database.EnsureCreated();
                 }
 
                 Seeder.Seed(dbContext, serviceScope.ServiceProvider);
