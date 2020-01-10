@@ -77,14 +77,14 @@ namespace OnlineExamer.Web
             {
                 app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();
-                SeedData(app);
+                
             }
             else
             {
                 app.UseExceptionHandler("/Error");  
                 app.UseHsts();
             }
-
+            SeedData(app);
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
