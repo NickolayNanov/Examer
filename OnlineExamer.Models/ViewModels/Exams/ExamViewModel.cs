@@ -2,11 +2,6 @@
 {
     public class ExamViewModel
     {
-        public ExamViewModel(string examType)
-        {
-            this.ExamType = examType;
-        }
-
         public ExamViewModel()
         {
 

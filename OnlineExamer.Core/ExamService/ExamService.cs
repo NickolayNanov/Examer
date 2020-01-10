@@ -45,7 +45,7 @@
 
         public async Task<IEnumerable<ExamViewModel>> AllExamsByExamTypeAsync(string examType)
         {
-            ExamViewModel exam = new ExamViewModel(examType);            
+            ExamViewModel exam = new ExamViewModel() { ExamType = examType };            
             exam.ExamType = ExamTypeParser.ReverseParse(exam);
 
             bool doesParse = Enum.TryParse(exam.ExamType, out ExamType type);

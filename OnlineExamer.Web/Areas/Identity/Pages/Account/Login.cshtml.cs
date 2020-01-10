@@ -96,7 +96,7 @@ namespace OnlineExamer.Web.Areas.Identity.Pages.Account
                 }
                 else
                 {
-                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                    ModelState.AddModelError(string.Empty, "Невалиден опит за вход.");
                     return Page();
                 }
             }

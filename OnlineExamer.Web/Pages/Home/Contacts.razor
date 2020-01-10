@@ -15,6 +15,7 @@
     </p>
     <div class="text-center">
         <p class="text-danger">@ErrorMsg</p>
+        <p class="text-success">@SuccessMsg</p>
     </div>
     <div class="row">
 
@@ -77,6 +78,7 @@
     [Parameter] public string Subject { get; set; }
 
     string ErrorMsg = "";
+    string SuccessMsg = "";
 
     protected override Task OnInitializedAsync()
     {
@@ -90,6 +92,7 @@
            string.IsNullOrEmpty(Message) ||
            string.IsNullOrEmpty(Subject))
         {
+            this.SuccessMsg = "";
             this.ErrorMsg = "Попълнете всички полета преди да изпратите имейл!";
             return;
         }
@@ -100,7 +103,7 @@
 
             if (response.StatusCode == System.Net.HttpStatusCode.Accepted)
             {
-                navigation.NavigateTo("/Contacts", true);
+                this.SuccessMsg = "Вашето съобщение беше изпратено успешно";
                 this.ErrorMsg = "";
             }
         }
