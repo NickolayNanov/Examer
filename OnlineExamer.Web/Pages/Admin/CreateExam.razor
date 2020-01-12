@@ -99,9 +99,9 @@
                                     {
                                         <div class="mb-3 col-md-12 row">
                                             <p class="col-md-6" style="color:black">@(i + 1). @string.Join("", Questions[i].Content.Take(20))...</p>
-                                            <a class="btn btn-danger col-md-6" data-toggle="modal" data-target="#editQuestionModal">Редактирай</a>
+                                            <a class="btn btn-danger col-md-6" data-toggle="modal" data-target="#editQuestionModal_@i">Редактирай</a>
 
-                                            <div class="modal fade" id="editQuestionModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal fade" id="editQuestionModal_@i" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                 <div class="modal-dialog" role="document">
                                                     <div class="modal-content">
                                                         <div class="modal-header">

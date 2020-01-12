@@ -24,6 +24,7 @@ namespace OnlineExamer.Web.Areas.Identity.Pages.Account
         private readonly UserManager<OnlineExamerUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly ILogger<RegisterModel> _logger;
+        private readonly char[] forbidenUsernameCharacters = { '.', ',', '!', '?', '@', '#', '$', '%', '^', '&', '*', '(', ')', '=', '+', '_', '-', ';' };
 
         public RegisterModel(
             UserManager<OnlineExamerUser> userManager,
@@ -79,13 +80,19 @@ namespace OnlineExamer.Web.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
+                if (Input.Username.Any(x => forbidenUsernameCharacters.Contains(x)))
+                {
+                    ModelState.AddModelError("Невалидно потребителско име", "Потребителското име може да съдържа само латински букви, цифри");
+                    return Page();
+                }
+
                 var user = new OnlineExamerUser { UserName = Input.Username, Email = Input.Email };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 await _userManager.AddToRoleAsync(user, "User");
                 if (result.Succeeded)
                 {
-                        await _signInManager.SignInAsync(user, isPersistent: false);
-                        return LocalRedirect(returnUrl);
+                    await _signInManager.SignInAsync(user, isPersistent: false);
+                    return LocalRedirect(returnUrl);
                 }
 
                 foreach (var error in result.Errors)
