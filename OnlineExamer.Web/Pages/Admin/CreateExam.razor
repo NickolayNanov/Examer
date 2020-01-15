@@ -211,7 +211,7 @@
         }
 
         ExamCreate exam = new ExamCreate(Subject, Year, Questions);
-        bool result = await adminService.CreateExam(exam);
+        bool result = await adminService.CreateExamAsync(exam);
         if (result)
         {
             SuccessMessage = "Изпит/Матура е саздаден успешно";

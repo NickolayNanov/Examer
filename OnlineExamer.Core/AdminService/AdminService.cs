@@ -17,19 +17,22 @@
     using OnlineExamer.Infrastructure;
 
     using AutoMapper;
+    using Microsoft.AspNetCore.Identity;
 
     public class AdminService : IAdminService
     {
         private readonly IMapper mapper;
         private readonly OnlineExamerDbContext context;
+        private readonly UserManager<OnlineExamerUser> userManager;
 
-        public AdminService(IMapper mapper, OnlineExamerDbContext context)
+        public AdminService(IMapper mapper, OnlineExamerDbContext context, UserManager<OnlineExamerUser> userManager)
         {
             this.mapper = mapper;
             this.context = context;
+            this.userManager = userManager;
         }
 
-        public async Task<ExamsAll> AllExams()
+        public async Task<ExamsAll> AllExamsAsync()
         {
             ExamsAll model = new ExamsAll();
 
@@ -41,7 +44,7 @@
             return model;
         }
 
-        public async Task<AdminModel> Data()
+        public async Task<AdminModel> DataAsync()
         {
             AdminModel model = new AdminModel();
 
@@ -54,7 +57,7 @@
             return model;
         }
 
-        public async Task<bool> CreateExam(ExamCreate exam)
+        public async Task<bool> CreateExamAsync(ExamCreate exam)
         {
             if (string.IsNullOrEmpty(exam.ExamType) || exam.Year < 1990 || exam.Year > 2030 || exam.Questions.Count == 0)
             {
@@ -158,6 +161,26 @@
             await context.SaveChangesAsync();
 
             return true;
+        }
+
+        public async Task<IList<UserViewModel>> AllUsersAsync()
+        {
+            IList<UserViewModel> data = null;
+
+            await Task.Run(() =>
+            {
+                data = mapper.ProjectTo<UserViewModel>(context.Users.Where(u => u.UserName != "admin")).ToList();
+            });
+
+            return data;
+        }
+
+        public async Task<bool> RemoveUserAsync(string username)
+        {
+            OnlineExamerUser user = await userManager.FindByNameAsync(username);
+            context.UserExams.RemoveRange(context.UserExams.Where(ux => ux.UserId == user.Id));
+            await context.SaveChangesAsync();
+            return (await userManager.DeleteAsync(user)).Succeeded;
         }
     }
 }

@@ -7,6 +7,7 @@
 
     using AutoMapper;
     using OnlineExamer.Models.Dtos.Admin;
+    using OnlineExamer.Models.ViewModels.Admin;
 
     public class MappingProfile : Profile
     {
@@ -41,7 +42,12 @@
             this.CreateMap<QuestionCreate, Question>()
                 .ForMember(x => x.Title, y => y.MapFrom(z => z.Content))
                 .ForMember(x => x.Points, y => y.MapFrom(z => z.Points))
-                .ForMember(x => x.Answers, y => y.MapFrom(z => z.Answers));           
+                .ForMember(x => x.Answers, y => y.MapFrom(z => z.Answers));
+
+            this.CreateMap<OnlineExamerUser, UserViewModel>()
+                .ForMember(x => x.Email, y => y.MapFrom(z => z.Email))
+                .ForMember(x => x.Username, y => y.MapFrom(z => z.UserName));
+
         }
     }
 }

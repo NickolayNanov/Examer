@@ -1,0 +1,105 @@
+﻿@page "/Admin/Users"
+
+@using OnlineExamer.Core.AdminService
+@using OnlineExamer.Models.ViewModels.Admin
+
+@attribute [Authorize(Roles = "Admin")]
+
+@inject IAdminService service
+
+<h3 class="text-center">Всички изпити</h3>
+
+<p class="text-center text-danger">@errorMsg</p>
+<p class="text-center text-success">@successMsg</p>
+@if (Users != null)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Потребителско име</th>
+                <th scope="col">Е-Поща</th>
+                <th scope="col">Действие</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var user in Users)
+            {
+                <tr>
+                    <td class="d-table-cell">@user.Username</td>
+                    <td class="d-table-cell">@user.Email</td>
+                    <td class="d-table-cell">
+                        <button class="btn btn-danger"
+                                data-toggle="modal"
+                                data-target="#removeUser_@(user.Username)">
+                            Изтрий
+                        </button>
+
+                        <div class="modal fade" id="removeUser_@(user.Username)" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Сигурни ли сте че искате да изтриете @user.Username?</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Затвори</button>
+                                        <button type="button" class="btn btn-danger"
+                                                @onclick="() => Remove(user.Username)" data-dismiss="modal">
+                                            Изтрий
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+
+
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <h3>Loading...</h3>
+}
+
+
+@code {
+    private IList<UserViewModel> Users;
+    string successMsg = "";
+    string errorMsg = "";
+
+    protected async override Task OnInitializedAsync()
+    {
+        successMsg = "";
+        errorMsg = "";
+        Users = await this.service.AllUsersAsync();
+    }
+
+    private async Task Remove(string username)
+    {
+        if (string.IsNullOrEmpty(username))
+        {
+            this.errorMsg = "Невалидна операция!";
+            return;
+        }
+
+        bool result = await this.service.RemoveUserAsync(username);
+
+        if (result)
+        {
+            successMsg = $"Успешно изтрихте портебител {username}";
+            errorMsg = "";
+            Users.Remove(Users.FirstOrDefault(x => x.Username == username));
+        }
+        else
+        {
+            successMsg = "";
+            errorMsg = "Невалидна операция!";
+        }
+    }
+}

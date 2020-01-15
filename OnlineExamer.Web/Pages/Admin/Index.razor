@@ -11,21 +11,18 @@
 @if(Model != null)
 {
     <div class="d-flex justify-content-between">
-        <strong>Потребители: @Model.UsersCount</strong>
-        <strong>Изпити: @Model.ExamsCount</strong>
+        <a class="btn btn-primary" href="Admin/Users">Потребители: (@Model.UsersCount)</a>
+        <a class="btn btn-primary" href="Admin/AllExams">Изпити: (@Model.ExamsCount)</a>
     </div>
 }
 
 <AuthorizeView Roles="Admin">
-    <div class="row mt-5">
-        <div class="col-md-4">
+    <div class="row mt-12 text-center">
+        <div class="col-md-6">
             <a class="btn btn-primary" style="color: white;" href="Admin/Create">Нов тест/матура</a>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-6">
             <a class="btn btn-primary" style="color: white;" href="Admin/CreateSubject">Добави предмет</a>
-        </div>
-        <div class="col-md-4">
-            <a class="btn btn-primary" style="color: white;" href="Admin/AllExams">Всички матури</a>
         </div>
     </div>
 </AuthorizeView>
@@ -35,6 +32,6 @@
 
     protected override async Task OnInitializedAsync()
     {
-        Model = await service.Data();
+        Model = await service.DataAsync();
     }
 }

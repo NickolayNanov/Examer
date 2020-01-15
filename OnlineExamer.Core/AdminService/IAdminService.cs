@@ -1,5 +1,6 @@
 ﻿namespace OnlineExamer.Core.AdminService
 {
+    using System.Collections.Generic;
     using System.Threading.Tasks;
 
     using OnlineExamer.Models.Dtos.Admin;
@@ -8,14 +9,18 @@
 
     public interface IAdminService
     {
-        Task<AdminModel> Data();
+        Task<AdminModel> DataAsync();
 
-        Task<ExamsAll> AllExams();
+        Task<ExamsAll> AllExamsAsync();
 
-        Task<bool> CreateExam(ExamCreate questions);
+        Task<bool> CreateExamAsync(ExamCreate questions);
 
         bool Delete(string examType, int year);
 
         Task<bool> CreateSubjectAsync(string subject);
+
+        Task<IList<UserViewModel>> AllUsersAsync();
+
+        Task<bool> RemoveUserAsync(string username);
     }  
 }
