@@ -44,3 +44,4 @@ D:\Projects\Examer\OnlineExamer.Models\obj\Debug\netcoreapp3.0\OnlineExamer.Mode
 D:\Projects\Examer\OnlineExamer.Models\obj\Debug\netcoreapp3.0\OnlineExamer.Models.dll
 D:\Projects\Examer\OnlineExamer.Models\obj\Debug\netcoreapp3.0\OnlineExamer.Models.pdb
 D:\Projects\Examer\OnlineExamer.Models\obj\Debug\netcoreapp3.0\OnlineExamer.Models.csprojAssemblyReference.cache
+D:\Nikolay\Examer\OnlineExamer.Models\obj\Debug\netcoreapp3.0\OnlineExamer.Models.csprojAssemblyReference.cache

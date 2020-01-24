@@ -22,5 +22,7 @@
         Task<IList<UserViewModel>> AllUsersAsync();
 
         Task<bool> RemoveUserAsync(string username);
+
+        Task<bool> MakeAdmin(string username);
     }  
 }

@@ -3286,11 +3286,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Examer\\OnlineExamer.Infrastructure\\OnlineExamer.Infrastructure.csproj",
+      "projectUniqueName": "D:\\Nikolay\\Examer\\OnlineExamer.Infrastructure\\OnlineExamer.Infrastructure.csproj",
       "projectName": "OnlineExamer.Infrastructure",
-      "projectPath": "D:\\Examer\\OnlineExamer.Infrastructure\\OnlineExamer.Infrastructure.csproj",
+      "projectPath": "D:\\Nikolay\\Examer\\OnlineExamer.Infrastructure\\OnlineExamer.Infrastructure.csproj",
       "packagesPath": "C:\\Users\\Nikolay\\.nuget\\packages\\",
-      "outputPath": "D:\\Examer\\OnlineExamer.Infrastructure\\obj\\",
+      "outputPath": "D:\\Nikolay\\Examer\\OnlineExamer.Infrastructure\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "D:\\Microsoft\\Xamarin\\NuGet\\"
@@ -3310,8 +3310,8 @@
       "frameworks": {
         "netcoreapp3.0": {
           "projectReferences": {
-            "D:\\Examer\\OnlineExamer.Models\\OnlineExamer.Models.csproj": {
-              "projectPath": "D:\\Examer\\OnlineExamer.Models\\OnlineExamer.Models.csproj"
+            "D:\\Nikolay\\Examer\\OnlineExamer.Models\\OnlineExamer.Models.csproj": {
+              "projectPath": "D:\\Nikolay\\Examer\\OnlineExamer.Models\\OnlineExamer.Models.csproj"
             }
           }
         }
@@ -3355,7 +3355,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.100\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.101\\RuntimeIdentifierGraph.json"
       }
     }
   }

@@ -2,6 +2,7 @@
 
 html, body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    overflow: hidden;
 }
 
 a, .btn-link {
@@ -340,4 +341,6 @@ input[type="submit"] {
     color: red;
 }
 
-**/
+.contacts-placeholder::webkit-input-placeholder {
+    font-size: 13px;
+}

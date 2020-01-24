@@ -24,12 +24,14 @@
         private readonly IMapper mapper;
         private readonly OnlineExamerDbContext context;
         private readonly UserManager<OnlineExamerUser> userManager;
+        private readonly RoleManager<IdentityRole> roleManager;
 
-        public AdminService(IMapper mapper, OnlineExamerDbContext context, UserManager<OnlineExamerUser> userManager)
+        public AdminService(IMapper mapper, OnlineExamerDbContext context, UserManager<OnlineExamerUser> userManager, RoleManager<IdentityRole> roleManager)
         {
             this.mapper = mapper;
             this.context = context;
             this.userManager = userManager;
+            this.roleManager = roleManager;
         }
 
         public async Task<ExamsAll> AllExamsAsync()
@@ -48,9 +50,11 @@
         {
             AdminModel model = new AdminModel();
 
-            await Task.Run(() => 
+            await Task.Run(async () => 
             {
-                model.UsersCount = this.context.Users.Count() - 1;
+                string roleId = (await roleManager.FindByNameAsync("user")).Id;
+                
+                model.UsersCount = context.UserRoles.Where(x => x.RoleId == roleId).Count();
                 model.ExamsCount = this.context.Exams.Count();
             });
 
@@ -167,9 +171,11 @@
         {
             IList<UserViewModel> data = null;
 
-            await Task.Run(() =>
+            await Task.Run(async () =>
             {
-                data = mapper.ProjectTo<UserViewModel>(context.Users.Where(u => u.UserName != "admin")).ToList();
+                IdentityRole role = await this.roleManager.FindByNameAsync("admin");
+                string[] userIds = context.UserRoles.Where(x => x.RoleId != role.Id).Select(x => x.UserId).ToArray();
+                data = mapper.ProjectTo<UserViewModel>(context.Users.Where(u => userIds.Contains(u.Id))).ToList();
             });
 
             return data;
@@ -181,6 +187,13 @@
             context.UserExams.RemoveRange(context.UserExams.Where(ux => ux.UserId == user.Id));
             await context.SaveChangesAsync();
             return (await userManager.DeleteAsync(user)).Succeeded;
+        }
+
+        public async Task<bool> MakeAdmin(string username)
+        {
+            OnlineExamerUser user = await userManager.FindByNameAsync(username);
+            await userManager.RemoveFromRoleAsync(user, "user");
+            return (await userManager.AddToRoleAsync(user, "admin")).Succeeded;
         }
     }
 }

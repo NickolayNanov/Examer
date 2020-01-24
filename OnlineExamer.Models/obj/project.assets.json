@@ -555,11 +555,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Examer\\OnlineExamer.Models\\OnlineExamer.Models.csproj",
+      "projectUniqueName": "D:\\Nikolay\\Examer\\OnlineExamer.Models\\OnlineExamer.Models.csproj",
       "projectName": "OnlineExamer.Models",
-      "projectPath": "D:\\Examer\\OnlineExamer.Models\\OnlineExamer.Models.csproj",
+      "projectPath": "D:\\Nikolay\\Examer\\OnlineExamer.Models\\OnlineExamer.Models.csproj",
       "packagesPath": "C:\\Users\\Nikolay\\.nuget\\packages\\",
-      "outputPath": "D:\\Examer\\OnlineExamer.Models\\obj\\",
+      "outputPath": "D:\\Nikolay\\Examer\\OnlineExamer.Models\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "D:\\Microsoft\\Xamarin\\NuGet\\"
@@ -620,7 +620,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.100\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.101\\RuntimeIdentifierGraph.json"
       }
     }
   }
