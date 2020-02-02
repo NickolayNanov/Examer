@@ -11,7 +11,7 @@
             this.MaxPoints = 50;
         }
 
-        public int? ExamResultId { get; set; }
+        public int? ExamId { get; set; }
 
         public int Points { get; set; }
 

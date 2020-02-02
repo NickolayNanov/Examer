@@ -1,6 +1,5 @@
 ﻿namespace OnlineExamer.Core.AdminService
 {
-    using System.Collections.Generic;
     using System.Threading.Tasks;
 
     using OnlineExamer.Models.Dtos.Admin;
@@ -19,10 +18,12 @@
 
         Task<bool> CreateSubjectAsync(string subject);
 
-        Task<IList<UserViewModel>> AllUsersAsync();
+        Task<UserAdminViewModel> AllUsersAsync();
 
         Task<bool> RemoveUserAsync(string username);
 
-        Task<bool> MakeAdmin(string username);
+        Task<bool> MakeAdminAsync(string username);
+
+        Task<bool> RemoveFromAdminAsync(string username);
     }  
 }

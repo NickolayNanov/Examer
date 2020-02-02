@@ -15,6 +15,6 @@
 
         public int Points { get; set; }
 
-        public virtual IList<AnswerViewModel> Answers { get; set; }
+        public IList<AnswerViewModel> Answers { get; set; }
     }
 }

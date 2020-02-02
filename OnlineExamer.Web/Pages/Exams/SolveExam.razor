@@ -79,6 +79,7 @@ else
     [JSInvokable(identifier: "SelectAnswer")]
     public static Task Select(int questionId, int answerId)
     {
+        Data.Questions.Select(x => x.Answers.Select(a => a.IsSelected = false));
         Data.Questions[questionId + 1].Answers[answerId].IsSelected = true;
         return Task.CompletedTask;
     }
@@ -90,7 +91,6 @@ else
             ErrorMsg = "Всички въпроси трябва да имат избран отговор!";
             return;
         }
-
         AuthenticationState authState = await AuthenticationStateTask;
         int ExamResultId = await this.service.SolveExamAsync(Data, authState.User.Identity.Name);
         NavigationManager.NavigateTo($"ExamResults/{Subject}/{Year}/{ExamResultId}", true);

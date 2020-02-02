@@ -29,7 +29,7 @@
                 .ForMember(x => x.ExamType, y => y.MapFrom(z => z.ExamType.ToString()));
 
             this.CreateMap<UserExam, ExamResult>()
-                .ForMember(x => x.ExamResultId, y => y.MapFrom(z => z.ExamId))
+                .ForMember(x => x.ExamId, y => y.MapFrom(z => z.ExamId))
                 .ForMember(x => x.Points, y => y.MapFrom(z => z.Points))
                 .ForMember(x => x.Grade, y => y.MapFrom(y => y.Grade))
                 .ForMember(x => x.Subject, y => y.MapFrom(y => y.Exam.Parse()))

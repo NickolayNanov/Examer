@@ -9,13 +9,14 @@
 
         }
 
-        public UserExam(string userId, int examId, DateTime solvedOn, int points, double grade)
+        public UserExam(string userId, int examId, DateTime solvedOn, int points, double grade/*, string wrongAnswers*/)
         {
             this.UserId = userId;
             this.ExamId = examId;
             this.SolvedOn = solvedOn;
             this.Points = points;
             this.Grade = grade;
+            //this.WrongAnswerIds = wrongAnswers;
         }
 
         public string UserId { get; set; }
@@ -31,5 +32,7 @@
         public int Points { get; set; }
 
         public DateTime SolvedOn { get; set; }
+
+        //public string WrongAnswerIds { get; set; }
     }
 }

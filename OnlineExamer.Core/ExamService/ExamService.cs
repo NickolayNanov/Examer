@@ -17,6 +17,8 @@
     using OnlineExamer.Models.ViewModels.Questions;
 
     using AutoMapper;
+    using System.Text;
+    using OnlineExamer.Models.Dtos.Others;
 
     public class ExamService : IExamService
     {
@@ -136,7 +138,7 @@
                 Grade = userExam.Grade,
                 Points = userExam.Points,
                 MaxPoints = exam.MaxPoints,
-                ExamResultId = exam.Id,
+                ExamId = exam.Id,
                 Subject = ExamTypeParser.Parse(exam),
                 PastResults = FillPastResults(examResults)
             };
@@ -146,7 +148,7 @@
 
         public async Task<int> SolveExamAsync(ExamQuestionsViewModel data, string username)
         {
-            int points = 0;
+            
             double grade = 0.0;
 
             bool doesParse = Enum.TryParse(data.ExamType, out ExamType type);
@@ -159,10 +161,12 @@
             OnlineExamerUser user = await this.context.Users.FirstOrDefaultAsync(u => u.UserName == username);
             Exam exam = await context.Exams.FirstOrDefaultAsync(e => e.YearOfCreation == data.YearOfCreation && e.ExamType == type);
 
-            points = CalcPoints(data);
+            //ExamPoinsAnswers examResult = CalcExamResults(data);
+            int points = CalcExamResults(data);
+            //grade = CalcGrade(examResult.Points);
             grade = CalcGrade(points);
 
-            UserExam userExam = new UserExam(user.Id, exam.Id, DateTime.Now, points, grade);
+            UserExam userExam = new UserExam(user.Id, exam.Id, DateTime.Now, points, grade/*, examResult.WrongAnswers*/);
 
             context.UserExams.Add(userExam);
             context.SaveChanges();
@@ -194,9 +198,11 @@
             return 3.000 + (points - 23) * 0.028;
         }
 
-        private static int CalcPoints(ExamQuestionsViewModel data)
+        private int CalcExamResults(ExamQuestionsViewModel data)
         {
             int points = 0;
+            ExamPoinsAnswers examResult = new ExamPoinsAnswers();
+            StringBuilder sb = new StringBuilder();
 
             foreach (var question in data.Questions)
             {
@@ -205,11 +211,19 @@
                     if (question.Answers[i].IsSelected && (i + 1) == question.CorrectAnswer)
                     {
                         points += question.Points;
+                        //examResult.Points += question.Points;
                         break;
                     }
+                    //else
+                    //{
+                    //    sb.Append($"{data.Questions.IndexOf(question)} - , ");
+                    //}
                 }
             }
 
+            //examResult.WrongAnswers = sb.ToString();
+
+            //return examResult;
             return points;
         }
 
@@ -217,7 +231,7 @@
         {
             foreach (UserExam examResult in examResults)
             {
-                yield return new ExamResult { Grade = examResult.Grade, Points = examResult.Points, MaxPoints = examResult.Exam.MaxPoints, ExamResultId = examResult.ExamId };
+                yield return new ExamResult { Grade = examResult.Grade, Points = examResult.Points, MaxPoints = examResult.Exam.MaxPoints, ExamId = examResult.ExamId };
             }
         }
     }

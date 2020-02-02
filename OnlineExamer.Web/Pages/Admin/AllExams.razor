@@ -3,12 +3,19 @@
 @using OnlineExamer.Core.AdminService
 @using OnlineExamer.Models.ViewModels.Exams
 
+@using System.Diagnostics
+
 @attribute [Authorize(Roles = "Admin")]
 
 @inject IAdminService service
 
 @if (Model != null)
 {
+    <div class="row">
+        <input class="col-md-8 mr-5mb-1" type="text" placeholder="Име на предмет..." @bind="Search"/>
+        <button class="btn btn-primary col-md-3" @onclick="FilterExams">Филтрирай</button>
+    </div>
+
     <table class="table">
         <thead>
             <tr>
@@ -19,7 +26,7 @@
         </thead>
         <tbody>
 
-            @foreach (var exam in Model.Data)
+            @foreach (var exam in DataToShow)
             {
                 <tr>
                     <td>@exam.Parse()</td>
@@ -63,8 +70,10 @@ else
 
 
 @code {
-
     public ExamsAll Model { get; set; }
+    private IList<ExamViewModel> DataToShow;
+    private string Search = string.Empty;
+    Stopwatch stopwatch = new Stopwatch();
 
     private void Delete(string examType, int year)
     {
@@ -82,8 +91,17 @@ else
         }
     }
 
+    private void FilterExams()
+    {
+            DataToShow = Model.Data;
+            DataToShow = DataToShow.Where(x => x.Parse().ToLower().StartsWith(Search.ToLower())).ToList();
+            this.StateHasChanged();
+            this.stopwatch.Reset();
+    }
+
     protected override async Task OnInitializedAsync()
     {
         Model = await service.AllExamsAsync();
+        DataToShow = Model.Data;
     }
 }

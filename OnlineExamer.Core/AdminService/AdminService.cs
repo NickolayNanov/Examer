@@ -167,18 +167,22 @@
             return true;
         }
 
-        public async Task<IList<UserViewModel>> AllUsersAsync()
+        public async Task<UserAdminViewModel> AllUsersAsync()
         {
-            IList<UserViewModel> data = null;
+            IList<UserViewModel> users = null;
+            IList<UserViewModel> admins = null;
 
             await Task.Run(async () =>
-            {
-                IdentityRole role = await this.roleManager.FindByNameAsync("admin");
-                string[] userIds = context.UserRoles.Where(x => x.RoleId != role.Id).Select(x => x.UserId).ToArray();
-                data = mapper.ProjectTo<UserViewModel>(context.Users.Where(u => userIds.Contains(u.Id))).ToList();
+            {               
+                string adminRole = (await this.roleManager.FindByNameAsync("admin")).Id;
+                string userRole = (await this.roleManager.FindByNameAsync("user")).Id;
+                string[] adminIds = context.UserRoles.Where(x => x.RoleId == adminRole).Select(x => x.UserId).ToArray();
+                string[] userIds = context.UserRoles.Where(x => x.RoleId == userRole).Select(x => x.UserId).ToArray();
+                users = mapper.ProjectTo<UserViewModel>(context.Users.Where(u => userIds.Contains(u.Id))).ToList();
+                admins = mapper.ProjectTo<UserViewModel>(context.Users.Where(u => adminIds.Contains(u.Id))).ToList();
             });
 
-            return data;
+            return new UserAdminViewModel() { Users = users, Admins = admins };
         }
 
         public async Task<bool> RemoveUserAsync(string username)
@@ -189,11 +193,18 @@
             return (await userManager.DeleteAsync(user)).Succeeded;
         }
 
-        public async Task<bool> MakeAdmin(string username)
+        public async Task<bool> MakeAdminAsync(string username)
         {
             OnlineExamerUser user = await userManager.FindByNameAsync(username);
             await userManager.RemoveFromRoleAsync(user, "user");
             return (await userManager.AddToRoleAsync(user, "admin")).Succeeded;
+        }
+
+        public async Task<bool> RemoveFromAdminAsync(string username)
+        {
+            OnlineExamerUser user = await userManager.FindByNameAsync(username);
+            await userManager.AddToRoleAsync(user, "user");
+            return (await userManager.RemoveFromRoleAsync(user, "admin")).Succeeded;
         }
     }
 }

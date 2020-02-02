@@ -16,5 +16,7 @@ namespace OnlineExamer.Models.Dtos.Admin
         public string Content { get; set; }
 
         public List<AnswerCreate> Answers { get; set; }
+
+        public bool IsSingleAnswer { get; set; }
     }
 }
