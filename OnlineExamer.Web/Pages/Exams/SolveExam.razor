@@ -26,17 +26,20 @@
                         <ul class="list-group" id="question_@(i - 1)">
                             @for (int j = 0; j < Data.Questions[i].Answers.Count; j++)
                             {
-                                <li onclick="giveAnswer(@(i - 1), @j)"
-                                    style="background: @Data.Questions[i].Answers[j].BackgroundColor"
-                                    class="list-group-item mb-3 marked-answer"
-                                    id="question_@(i - 1)_answer_@j">
-                                    <input @bind="@Data.Questions[i].Answers[j].IsSelected"
-                                           type="checkbox"
-                                           id="input_@(i - 1)_question_@j"
-                                           class="check"
-                                           style="display:none" />
-                                    <label>@Data.Questions[i].Answers[j].Content</label>
-                                </li>
+                                @if (Data.Questions[i].IsSingleAnswer)
+                                {
+                                    <li onclick="giveAnswer(@(i - 1), @j)"
+                                        style="background: @Data.Questions[i].Answers[j].BackgroundColor"
+                                        class="list-group-item mb-3 marked-answer"
+                                        id="question_@(i - 1)_answer_@j">
+                                        <input @bind="@Data.Questions[i].Answers[j].IsSelected"
+                                               type="checkbox"
+                                               id="input_@(i - 1)_question_@j"
+                                               class="check"
+                                               style="display:none" />
+                                        <label>@Data.Questions[i].Answers[j].Content</label>
+                                    </li>
+                                }
                             }
                         </ul>
                     }
@@ -77,9 +80,9 @@ else
     }
 
     [JSInvokable(identifier: "SelectAnswer")]
-    public static Task Select(int questionId, int answerId)
+    public static Task SelectSingleAnswer(int questionId, int answerId)
     {
-        Data.Questions.Select(x => x.Answers.Select(a => a.IsSelected = false));
+        Data.Questions[questionId + 1].Answers.ToList().ForEach(x => x.IsSelected = false);
         Data.Questions[questionId + 1].Answers[answerId].IsSelected = true;
         return Task.CompletedTask;
     }

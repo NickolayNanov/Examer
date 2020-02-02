@@ -15,6 +15,8 @@
 
         public int Points { get; set; }
 
+        public bool IsSingleAnswer { get; set; }
+
         public IList<AnswerViewModel> Answers { get; set; }
     }
 }

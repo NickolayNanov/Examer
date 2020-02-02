@@ -3,8 +3,6 @@
 @using OnlineExamer.Core.AdminService
 @using OnlineExamer.Models.ViewModels.Exams
 
-@using System.Diagnostics
-
 @attribute [Authorize(Roles = "Admin")]
 
 @inject IAdminService service
@@ -12,7 +10,7 @@
 @if (Model != null)
 {
     <div class="row">
-        <input class="col-md-8 mr-5mb-1" type="text" placeholder="Име на предмет..." @bind="Search"/>
+        <input class="col-md-8 mr-5 mb-1" type="text" placeholder="Име на предмет..." @bind="Search"/>
         <button class="btn btn-primary col-md-3" @onclick="FilterExams">Филтрирай</button>
     </div>
 
@@ -73,7 +71,6 @@ else
     public ExamsAll Model { get; set; }
     private IList<ExamViewModel> DataToShow;
     private string Search = string.Empty;
-    Stopwatch stopwatch = new Stopwatch();
 
     private void Delete(string examType, int year)
     {
@@ -87,6 +84,7 @@ else
         if (isDeleted)
         {
             ExamViewModel deleted = Model.Data.FirstOrDefault(x => x.ExamType == examType && x.YearOfCreation == year);
+            DataToShow.Remove(deleted);
             Model.Data.Remove(deleted);
         }
     }
@@ -96,7 +94,6 @@ else
             DataToShow = Model.Data;
             DataToShow = DataToShow.Where(x => x.Parse().ToLower().StartsWith(Search.ToLower())).ToList();
             this.StateHasChanged();
-            this.stopwatch.Reset();
     }
 
     protected override async Task OnInitializedAsync()

@@ -1,9 +1,9 @@
-﻿using System;
+﻿    using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace OnlineExamer.Data.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class Ini : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -193,7 +193,8 @@ namespace OnlineExamer.Data.Migrations
                     ExamId = table.Column<int>(nullable: false),
                     IsOpenAnswer = table.Column<bool>(nullable: false),
                     CorrectAnswer = table.Column<int>(nullable: false),
-                    Points = table.Column<int>(nullable: false)
+                    Points = table.Column<int>(nullable: false),
+                    IsSingleAnswer = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -214,7 +215,8 @@ namespace OnlineExamer.Data.Migrations
                     ExamId = table.Column<int>(nullable: false),
                     SolvedOn = table.Column<DateTime>(nullable: false),
                     Grade = table.Column<double>(nullable: false),
-                    Points = table.Column<int>(nullable: false)
+                    Points = table.Column<int>(nullable: false),
+                    WrongAnswerIds = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {

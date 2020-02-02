@@ -10,8 +10,8 @@ using OnlineExamer.Data;
 namespace OnlineExamer.Data.Migrations
 {
     [DbContext(typeof(OnlineExamerDbContext))]
-    [Migration("20200110122242_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20200202221927_Ini")]
+    partial class Ini
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -285,6 +285,9 @@ namespace OnlineExamer.Data.Migrations
                     b.Property<bool>("IsOpenAnswer")
                         .HasColumnType("bit");
 
+                    b.Property<bool>("IsSingleAnswer")
+                        .HasColumnType("bit");
+
                     b.Property<int>("Points")
                         .HasColumnType("int");
 
@@ -336,6 +339,9 @@ namespace OnlineExamer.Data.Migrations
 
                     b.Property<int>("Points")
                         .HasColumnType("int");
+
+                    b.Property<string>("WrongAnswerIds")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ExamId", "UserId", "SolvedOn");
 

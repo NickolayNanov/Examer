@@ -102,6 +102,7 @@
                     IsOpenAnswer = x.IsOpenAnswer,
                     CorrectAnswer = x.CorrectAnswer,
                     Points = x.Points,
+                    IsSingleAnswer = x.IsSingleAnswer,
                     Answers = x.Answers.Select(a => new AnswerViewModel()
                     {
                         Content = a.Content,
@@ -147,8 +148,7 @@
         }
 
         public async Task<int> SolveExamAsync(ExamQuestionsViewModel data, string username)
-        {
-            
+        {          
             double grade = 0.0;
 
             bool doesParse = Enum.TryParse(data.ExamType, out ExamType type);
@@ -161,12 +161,10 @@
             OnlineExamerUser user = await this.context.Users.FirstOrDefaultAsync(u => u.UserName == username);
             Exam exam = await context.Exams.FirstOrDefaultAsync(e => e.YearOfCreation == data.YearOfCreation && e.ExamType == type);
 
-            //ExamPoinsAnswers examResult = CalcExamResults(data);
-            int points = CalcExamResults(data);
-            //grade = CalcGrade(examResult.Points);
-            grade = CalcGrade(points);
+            ExamPoinsAnswers examResult = CalcExamResults(data);
+            grade = CalcGrade(examResult.Points);
 
-            UserExam userExam = new UserExam(user.Id, exam.Id, DateTime.Now, points, grade/*, examResult.WrongAnswers*/);
+            UserExam userExam = new UserExam(user.Id, exam.Id, DateTime.Now, examResult.Points, grade, examResult.WrongAnswers);
 
             context.UserExams.Add(userExam);
             context.SaveChanges();
@@ -198,9 +196,8 @@
             return 3.000 + (points - 23) * 0.028;
         }
 
-        private int CalcExamResults(ExamQuestionsViewModel data)
+        private ExamPoinsAnswers CalcExamResults(ExamQuestionsViewModel data)
         {
-            int points = 0;
             ExamPoinsAnswers examResult = new ExamPoinsAnswers();
             StringBuilder sb = new StringBuilder();
 
@@ -210,21 +207,19 @@
                 {
                     if (question.Answers[i].IsSelected && (i + 1) == question.CorrectAnswer)
                     {
-                        points += question.Points;
-                        //examResult.Points += question.Points;
+                        examResult.Points += question.Points;
                         break;
                     }
-                    //else
-                    //{
-                    //    sb.Append($"{data.Questions.IndexOf(question)} - , ");
-                    //}
+                    if(question.Answers[i].IsSelected && (i + 1) != question.CorrectAnswer)
+                    {
+                        sb.Append($"{data.Questions.IndexOf(question) + 1} - {i + 1}, ");
+                    }
                 }
             }
 
-            //examResult.WrongAnswers = sb.ToString();
+            examResult.WrongAnswers = sb.ToString();
 
-            //return examResult;
-            return points;
+            return examResult;
         }
 
         private IEnumerable<ExamResult> FillPastResults(List<UserExam> examResults)

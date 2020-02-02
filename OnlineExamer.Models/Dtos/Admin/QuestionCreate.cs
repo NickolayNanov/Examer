@@ -4,11 +4,12 @@ namespace OnlineExamer.Models.Dtos.Admin
 {
     public class QuestionCreate
     {
-        public QuestionCreate(int points, string content, List<AnswerCreate> questions)
+        public QuestionCreate(int points, string content, List<AnswerCreate> questions, bool isSingleAnswer)
         {
             this.Points = points;
             this.Content = content;
             this.Answers = questions;
+            this.IsSingleAnswer = isSingleAnswer;
         }
 
         public int Points { get; set; }

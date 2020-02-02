@@ -67,6 +67,10 @@
                                         <input @bind="Answer4" type="text" class="col-md-10" placeholder="Отговор 4" />
                                         <input @bind="isCorrect4" type="checkbox" class="col-md-2" />
                                     </div>
+                                    <div class="row mb-3">
+                                        <p class="col-md-4" style="color: black;">Един отговор</p>
+                                        <input @bind="isSingleAnswer" type="checkbox" class="col-md-3" />
+                                    </div>
                                 </div>
                             </div>
                             <div class="modal-footer">
@@ -135,6 +139,7 @@
                                                                     <input @bind="Questions[i].Answers[3].Content" type="text" class="col-md-10" placeholder="Отговор 4" />
                                                                     <input @bind="Questions[i].Answers[3].IsCorrect" type="checkbox" class="col-md-2" />
                                                                 </div>
+
                                                             </div>
                                                         </div>
                                                         <div class="modal-footer">
@@ -196,7 +201,7 @@
         AnswerCreate forth = new AnswerCreate(Answer4, isCorrect4);
 
         List<AnswerCreate> answers = new List<AnswerCreate>() { first, second, third, forth };
-        QuestionCreate question = new QuestionCreate(Points, QuestionContent, answers);
+        QuestionCreate question = new QuestionCreate(Points, QuestionContent, answers, isSingleAnswer);
         Questions.Add(question);
         data_dismiss = "modal";
         Clear();
@@ -240,6 +245,7 @@
         this.isCorrect3 = false;
         this.isCorrect4 = false;
         this.CreateQuestionErrMesg = "";
+        this.isSingleAnswer = false;
     }    
 
     string data_dismiss = "";
@@ -254,4 +260,5 @@
     bool isCorrect3 = false;
     string Answer4 = "";
     bool isCorrect4 = false;
+    bool isSingleAnswer = false;
 }

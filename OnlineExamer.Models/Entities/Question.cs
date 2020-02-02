@@ -23,6 +23,8 @@
 
         public int Points { get; set; }
 
+        public bool IsSingleAnswer { get; set; }
+
         public ICollection<Answer> Answers { get; set; }
     }
 }
