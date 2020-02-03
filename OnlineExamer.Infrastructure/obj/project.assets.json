@@ -3280,24 +3280,25 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Nick\\.nuget\\packages\\": {},
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+    "C:\\Users\\Nikolay\\.nuget\\packages\\": {},
+    "D:\\Microsoft\\Xamarin\\NuGet\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Projects\\Examer\\OnlineExamer.Infrastructure\\OnlineExamer.Infrastructure.csproj",
+      "projectUniqueName": "D:\\Nikolay\\Examer\\OnlineExamer.Infrastructure\\OnlineExamer.Infrastructure.csproj",
       "projectName": "OnlineExamer.Infrastructure",
-      "projectPath": "D:\\Projects\\Examer\\OnlineExamer.Infrastructure\\OnlineExamer.Infrastructure.csproj",
-      "packagesPath": "C:\\Users\\Nick\\.nuget\\packages\\",
-      "outputPath": "D:\\Projects\\Examer\\OnlineExamer.Infrastructure\\obj\\",
+      "projectPath": "D:\\Nikolay\\Examer\\OnlineExamer.Infrastructure\\OnlineExamer.Infrastructure.csproj",
+      "packagesPath": "C:\\Users\\Nikolay\\.nuget\\packages\\",
+      "outputPath": "D:\\Nikolay\\Examer\\OnlineExamer.Infrastructure\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        "D:\\Microsoft\\Xamarin\\NuGet\\"
       ],
       "configFilePaths": [
-        "C:\\Users\\Nick\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "C:\\Users\\Nikolay\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp3.0"
@@ -3309,8 +3310,8 @@
       "frameworks": {
         "netcoreapp3.0": {
           "projectReferences": {
-            "D:\\Projects\\Examer\\OnlineExamer.Models\\OnlineExamer.Models.csproj": {
-              "projectPath": "D:\\Projects\\Examer\\OnlineExamer.Models\\OnlineExamer.Models.csproj"
+            "D:\\Nikolay\\Examer\\OnlineExamer.Models\\OnlineExamer.Models.csproj": {
+              "projectPath": "D:\\Nikolay\\Examer\\OnlineExamer.Models\\OnlineExamer.Models.csproj"
             }
           }
         }

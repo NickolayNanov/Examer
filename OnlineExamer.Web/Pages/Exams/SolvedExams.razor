@@ -12,22 +12,87 @@
 {
     @if (Model.Any())
     {
-        <h3 class="text-center">Всички решавани изпити</h3>
-        <div class="row">
-            @foreach (var result in Model)
-            {
-                <div class="col-md-4">
+        @if (areVisible)
+        {
+            <h3 class="text-center">Всички решавани изпити</h3>
+            <div class="row">
+                @foreach (var result in Model)
+                {
+                    <div class="col-md-4">
 
-                    <div class="card" style="width: 18rem; border-radius: 4px;">
-                        <div class="card-body">
-                            <h5 class="card-header-tabs mb-4 ml-5">@result.Subject</h5>
-                            <h5 class="card-title">Година: @result.Year</h5>
-                            <p class="card-text">Точки: @result.Points/@result.MaxPoints</p>
+                        <div class="card" style="width: 18rem; border-radius: 4px;">
+                            <div class="card-body">
+                                <h5 class="card-header-tabs mb-4 ml-5">@result.Subject</h5>
+                                <h5 class="card-title">Година: @result.Year</h5>
+                                <p class="card-text">Точки: @result.Points/@result.MaxPoints</p>
+                                <button @onclick="() => GetExamResult(result.SolvedOn, result.ExamId)" class="btn btn-success">Филтрирай</button>
+                            </div>
                         </div>
                     </div>
+                }
+            </div>
+        }
+        else
+        {
+            <h3 class="text-center">Изпит по @questions.ExamType - @questions.Year</h3>
+            <button class="btn btn-success text-center" @onclick="Back">Назад</button>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        @for (int i = 0; i < questions.Questions.Count; i++)
+                        {
+                            <span>@(questions.Questions[i].Title)</span>
+
+                            if (!questions.Questions[i].IsOpenAnswer)
+                            {
+                                <ul class="list-group" id="question_@(i - 1)">
+                                    @for (int j = 0; j < questions.Questions[i].Answers.Count; j++)
+                                    {
+                                        @if (questions.Questions[i].IsSingleAnswer)
+                                        {
+                                            @if (questions.Questions[i].CorrectAnswer == j + 1)
+                                            {
+                                                <li style="background-color: lightgreen"
+                                                    class="list-group-item mb-3 marked-answer"
+                                                    id="question_@(i - 1)_answer_@j">
+                                                    <input @bind="@questions.Questions[i].Answers[j].IsSelected"
+                                                           type="checkbox"
+                                                           class="check"
+                                                           style="display:none" />
+                                                    <label>@questions.Questions[i].Answers[j].Content</label>
+                                                </li>
+                                            }
+                                            else if (questions.Questions[i].SelectedAnswer - 1 == j)
+                                            {
+                                                <li style="background-color: lightcoral"
+                                                    class="list-group-item mb-3 marked-answer">
+                                                    <input @bind="@questions.Questions[i].Answers[j].IsSelected"
+                                                           type="checkbox"
+                                                           id="input_@(i - 1)_question_@j"
+                                                           class="check"
+                                                           style="display:none" />
+                                                    <label>@questions.Questions[i].Answers[j].Content</label>
+                                                </li>
+                                            }
+                                            else
+                                            {
+                                                <li style="background-color: none;" class="list-group-item mb-3 marked-answer">
+                                                    <input @bind="@questions.Questions[i].Answers[j].IsSelected"
+                                                           type="checkbox"
+                                                           class="check"
+                                                           style="display:none" />
+                                                    <label>@questions.Questions[i].Answers[j].Content</label>
+                                                </li>
+                                            }
+                                        }
+                                    }
+                                </ul>
+                            }
+                        }
+                    </div>
                 </div>
-            }
-        </div>
+            </div>
+        }
     }
     else
     {
@@ -44,12 +109,31 @@ else
 
     [CascadingParameter]
     private Task<AuthenticationState> AuthenticationStateTask { get; set; }
+    private bool areVisible = true;
 
     IEnumerable<ExamResult> Model { get; set; }
+
+    ExamResultWithAnswers questions = null;
 
     protected override async Task OnInitializedAsync()
     {
         AuthenticationState state = await AuthenticationStateTask;
         Model = await service.GetExamResultsByUsername(state.User.Identity.Name);
+    }
+
+    private async Task GetExamResult(DateTime solvedOn, int? examId)
+    {
+        var authState = await AuthenticationStateTask;
+        questions = await service.GetExamResultByExamIdAndUsernameAsync(authState.User.Identity.Name, examId, solvedOn);
+
+        if (!questions.AllCorrect)
+        {
+            areVisible = false;
+        }
+    }
+
+    private void Back()
+    {
+        this.areVisible = true;
     }
 }

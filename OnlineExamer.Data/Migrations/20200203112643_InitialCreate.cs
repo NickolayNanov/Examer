@@ -1,9 +1,9 @@
-﻿    using System;
+﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace OnlineExamer.Data.Migrations
 {
-    public partial class Ini : Migration
+    public partial class InitialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

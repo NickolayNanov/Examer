@@ -47,7 +47,7 @@
 
         public async Task<IEnumerable<ExamViewModel>> AllExamsByExamTypeAsync(string examType)
         {
-            ExamViewModel exam = new ExamViewModel() { ExamType = examType };            
+            ExamViewModel exam = new ExamViewModel() { ExamType = examType };
             exam.ExamType = ExamTypeParser.ReverseParse(exam);
 
             bool doesParse = Enum.TryParse(exam.ExamType, out ExamType type);
@@ -148,7 +148,7 @@
         }
 
         public async Task<int> SolveExamAsync(ExamQuestionsViewModel data, string username)
-        {          
+        {
             double grade = 0.0;
 
             bool doesParse = Enum.TryParse(data.ExamType, out ExamType type);
@@ -210,9 +210,9 @@
                         examResult.Points += question.Points;
                         break;
                     }
-                    if(question.Answers[i].IsSelected && (i + 1) != question.CorrectAnswer)
+                    if (question.Answers[i].IsSelected && (i + 1) != question.CorrectAnswer)
                     {
-                        sb.Append($"{data.Questions.IndexOf(question) + 1} - {i + 1}, ");
+                        sb.Append($"{data.Questions.IndexOf(question)} - {i + 1}, ");
                     }
                 }
             }
@@ -228,6 +228,46 @@
             {
                 yield return new ExamResult { Grade = examResult.Grade, Points = examResult.Points, MaxPoints = examResult.Exam.MaxPoints, ExamId = examResult.ExamId };
             }
+        }
+
+        public async Task<ExamResultWithAnswers> GetExamResultByExamIdAndUsernameAsync(string username, int? examId, DateTime solvedOn)
+        {
+            ExamResultWithAnswers result = new ExamResultWithAnswers();
+
+            if (examId.HasValue)
+            {
+                OnlineExamerUser user = await userManager.FindByNameAsync(username);
+                UserExam ux = await this.context.UserExams
+                    .Include(x => x.Exam)
+                        .ThenInclude(x => x.Questions)
+                            .ThenInclude(x => x.Answers)
+                    .FirstOrDefaultAsync(x => x.ExamId == examId.Value && x.UserId == user.Id && x.SolvedOn == solvedOn);
+
+                result.Year = ux.Exam.YearOfCreation;
+                result.ExamType = ux.Exam.Parse();
+
+                if (string.IsNullOrEmpty(ux.WrongAnswerIds))
+                {
+                    result.AllCorrect = true;
+                }
+                else
+                {
+                    string[] questionsAnswers = ux.WrongAnswerIds.Split(new string[] { ", " }, StringSplitOptions.RemoveEmptyEntries);
+                    result.Questions = ux.Exam.Questions.Select(x => mapper.Map<QuestionViewModel>(x)).ToList();
+
+                    foreach (var questionAnswer in questionsAnswers)
+                    {
+                        string[] tokens = questionAnswer.Split(new char[] { ' ', ',', '-' }, StringSplitOptions.RemoveEmptyEntries);
+                        int question = int.Parse(tokens[0]);
+                        int answer = int.Parse(tokens[1]);
+
+                        result.Questions[question].SelectedAnswer = answer;
+                    }
+                    result.Questions = result.Questions.Where(x => x.SelectedAnswer + 1 != x.CorrectAnswer).ToList();
+                }
+            }
+
+            return result;
         }
     }
 }

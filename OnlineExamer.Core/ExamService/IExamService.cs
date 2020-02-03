@@ -1,6 +1,7 @@
 ﻿
 namespace OnlineExamer.Core.ExamService
 {
+    using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
@@ -19,5 +20,7 @@ namespace OnlineExamer.Core.ExamService
         Task<ExamResult> GetExamResultByExamIdAndUsernameAsync(int examId, string username);
 
         Task<IEnumerable<ExamResult>> GetExamResultsByUsername(string username);
+
+        Task<ExamResultWithAnswers> GetExamResultByExamIdAndUsernameAsync(string username, int? examId, DateTime solvedOn);
     }
 }

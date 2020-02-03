@@ -1195,3 +1195,5 @@ D:\Projects\Examer\OnlineExamer.Web\obj\Debug\netcoreapp3.0\RazorDeclaration\Pag
 D:\Projects\Examer\OnlineExamer.Web\obj\Debug\netcoreapp3.0\Razor\Pages\Admin\UsersAll.razor.g.cs
 D:\Projects\Examer\OnlineExamer.Web\obj\Debug\netcoreapp3.0\RazorDeclaration\Pages\StudyMaterials\Index.razor.g.cs
 D:\Projects\Examer\OnlineExamer.Web\obj\Debug\netcoreapp3.0\Razor\Pages\StudyMaterials\Index.razor.g.cs
+D:\Nikolay\Examer\OnlineExamer.Web\obj\Debug\netcoreapp3.0\RazorDeclaration\Pages\StudyMaterials\Index.razor.g.cs
+D:\Nikolay\Examer\OnlineExamer.Web\obj\Debug\netcoreapp3.0\Razor\Pages\StudyMaterials\Index.razor.g.cs

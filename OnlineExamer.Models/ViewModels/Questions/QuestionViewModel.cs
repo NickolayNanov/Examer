@@ -13,6 +13,8 @@
 
         public int CorrectAnswer { get; set; }
 
+        public int SelectedAnswer { get; set; }
+
         public int Points { get; set; }
 
         public bool IsSingleAnswer { get; set; }

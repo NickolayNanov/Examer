@@ -7,6 +7,8 @@
 
         }
 
+        public int ExamId { get; set; }
+
         public string ExamType { get; set; }
 
         public int YearOfCreation { get; set; }
