@@ -15,6 +15,11 @@
         @if (areVisible)
         {
             <h3 class="text-center">Всички решавани изпити</h3>
+
+            @if (isSingleExamMessageVisible)
+            {
+                <p class="text-center text-success">Нямате грешка на тази/този изпит/матура</p>
+            }
             <div class="row">
                 @foreach (var result in Model)
                 {
@@ -25,7 +30,7 @@
                                 <h5 class="card-header-tabs mb-4 ml-5">@result.Subject</h5>
                                 <h5 class="card-title">Година: @result.Year</h5>
                                 <p class="card-text">Точки: @result.Points/@result.MaxPoints</p>
-                                <button @onclick="() => GetExamResult(result.SolvedOn, result.ExamId)" class="btn btn-success">Филтрирай</button>
+                                <button @onclick="() => GetExamResult(result.SolvedOn, result.ExamId)" class="btn btn-success">Отвори</button>
                             </div>
                         </div>
                     </div>
@@ -35,13 +40,17 @@
         else
         {
             <h3 class="text-center">Изпит по @questions.ExamType - @questions.Year</h3>
-            <button class="btn btn-success text-center" @onclick="Back">Назад</button>
+            <div class="row">
+                <div class="col-md-6"></div>
+                <button class="btn btn-success" @onclick="Back">Назад</button>
+            </div>
+
             <div class="container">
                 <div class="row">
                     <div class="col-md-12">
                         @for (int i = 0; i < questions.Questions.Count; i++)
                         {
-                            <span>@(questions.Questions[i].Title)</span>
+                            <span>@questions.Questions[i].QuestionNumber @(questions.Questions[i].Title)</span>
 
                             if (!questions.Questions[i].IsOpenAnswer)
                             {
@@ -53,10 +62,8 @@
                                             @if (questions.Questions[i].CorrectAnswer == j + 1)
                                             {
                                                 <li style="background-color: lightgreen"
-                                                    class="list-group-item mb-3 marked-answer"
-                                                    id="question_@(i - 1)_answer_@j">
-                                                    <input @bind="@questions.Questions[i].Answers[j].IsSelected"
-                                                           type="checkbox"
+                                                    class="list-group-item mb-3 marked-answer">
+                                                    <input type="checkbox"
                                                            class="check"
                                                            style="display:none" />
                                                     <label>@questions.Questions[i].Answers[j].Content</label>
@@ -66,9 +73,7 @@
                                             {
                                                 <li style="background-color: lightcoral"
                                                     class="list-group-item mb-3 marked-answer">
-                                                    <input @bind="@questions.Questions[i].Answers[j].IsSelected"
-                                                           type="checkbox"
-                                                           id="input_@(i - 1)_question_@j"
+                                                    <input type="checkbox"
                                                            class="check"
                                                            style="display:none" />
                                                     <label>@questions.Questions[i].Answers[j].Content</label>
@@ -77,8 +82,7 @@
                                             else
                                             {
                                                 <li style="background-color: none;" class="list-group-item mb-3 marked-answer">
-                                                    <input @bind="@questions.Questions[i].Answers[j].IsSelected"
-                                                           type="checkbox"
+                                                    <input type="checkbox"
                                                            class="check"
                                                            style="display:none" />
                                                     <label>@questions.Questions[i].Answers[j].Content</label>
@@ -110,6 +114,7 @@ else
     [CascadingParameter]
     private Task<AuthenticationState> AuthenticationStateTask { get; set; }
     private bool areVisible = true;
+    private bool isSingleExamMessageVisible;
 
     IEnumerable<ExamResult> Model { get; set; }
 
@@ -126,10 +131,8 @@ else
         var authState = await AuthenticationStateTask;
         questions = await service.GetExamResultByExamIdAndUsernameAsync(authState.User.Identity.Name, examId, solvedOn);
 
-        if (!questions.AllCorrect)
-        {
-            areVisible = false;
-        }
+        areVisible = questions.AllCorrect ? true : false;
+        isSingleExamMessageVisible = areVisible;
     }
 
     private void Back()

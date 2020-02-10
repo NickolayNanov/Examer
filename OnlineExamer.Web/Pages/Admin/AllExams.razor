@@ -14,7 +14,7 @@
         <button class="btn btn-primary col-md-3" @onclick="FilterExams">Филтрирай</button>
     </div>
 
-    <table class="table">
+    <table class="table mt-4">
         <thead>
             <tr>
                 <th scope="col">Предмет</th>
@@ -46,8 +46,8 @@
                                         </button>
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Затвори</button>
-                                        <button type="button" class="btn btn-danger"
+                                        <button type="button" class="btn-secondary" data-dismiss="modal">Затвори</button>
+                                        <button type="button" class="btn-danger"
                                                 @onclick="() => Delete(exam.ExamType, exam.YearOfCreation)" data-dismiss="modal">
                                             Изтрий
                                         </button>

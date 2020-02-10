@@ -253,17 +253,25 @@
                 else
                 {
                     string[] questionsAnswers = ux.WrongAnswerIds.Split(new string[] { ", " }, StringSplitOptions.RemoveEmptyEntries);
-                    result.Questions = ux.Exam.Questions.Select(x => mapper.Map<QuestionViewModel>(x)).ToList();
+                    var questions = ux.Exam.Questions.ToList();
 
                     foreach (var questionAnswer in questionsAnswers)
                     {
                         string[] tokens = questionAnswer.Split(new char[] { ' ', ',', '-' }, StringSplitOptions.RemoveEmptyEntries);
-                        int question = int.Parse(tokens[0]);
+                        int questionId = int.Parse(tokens[0]);
                         int answer = int.Parse(tokens[1]);
 
-                        result.Questions[question].SelectedAnswer = answer;
+                        Question currentQuestion = questions[questionId];
+                        QuestionViewModel question = new QuestionViewModel(currentQuestion.Title, 
+                                                                           currentQuestion.CorrectAnswer, 
+                                                                           answer, 
+                                                                           questionId + 1,
+                                                                           currentQuestion.IsOpenAnswer, 
+                                                                           currentQuestion.IsSingleAnswer);
+
+                        question.Answers = currentQuestion.Answers.Select(x => mapper.Map<AnswerViewModel>(x)).ToList();
+                        result.Questions.Add(question);
                     }
-                    result.Questions = result.Questions.Where(x => x.SelectedAnswer + 1 != x.CorrectAnswer).ToList();
                 }
             }
 

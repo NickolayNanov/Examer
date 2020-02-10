@@ -1,8 +1,8 @@
 @import url('open-iconic/font/css/open-iconic-bootstrap.min.css');
 
 html, body {
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;    
-    overflow-x: hidden;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    max-width: 99.5%;
 }
 
 a, .btn-link {
@@ -132,7 +132,6 @@ app {
 
     .main .top-row {
         position: sticky;
-        top: 0;
     }
 
     .main > div {

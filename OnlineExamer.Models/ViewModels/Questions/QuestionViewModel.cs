@@ -7,6 +7,18 @@
 
     public class QuestionViewModel
     {
+        public QuestionViewModel(){}
+        public QuestionViewModel(string title, int correctAnswer, int selectedAnswer,int questionNumber, bool isOpenAnswer, bool isSingleAnswer)
+        {
+            this.Title = title;
+            this.IsOpenAnswer = isOpenAnswer;
+            this.CorrectAnswer = correctAnswer;
+            this.QuestionNumber = questionNumber;
+            this.SelectedAnswer = selectedAnswer;
+            this.IsSingleAnswer = isSingleAnswer;
+        }
+
+
         public string Title { get; set; }
 
         public bool IsOpenAnswer { get; set; }
@@ -18,6 +30,8 @@
         public int Points { get; set; }
 
         public bool IsSingleAnswer { get; set; }
+
+        public int QuestionNumber { get; set; }
 
         public IList<AnswerViewModel> Answers { get; set; }
     }

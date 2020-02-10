@@ -10,8 +10,8 @@ using OnlineExamer.Data;
 namespace OnlineExamer.Data.Migrations
 {
     [DbContext(typeof(OnlineExamerDbContext))]
-    [Migration("20200203112643_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20200203173133_ASD")]
+    partial class ASD
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

@@ -5,6 +5,11 @@ namespace OnlineExamer.Models.ViewModels.Exams
 {
     public class ExamResultWithAnswers
     {
+        public ExamResultWithAnswers()
+        {
+            this.Questions = new List<QuestionViewModel>();
+        }
+
         public IList<QuestionViewModel> Questions { get; set; }
 
         public bool AllCorrect { get; set; }
