@@ -11,12 +11,10 @@ namespace OnlineExamer.Infrastructure.SendGrid
 {
     public class SendGrid
     {
-        private readonly IConfiguration configuration;
         private readonly string ApiKey;
 
         public SendGrid(IConfiguration configuration)
         {
-            this.configuration = configuration;
             ApiKey = configuration.GetSection("SendGrid").GetValue<string>("ApiKey");
         }
 
