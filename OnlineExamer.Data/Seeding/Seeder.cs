@@ -5,16 +5,11 @@
 
     public static class Seeder
     {
-        public static void Seed(OnlineExamerDbContext context, IServiceProvider serviceProvider)
+        public static void Seed(OnlineExamerDbContext context)
         {
             if (context == null)
             {
                 throw new ArgumentNullException(nameof(context));
-            }
-
-            if (serviceProvider == null)
-            {
-                throw new ArgumentNullException(nameof(serviceProvider));
             }
 
             var seeders = new List<ISeeder>
@@ -26,7 +21,7 @@
 
             foreach (var seeder in seeders)
             {
-                seeder.Seed(context, serviceProvider);
+                seeder.Seed(context);
             }
         }
     }

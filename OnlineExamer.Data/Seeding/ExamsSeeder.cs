@@ -8,7 +8,7 @@
 
     public class ExamsSeeder : ISeeder
     {
-        public void Seed(OnlineExamerDbContext context, IServiceProvider serviceProvider)
+        public void Seed(OnlineExamerDbContext context)
         {
             if (!context.Exams.Any())
             {

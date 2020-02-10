@@ -6,18 +6,17 @@
     using System.Collections.Generic;
 
     using Microsoft.EntityFrameworkCore;
+    using Microsoft.AspNetCore.Identity;
 
     using OnlineExamer.Data;
     using OnlineExamer.Models.ViewModels.Admin;
     using OnlineExamer.Models.ViewModels.Exams;
-
     using OnlineExamer.Models.Dtos.Admin;
     using OnlineExamer.Models.Entities;
     using OnlineExamer.Models.Entities.Enums;
     using OnlineExamer.Infrastructure;
 
     using AutoMapper;
-    using Microsoft.AspNetCore.Identity;
 
     public class AdminService : IAdminService
     {
@@ -89,38 +88,7 @@
 
             return true;
         }
-
-        private async Task CreateExamAsync(ExamCreate exam, ExamType examTypeResult)
-        {
-            await Task.Run(() =>
-            {
-                Exam examForDb = new Exam(examTypeResult, exam.Year);
-                examForDb.MaxPoints = exam.Questions.Sum(q => q.Points);
-                context.Exams.Add(examForDb);
-                context.SaveChanges();
-            });
-        }
-
-        private void MapQuestionEntities(ExamCreate exam, List<Question> questions)
-        {
-            foreach (var question in exam.Questions)
-            {
-                Question q = mapper.Map<QuestionCreate, Question>(question);
-                questions.Add(q);
-            }
-        }
-
-        private static void SetQuestionIds(ExamCreate exam, int examId, List<Question> questions)
-        {
-            for (int i = 0; i < exam.Questions.Count; i++)
-            {
-                AnswerCreate anser = exam.Questions[i].Answers.FirstOrDefault(a => a.IsCorrect);
-                int index = exam.Questions[i].Answers.IndexOf(anser) + 1;
-                questions[i].CorrectAnswer = index;
-                questions[i].ExamId = examId;
-            }
-        }
-
+        
         public bool Delete(string examType, int year)
         {
             bool doesParse = Enum.TryParse(examType, out ExamType type);            
@@ -206,5 +174,37 @@
             await userManager.AddToRoleAsync(user, "user");
             return (await userManager.RemoveFromRoleAsync(user, "admin")).Succeeded;
         }
+
+        private async Task CreateExamAsync(ExamCreate exam, ExamType examTypeResult)
+        {
+            await Task.Run(() =>
+            {
+                Exam examForDb = new Exam(examTypeResult, exam.Year);
+                examForDb.MaxPoints = exam.Questions.Sum(q => q.Points);
+                context.Exams.Add(examForDb);
+                context.SaveChanges();
+            });
+        }
+
+        private void MapQuestionEntities(ExamCreate exam, List<Question> questions)
+        {
+            foreach (var question in exam.Questions)
+            {
+                Question q = mapper.Map<QuestionCreate, Question>(question);
+                questions.Add(q);
+            }
+        }
+
+        private static void SetQuestionIds(ExamCreate exam, int examId, List<Question> questions)
+        {
+            for (int i = 0; i < exam.Questions.Count; i++)
+            {
+                AnswerCreate anser = exam.Questions[i].Answers.FirstOrDefault(a => a.IsCorrect);
+                int index = exam.Questions[i].Answers.IndexOf(anser) + 1;
+                questions[i].CorrectAnswer = index;
+                questions[i].ExamId = examId;
+            }
+        }
+
     }
 }

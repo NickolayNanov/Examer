@@ -90,8 +90,10 @@
             ExamQuestionsViewModel dto = null;
             Exam examm = await context.Exams
                                       .Include(x => x.Questions)
-                                      .ThenInclude(x => x.Answers)
+                                        .ThenInclude(x => x.Answers)
                                       .FirstOrDefaultAsync(x => x.YearOfCreation == year && x.ExamType == type);
+
+            examm.Questions = examm.Questions.OrderBy(q => q.NumberInExam).ToList();
 
 
             dto = new ExamQuestionsViewModel()

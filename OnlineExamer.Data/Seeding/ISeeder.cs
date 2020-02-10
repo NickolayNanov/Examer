@@ -4,6 +4,6 @@
 
     public interface ISeeder
     {
-        void Seed(OnlineExamerDbContext context, IServiceProvider serviceProvider);
+        void Seed(OnlineExamerDbContext context);
     }
 }

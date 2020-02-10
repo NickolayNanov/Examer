@@ -16,7 +16,7 @@ namespace OnlineExamer.Web
     using OnlineExamer.Web.Areas.Identity.Pages.Account;
     using OnlineExamer.Data.Seeding;
     using OnlineExamer.Core.SchoolSubjects;
-    using OnlineExamer.Infrastructure.SendGrid;   
+    using OnlineExamer.Infrastructure.SendGrid;
     using OnlineExamer.Core;
     using OnlineExamer.Core.AdminService;
 
@@ -59,7 +59,7 @@ namespace OnlineExamer.Web
             services.AddServerSideBlazor();
 
             services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<OnlineExamerUser>>();
-           
+
             services.AddScoped<IExamService, ExamService>();
             services.AddScoped<IAdminService, AdminService>();
             services.AddScoped<ISchoolSubjectService, SchoolSubjectService>();
@@ -77,14 +77,14 @@ namespace OnlineExamer.Web
             {
                 app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();
-                
+
             }
             else
             {
-                app.UseExceptionHandler("/Error");  
+                app.UseExceptionHandler("/Error");
                 app.UseHsts();
             }
-            SeedData(app);
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
@@ -99,21 +99,6 @@ namespace OnlineExamer.Web
                 endpoints.MapBlazorHub();
                 endpoints.MapFallbackToPage("/_Host");
             });
-        }
-
-        private static void SeedData(IApplicationBuilder app)
-        {
-            using (IServiceScope serviceScope = app.ApplicationServices.CreateScope())
-            {
-                OnlineExamerDbContext dbContext = serviceScope.ServiceProvider.GetRequiredService<OnlineExamerDbContext>();
-
-                if(dbContext != null)
-                {
-                    dbContext.Database.EnsureCreated();
-                }
-
-                Seeder.Seed(dbContext, serviceScope.ServiceProvider);
-            }
         }
     }
 }

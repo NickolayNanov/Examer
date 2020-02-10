@@ -106,6 +106,16 @@
                 this.SuccessMsg = "Вашето съобщение беше изпратено успешно";
                 this.ErrorMsg = "";
             }
+
+            Clear();
         }
+    }
+
+    private void Clear()
+    {
+        this.Name = string.Empty;;
+        this.Email = string.Empty;;
+        this.Message = string.Empty;
+        this.Subject = string.Empty;
     }
 }

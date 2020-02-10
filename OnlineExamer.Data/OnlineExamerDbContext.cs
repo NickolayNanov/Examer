@@ -3,12 +3,13 @@
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
-
+    using Microsoft.EntityFrameworkCore.Migrations;
     using OnlineExamer.Models.Entities;
 
     public class OnlineExamerDbContext : IdentityDbContext<OnlineExamerUser, IdentityRole, string>
     {
         public OnlineExamerDbContext(DbContextOptions<OnlineExamerDbContext> options) : base(options) { }
+
         public DbSet<Exam> Exams { get; set; }
 
         public DbSet<Answer> Answers { get; set; }
@@ -28,6 +29,11 @@
             this.ExamModelSettings(builder);
 
             base.OnModelCreating(builder);
+        }
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            base.OnConfiguring(optionsBuilder);
+            optionsBuilder.ReplaceService<IMigrationsSqlGenerator, CustomSqlServerMigrationsSqlGenerator>();
         }
 
         private void ExamModelSettings(ModelBuilder builder)

@@ -2,7 +2,7 @@
 
 html, body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    max-width: 99.5%;
+    margin: 0;
 }
 
 a, .btn-link {
@@ -116,6 +116,9 @@ app {
     .main .top-row {
         display: none;
     }
+    .main > div {
+        margin: 0;
+    }
 }
 
 @media (min-width: 768px) {
@@ -137,6 +140,7 @@ app {
     .main > div {
         padding-left: 2rem !important;
         padding-right: 1.5rem !important;
+        margin: 0;
     }
 
     .navbar-toggler {

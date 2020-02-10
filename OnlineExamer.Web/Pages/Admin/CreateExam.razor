@@ -201,7 +201,7 @@
         AnswerCreate forth = new AnswerCreate(Answer4, isCorrect4);
 
         List<AnswerCreate> answers = new List<AnswerCreate>() { first, second, third, forth };
-        QuestionCreate question = new QuestionCreate(Points, QuestionContent, answers, isSingleAnswer);
+        QuestionCreate question = new QuestionCreate(Points, Questions.Count + 1, QuestionContent, answers, isSingleAnswer);
         Questions.Add(question);
         data_dismiss = "modal";
         Clear();

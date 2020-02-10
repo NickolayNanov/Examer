@@ -286,6 +286,9 @@ namespace OnlineExamer.Data.Migrations
                     b.Property<bool>("IsSingleAnswer")
                         .HasColumnType("bit");
 
+                    b.Property<int>("NumberInExam")
+                        .HasColumnType("int");
+
                     b.Property<int>("Points")
                         .HasColumnType("int");
 
