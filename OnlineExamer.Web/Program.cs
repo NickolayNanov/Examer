@@ -19,7 +19,7 @@ namespace OnlineExamer.Web
             using (var scope = host.Services.CreateScope())
             {
                 var services = scope.ServiceProvider;
-
+                 
                 try
                 {
                     OnlineExamerDbContext dbContext = scope.ServiceProvider.GetRequiredService<OnlineExamerDbContext>();
