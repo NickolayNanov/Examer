@@ -17,6 +17,8 @@
     using OnlineExamer.Infrastructure;
 
     using AutoMapper;
+    using System.IO;
+    using OfficeOpenXml;
 
     public class AdminService : IAdminService
     {
@@ -39,7 +41,7 @@
 
             await Task.Run(() =>
             {
-                model.Data = this.mapper.ProjectTo<ExamViewModel>(this.context.Exams.OrderBy(x => x.ExamType)).ToList();                
+                model.Data = this.mapper.ProjectTo<ExamViewModel>(this.context.Exams.OrderBy(x => x.ExamType)).ToList();
             });
 
             return model;
@@ -49,10 +51,10 @@
         {
             AdminModel model = new AdminModel();
 
-            await Task.Run(async () => 
+            await Task.Run(async () =>
             {
                 string roleId = (await roleManager.FindByNameAsync("user")).Id;
-                
+
                 model.UsersCount = context.UserRoles.Where(x => x.RoleId == roleId).Count();
                 model.ExamsCount = this.context.Exams.Count();
             });
@@ -88,14 +90,14 @@
 
             return true;
         }
-        
+
         public bool Delete(string examType, int year)
         {
-            bool doesParse = Enum.TryParse(examType, out ExamType type);            
+            bool doesParse = Enum.TryParse(examType, out ExamType type);
 
             if (doesParse)
             {
-                Exam exam =  context.Exams
+                Exam exam = context.Exams
                     .Include(e => e.Questions)
                     .ThenInclude(q => q.Answers)
                     .FirstOrDefault(ex => ex.ExamType == type && ex.YearOfCreation == year);
@@ -141,7 +143,7 @@
             IList<UserViewModel> admins = null;
 
             await Task.Run(async () =>
-            {               
+            {
                 string adminRole = (await this.roleManager.FindByNameAsync("admin")).Id;
                 string userRole = (await this.roleManager.FindByNameAsync("user")).Id;
                 string[] adminIds = context.UserRoles.Where(x => x.RoleId == adminRole).Select(x => x.UserId).ToArray();
@@ -206,5 +208,54 @@
             }
         }
 
+        public Task UploadExamAsync(MemoryStream memoryStream)
+        {
+            using (var package = new ExcelPackage(memoryStream))
+            {
+                ExcelWorkbook wb = package.Workbook;
+
+                ExcelWorksheet worksheet = wb.Worksheets.FirstOrDefault();
+                string cell = (string)worksheet.Cells[500, 6000].Value;
+                int index = 1;
+                while ((string)worksheet.Cells[index, 1].Value != null)
+                {
+                    string QuestionTitle = (string)worksheet.Cells[index, 1].Value;
+                    string answer1 = (string)worksheet.Cells[index, 2].Value;
+                    string answer2 = (string)worksheet.Cells[index, 3].Value;
+                    string answer3 = (string)worksheet.Cells[index, 4].Value;
+                    string answer4 = (string)worksheet.Cells[index, 5].Value;
+
+                    Question question = new Question(1, 25, 1);
+                    question.Title = QuestionTitle;
+                    Answer Answer1 = new Answer(answer1);
+                    Answer1.Question = question;
+                    Answer Answer2 = new Answer(answer2);
+                    Answer2.Question = question;
+                    Answer Answer3 = new Answer(answer3);
+                    Answer3.Question = question;
+                    Answer Answer4 = new Answer(answer4);
+                    Answer4.Question = question;
+
+                    question.Answers.Add(Answer1);
+                    question.Answers.Add(Answer2);
+                    question.Answers.Add(Answer3);
+                    question.Answers.Add(Answer4);
+                    if (question.Answers.All(x => x.Content != null))
+                    {
+                        this.context.Questions.Add(question);
+                    }
+
+                    index++;
+                }
+
+                this.context.SaveChanges();
+
+                //ReadCells and parse Data
+                //do something with the excel file
+                package.Save();
+            }
+
+            return Task.CompletedTask;
+        }
     }
 }

@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="EPPlus" Version="4.5.3.3" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\OnlineExamer.Data\OnlineExamer.Data.csproj" />
     <ProjectReference Include="..\OnlineExamer.Infrastructure\OnlineExamer.Infrastructure.csproj" />
   </ItemGroup>

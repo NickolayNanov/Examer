@@ -1,5 +1,6 @@
 ﻿namespace OnlineExamer.Core.AdminService
 {
+    using System.IO;
     using System.Threading.Tasks;
 
     using OnlineExamer.Models.Dtos.Admin;
@@ -25,5 +26,7 @@
         Task<bool> MakeAdminAsync(string username);
 
         Task<bool> RemoveFromAdminAsync(string username);
+
+        Task UploadExamAsync(MemoryStream memoryStream);
     }  
 }
