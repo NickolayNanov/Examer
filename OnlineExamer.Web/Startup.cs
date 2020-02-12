@@ -21,7 +21,7 @@ namespace OnlineExamer.Web
     using OnlineExamer.Core.AdminService;
 
     using AutoMapper;
-
+     
     public class Startup
     {
         public Startup(IConfiguration configuration)
