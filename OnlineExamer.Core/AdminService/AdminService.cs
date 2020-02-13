@@ -208,15 +208,24 @@
             }
         }
 
-        public Task UploadExamAsync(MemoryStream memoryStream)
+        public async Task<bool> UploadExamAsync(MemoryStream memoryStream, string subject, int year)
         {
+            bool doesParse = Enum.TryParse(subject.ReverseParseStr(), out ExamType result);
+
+            if (!doesParse)
+            {
+                return false;
+            }
+
+            Exam exam = await this.context.Exams.FirstOrDefaultAsync(e => e.ExamType == result && e.YearOfCreation == year);
+
             using (var package = new ExcelPackage(memoryStream))
             {
                 ExcelWorkbook wb = package.Workbook;
 
                 ExcelWorksheet worksheet = wb.Worksheets.FirstOrDefault();
-                string cell = (string)worksheet.Cells[500, 6000].Value;
-                int index = 1;
+                int index = 2;
+                int questionNumberInExam = 1;
                 while ((string)worksheet.Cells[index, 1].Value != null)
                 {
                     string QuestionTitle = (string)worksheet.Cells[index, 1].Value;
@@ -224,27 +233,36 @@
                     string answer2 = (string)worksheet.Cells[index, 3].Value;
                     string answer3 = (string)worksheet.Cells[index, 4].Value;
                     string answer4 = (string)worksheet.Cells[index, 5].Value;
+                    int correctAnswer = 0;
+                    Question question = null;
 
-                    Question question = new Question(1, 25, 1);
-                    question.Title = QuestionTitle;
-                    Answer Answer1 = new Answer(answer1);
-                    Answer1.Question = question;
-                    Answer Answer2 = new Answer(answer2);
-                    Answer2.Question = question;
-                    Answer Answer3 = new Answer(answer3);
-                    Answer3.Question = question;
-                    Answer Answer4 = new Answer(answer4);
-                    Answer4.Question = question;
-
-                    question.Answers.Add(Answer1);
-                    question.Answers.Add(Answer2);
-                    question.Answers.Add(Answer3);
-                    question.Answers.Add(Answer4);
-                    if (question.Answers.All(x => x.Content != null))
+                    if (answer1 is null &&
+                        answer2 is null &&
+                        answer3 is null &&
+                        answer4 is null)
                     {
-                        this.context.Questions.Add(question);
+                        correctAnswer = 5;
+                        List<Answer> answers = new List<Answer> { new Answer(string.Empty), new Answer(string.Empty), new Answer(string.Empty), new Answer(string.Empty) };
+                        question = new Question(correctAnswer, questionNumberInExam++, exam.Id, true, true, 0);
+                        question.Title = QuestionTitle;
+                        AddAnswersToQuestion(question, answers);
+                    }
+                    else
+                    {
+                        correctAnswer = (int)((double)worksheet.Cells[index, 6].Value);
+                        int points = (int)((double)worksheet.Cells[index, 7].Value);
+                        int single = (int)(((double)worksheet.Cells[index, 8].Value));
+                        bool isSingleAnswer = single == 1 ? true : false;//if 1 then it is single answer, else it is multiple answer
+                        int open = (int)(((double)worksheet.Cells[index, 9].Value));
+                        bool isOpenAnswer = open == 1 ? true : false;//if 1 then it is open answer, else it is pick answer
+
+                        question = new Question(correctAnswer, questionNumberInExam++, exam.Id, isSingleAnswer, isOpenAnswer, points);
+                        question.Title = QuestionTitle;
+                        List<Answer> answers = new List<Answer> { new Answer(answer1), new Answer(answer2), new Answer(answer3), new Answer(answer4) };
+                        AddAnswersToQuestion(question, answers);
                     }
 
+                    this.context.Questions.Add(question);
                     index++;
                 }
 
@@ -255,7 +273,15 @@
                 package.Save();
             }
 
-            return Task.CompletedTask;
+            return true;
+        }
+
+        private static void AddAnswersToQuestion(Question question, List<Answer> answers)
+        {
+            question.Answers.Add(answers[0]);
+            question.Answers.Add(answers[1]);
+            question.Answers.Add(answers[2]);
+            question.Answers.Add(answers[3]);
         }
     }
 }

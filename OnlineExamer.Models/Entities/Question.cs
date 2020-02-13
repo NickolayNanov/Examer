@@ -12,8 +12,21 @@
         {
             this.CorrectAnswer = correctAnswer;
             this.ExamId = examId;
-            this.Answers = new HashSet<Answer>();
             this.Points = points;
+
+            this.Answers = new HashSet<Answer>();
+        }
+
+        public Question(int correctAnswer, int numberInExam, int examId, bool isSingleAnswer, bool isOpenAnswer, int points = 1)
+        {
+            this.CorrectAnswer = correctAnswer;
+            this.ExamId = examId;
+            this.Points = points;
+            this.NumberInExam = numberInExam;
+            this.IsSingleAnswer = isSingleAnswer;
+            this.IsOpenAnswer = isOpenAnswer;
+
+            this.Answers = new HashSet<Answer>();
         }
 
         public string Title { get; set; }

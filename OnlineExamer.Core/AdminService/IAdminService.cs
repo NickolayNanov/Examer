@@ -27,6 +27,6 @@
 
         Task<bool> RemoveFromAdminAsync(string username);
 
-        Task UploadExamAsync(MemoryStream memoryStream);
+        Task<bool> UploadExamAsync(MemoryStream memoryStream, string subject, int Year);
     }  
 }

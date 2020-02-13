@@ -3,9 +3,8 @@
 
 @inject IAdminService service
 
-<h1>Multiple files</h1>
-
-<p>A multi-file picker that displays information about selection and shows progress as each one is loaded.</p>
+<p class="text-danger">@errorMsg</p>
+<p class="text-success">@successMsg</p>
 
 <InputFile multiple OnChange="HandleSelection" />
 
@@ -41,6 +40,8 @@
 
 @code {
     IFileListEntry[] selectedFiles;
+    string errorMsg = string.Empty;
+    string successMsg = string.Empty;
 
     void HandleSelection(IFileListEntry[] files)
     {
@@ -49,6 +50,12 @@
 
     async Task LoadFile(IFileListEntry file)
     {
+        string[] tokens = file.Name.Split(new char[] { '_', '.' }, StringSplitOptions.RemoveEmptyEntries);
+
+        if(tokens[2] != "xlsx")
+        {
+            errorMsg = "Моля качете файл с разширение .xlsx";
+        }
         // So the UI updates to show progress
         file.OnDataRead += (sender, eventArgs) => InvokeAsync(StateHasChanged);
 
@@ -56,6 +63,15 @@
         // Alternatively it could be saved to disk, or parsed in memory, or similar
         var ms = new System.IO.MemoryStream();
         await file.Data.CopyToAsync(ms);
-        service.UploadExamAsync(ms);
+        bool result = await service.UploadExamAsync(ms, tokens[0], int.Parse(tokens[1]));
+
+        if (!result)
+        {
+            errorMsg = "Моля уверете се, че всичко е наред с файла, който качвате!";
+        }
+        else
+        {
+            successMsg = $"Успешно качихте матура {tokens[0]} - {tokens[1]}";
+        }
     }
 }

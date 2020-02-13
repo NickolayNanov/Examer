@@ -19,38 +19,69 @@
             <div class="col-md-12">
                 @for (int i = 0; i < Data.Questions.Count; i++)
                 {
-                    <span>@(i + 1). @(Data.Questions[i].Title)</span>
+                    <span>@(Data.Questions[i].Title)</span>
 
-                    if (!Data.Questions[i].IsOpenAnswer)
+                    if (Data.Questions[i].Answers.Count != 0)
                     {
-                        <ul class="list-group" id="question_@(i - 1)">
-                            @for (int j = 0; j < Data.Questions[i].Answers.Count; j++)
-                            {
-                                @if (Data.Questions[i].IsSingleAnswer)
+                        if (!Data.Questions[i].IsOpenAnswer)
+                        {
+                            <ul class="list-group" id="question_@(i - 1)">
+                                @for (int j = 0; j < Data.Questions[i].Answers.Count; j++)
                                 {
-                                    <li onclick="giveAnswer(@(i - 1), @j)"
-                                        style="background: @Data.Questions[i].Answers[j].BackgroundColor"
-                                        class="list-group-item mb-3 marked-answer"
-                                        id="question_@(i - 1)_answer_@j">
-                                        <input @bind="@Data.Questions[i].Answers[j].IsSelected"
-                                               type="checkbox"
-                                               id="input_@(i - 1)_question_@j"
-                                               class="check"
-                                               style="display:none" />
-                                        <label>@Data.Questions[i].Answers[j].Content</label>
-                                    </li>
+                                    @if (Data.Questions[i].IsSingleAnswer)
+                                    {
+                                        <li onclick="giveAnswer(@(i - 1), @j)"
+                                            style="background: @Data.Questions[i].Answers[j].BackgroundColor"
+                                            class="list-group-item mb-3 marked-answer"
+                                            id="question_@(i - 1)_answer_@j">
+                                            <input @bind="@Data.Questions[i].Answers[j].IsSelected"
+                                                   type="checkbox"
+                                                   id="input_@(i - 1)_question_@j"
+                                                   class="check"
+                                                   style="display:none" />
+                                            <label>@Data.Questions[i].Answers[j].Content</label>
+                                        </li>
+                                        <br/>
+                                    }
                                 }
-                            }
-                        </ul>
+                            </ul>
+                        }
+                        else
+                        {
+                            <br />
+                            <br />
+                            <br />
+                        }
                     }
+
                 }
                 <h5 class="text-danger">@ErrorMsg</h5>
 
                 <div class="row">
                     <div class="col-md-5"></div>
-                    <a class="btn btn-primary mb-4" @onclick="Solve">
+                    <a class="btn btn-primary mb-4" data-toggle="modal" data-target="#solveExam">
                         <span aria-hidden="true" style="color: white">Предай</span>
                     </a>
+                </div>
+
+                <div class="modal fade" id="solveExam" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Сигурни ли сте че искате да предадете изпита? Проверете, че сте отговорили на всеки отговор и продължете</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Затвори</button>
+                                <button type="button" class="btn btn-danger"
+                                        @onclick="() => Solve()" data-dismiss="modal">
+                                    Продължи
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -89,11 +120,6 @@ else
 
     private async Task Solve()
     {
-        if (Data.Questions.Any(q => q.Answers.All(x => x.IsSelected == false)) || Data.Questions?.Count == 0)
-        {
-            ErrorMsg = "Всички въпроси трябва да имат избран отговор!";
-            return;
-        }
         AuthenticationState authState = await AuthenticationStateTask;
         int ExamResultId = await this.service.SolveExamAsync(Data, authState.User.Identity.Name);
         NavigationManager.NavigateTo($"ExamResults/{Subject}/{Year}/{ExamResultId}", true);
