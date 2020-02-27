@@ -64,7 +64,7 @@
 
         public async Task<bool> CreateExamAsync(ExamCreate exam)
         {
-            if (string.IsNullOrEmpty(exam.ExamType) || exam.Year < 1990 || exam.Year > 2030 || exam.Questions.Count == 0)
+            if (string.IsNullOrEmpty(exam.ExamType) || exam.Year < 1990 || exam.Year > 2030)
             {
                 return false;
             }
@@ -199,13 +199,16 @@
 
         private static void SetQuestionIds(ExamCreate exam, int examId, List<Question> questions)
         {
-            for (int i = 0; i < exam.Questions.Count; i++)
+            if(exam.Questions.Count > 0)
             {
-                AnswerCreate anser = exam.Questions[i].Answers.FirstOrDefault(a => a.IsCorrect);
-                int index = exam.Questions[i].Answers.IndexOf(anser) + 1;
-                questions[i].CorrectAnswer = index;
-                questions[i].ExamId = examId;
-            }
+                for (int i = 0; i < exam.Questions.Count; i++)
+                {
+                    AnswerCreate anser = exam.Questions[i].Answers.FirstOrDefault(a => a.IsCorrect);
+                    int index = exam.Questions[i].Answers.IndexOf(anser) + 1;
+                    questions[i].CorrectAnswer = index;
+                    questions[i].ExamId = examId;
+                }
+            } 
         }
 
         public async Task<bool> UploadExamAsync(MemoryStream memoryStream, string subject, int year)

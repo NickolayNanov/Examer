@@ -188,12 +188,12 @@
     private void CreateQuestion()
     {
         bool[] checks = { isCorrect1, isCorrect2, isCorrect3, isCorrect4 };
-        if (checks.All(x => x == false) || Answer1 == "" || Answer2 == "" || Answer3 == "" || Answer4 == "")
-        {
-            CreateQuestionErrMesg = "Изберете поне един верен отговор и попълнете всички полета!";
-            data_dismiss = "";
-            return;
-        }
+        //if (checks.All(x => x == false) || Answer1 == "" || Answer2 == "" || Answer3 == "" || Answer4 == "")
+        //{
+        //    CreateQuestionErrMesg = "Изберете поне един верен отговор и попълнете всички полета!";
+        //    data_dismiss = "";
+        //    return;
+        //}
 
         AnswerCreate first = new AnswerCreate(Answer1, isCorrect1);
         AnswerCreate second = new AnswerCreate(Answer2, isCorrect2);
@@ -209,7 +209,7 @@
 
     private async Task Create()
     {
-        if (string.IsNullOrEmpty(Subject) || Year < 1990 || Year > 2030 || Questions.Count == 0)
+        if (string.IsNullOrEmpty(Subject) || Year < 1990 || Year > 2030 /*|| Questions.Count == 0*/)
         {
             ErrorMessage = "Всички полета трябва да се попълнят!";
             return;
@@ -246,7 +246,7 @@
         this.isCorrect4 = false;
         this.CreateQuestionErrMesg = "";
         this.isSingleAnswer = false;
-    }    
+    }
 
     string data_dismiss = "";
     string CreateQuestionErrMesg = "";
