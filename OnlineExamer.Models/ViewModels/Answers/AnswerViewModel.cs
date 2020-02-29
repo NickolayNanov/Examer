@@ -6,6 +6,8 @@
 
         public string Content { get; set; }
 
+        public int NumberInQuestion { get; set; }
+
         public string BackgroundColor { get; set; } = "";
     }
 }

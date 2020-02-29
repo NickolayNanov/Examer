@@ -276,6 +276,7 @@
                         result.Questions.Add(question);
                     }
                     result.Questions = result.Questions.OrderBy(x => x.NumberInExam).ToList();
+                    result.Questions.ToList().ForEach(q => q.Answers = q.Answers.OrderBy(a => a.NumberInQuestion).ToList());
                 }
             }
 
