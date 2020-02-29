@@ -292,5 +292,23 @@
             question.Answers.Add(answers[2]);
             question.Answers.Add(answers[3]);
         }
+
+        public async Task<List<ExamResult>> GetUserResultsByUsernameAsync(string username)
+        {
+            OnlineExamerUser user = await this.userManager.FindByNameAsync(username);
+            List<UserExam> userExams = this.context.UserExams.Include(ux => ux.Exam).Where(ux => ux.UserId == user.Id).ToList();
+
+            List<ExamResult> examResults = userExams.Select(x => new ExamResult()
+            {
+                Points = x.Points,
+                MaxPoints = x.MaxPoints,
+                Subject = x.Exam.ExamType.ToString().ParseStr(),
+                Year = x.Exam.YearOfCreation,
+                SolvedOn = x.SolvedOn,
+                ExamId = x.ExamId
+            }).ToList();
+
+            return examResults;
+        }
     }
 }

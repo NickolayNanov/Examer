@@ -1,0 +1,136 @@
+﻿@page "//Admin/UsersAll/UserResults/{Username}"
+
+@using OnlineExamer.Core.AdminService
+@using OnlineExamer.Core.ExamService
+@using OnlineExamer.Models.ViewModels.Exams
+
+@inject IAdminService service
+@inject IExamService examService
+
+
+@if (Model != null)
+{
+    @if (Model.Any())
+    {
+        @if (areVisible)
+        {
+            <h3 class="text-center">Всички решавани изпити</h3>
+
+            @if (isSingleExamMessageVisible)
+            {
+                <p class="text-center text-success">Нямате грешка на тази/този изпит/матура</p>
+            }
+            <div class="row">
+                @foreach (var result in Model)
+                {
+                    <div class="col-md-4">
+
+                        <div class="card" style="width: 18rem; border-radius: 4px;">
+                            <div class="card-body">
+                                <h5 class="card-header-tabs mb-4 ml-5">@result.Subject</h5>
+                                <h5 class="card-title">Година: @result.Year</h5>
+                                <p class="card-text">Точки: @result.Points/@result.MaxPoints</p>
+                                <button @onclick="() => GetExamResult(Username, result.SolvedOn, result.ExamId)" class="btn btn-success">Отвори</button>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+        else
+        {
+            <h3 class="text-center">Изпит по @questions.ExamType - @questions.Year</h3>
+            <div class="row">
+                <div class="col-md-6"></div>
+                <button class="btn btn-success" @onclick="Back">Назад</button>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        @for (int i = 0; i < questions.Questions.Count; i++)
+                        {
+                            <span>@(questions.Questions[i].Title)</span>
+
+                            if (!questions.Questions[i].IsOpenAnswer)
+                            {
+                                <ul class="list-group" id="question_@(i - 1)">
+                                    @for (int j = 0; j < questions.Questions[i].Answers.Count; j++)
+                                    {
+                                        @if (questions.Questions[i].IsSingleAnswer)
+                                        {
+                                            @if (questions.Questions[i].CorrectAnswer == j + 1)
+                                            {
+                                                <li style="background-color: lightgreen"
+                                                    class="list-group-item mb-3 marked-answer">
+                                                    <input type="checkbox"
+                                                           class="check"
+                                                           style="display:none" />
+                                                    <label>@questions.Questions[i].Answers[j].Content</label>
+                                                </li>
+                                            }
+                                            else if (questions.Questions[i].SelectedAnswer - 1 == j)
+                                            {
+                                                <li style="background-color: lightcoral"
+                                                    class="list-group-item mb-3 marked-answer">
+                                                    <input type="checkbox"
+                                                           class="check"
+                                                           style="display:none" />
+                                                    <label>@questions.Questions[i].Answers[j].Content</label>
+                                                </li>
+                                            }
+                                            else
+                                            {
+                                                <li style="background-color: none;" class="list-group-item mb-3 marked-answer">
+                                                    <input type="checkbox"
+                                                           class="check"
+                                                           style="display:none" />
+                                                    <label>@questions.Questions[i].Answers[j].Content</label>
+                                                </li>
+                                            }
+                                        }
+                                    }
+                                </ul>
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <h2 class="text-center">Нямате решени изпити</h2>
+    }
+
+}
+else
+{
+    <h2>Loading...</h2>
+}
+@code {
+    [Parameter]
+    public string Username { get; set; }
+    private bool areVisible = true;
+    private bool isSingleExamMessageVisible;
+
+    List<ExamResult> Model { get; set; }
+
+    ExamResultWithAnswers questions = null;
+
+    protected override async Task OnInitializedAsync()
+    {
+        Model = await this.service.GetUserResultsByUsernameAsync(Username);
+    }
+
+    private async Task GetExamResult(string username, DateTime solvedOn, int? examId)
+    {
+        questions = await examService.GetExamResultByExamIdAndUsernameAsync(username, examId, solvedOn);
+
+        areVisible = questions.AllCorrect ? true : false;
+        isSingleExamMessageVisible = areVisible;
+    }
+    private void Back()
+    {
+        this.areVisible = true;
+    }
+}

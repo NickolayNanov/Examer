@@ -5,17 +5,29 @@
 @using OnlineExamer.Core.AdminService
 @using OnlineExamer.Models.ViewModels.Admin
 @using OnlineExamer.Models.Entities
+@using OnlineExamer.Models.ViewModels.Exams
 
 @attribute [Authorize(Roles = "Admin")]
 
 @inject IAdminService service
 @inject UserManager<OnlineExamerUser> userManager
+@inject NavigationManager navigation
 
 <h3 class="text-center">Всички потребители</h3>
 
 <p class="text-center text-danger">@errorMsg</p>
 <p class="text-center text-success">@successMsg</p>
-@if (Model != null)
+
+<div class="row">
+    <input class="col-md-8 mr-5 mb-1" type="text" placeholder="потребителско име" @bind="Search" />
+    <button class="btn btn-primary col-md-3" @onclick="FilterExams">Филтрирай</button>
+    <div class="col-md-12 row">
+        <h5>Покажи само потребители</h5>
+        <input @bind="showAdmin" type="checkbox">
+    </div>
+</div>
+
+@if (DataToShow != null)
 {
     <table class="table">
         <thead>
@@ -26,125 +38,135 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var user in Model.Users)
+            @if (showAdmin)
             {
-                <tr class="alert-info">
-                    <td class="d-table-cell">@user.Username</td>
-                    <td class="d-table-cell">@user.Email</td>
-                    <td class="d-table-cell">
-                        <button class="btn btn-danger"
-                                data-toggle="modal"
-                                data-target="#deleteUser_@(user.Username)">
-                            Изтрий
-                        </button>
+                @foreach (var user in Model.Admins)
+                {
+                    <tr class="alert-danger">
+                        <td class="d-table-cell">@user.Username</td>
+                        <td class="d-table-cell">@user.Email</td>
+                        <td class="d-table-cell">
+                            <button class="btn btn-danger"
+                                    data-toggle="modal"
+                                    data-target="#deleteAdmin_@(user.Username)">
+                                Изтрий
+                            </button>
 
-                        <div class="modal fade" id="deleteUser_@(user.Username)" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Сигурни ли сте че искате да изтриете @user.Username?</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Затвори</button>
-                                        <button type="button" class="btn btn-danger"
-                                                @onclick="() => Remove(user.Username)" data-dismiss="modal">
-                                            Изтрий
-                                        </button>
+                            <div class="modal fade" id="deleteAdmin_@(user.Username)" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Сигурни ли сте че искате да изтриете @user.Username?</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Затвори</button>
+                                            <button type="button" class="btn btn-danger"
+                                                    @onclick="() => RemoveAsync(user.Username)" data-dismiss="modal">
+                                                Изтрий
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                            <button class="btn btn-danger"
+                                    data-toggle="modal"
+                                    data-target="#removeFromAdmin_@(user.Username)">
+                                Отнеми админски права
+                            </button>
 
-                        <button class="btn btn-danger"
-                                data-toggle="modal"
-                                data-target="#makeAdmin_@(user.Username)">
-                            Направи админ
-                        </button>
-
-                        <div class="modal fade" id="makeAdmin_@(user.Username)" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Сигурни ли сте че искате да дадете на @user.Username админски права?</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Затвори</button>
-                                        <button type="button" class="btn btn-danger"
-                                                @onclick="() => MakeAdmin(user.Username)" data-dismiss="modal">
-                                            Потвърди
-                                        </button>
+                            <div class="modal fade" id="removeFromAdmin_@(user.Username)" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Сигурни ли сте че искате да отнемете админските права на @user.Username?</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Затвори</button>
+                                            <button type="button" class="btn btn-danger"
+                                                    @onclick="() => RemoveFromAdminAsync(user.Username)" data-dismiss="modal">
+                                                Потвърди
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </td>
-                </tr>
+                        </td>
+                    </tr>
+                }
             }
-           
-            @foreach (var user in Model.Admins)
+            else
             {
-                <tr class="alert-danger">
-                    <td class="d-table-cell">@user.Username</td>
-                    <td class="d-table-cell">@user.Email</td>
-                    <td class="d-table-cell">
-                        <button class="btn btn-danger"
-                                data-toggle="modal"
-                                data-target="#deleteAdmin_@(user.Username)">
-                            Изтрий
-                        </button>
+                @foreach (var user in DataToShow)
+                {
+                    <tr class="alert-info">
+                        <td class="d-table-cell">@user.Username</td>
+                        <td class="d-table-cell">@user.Email</td>
+                        <td class="d-table-cell">
+                            <button class="btn btn-danger"
+                                    data-toggle="modal"
+                                    data-target="#deleteUser_@(user.Username)">
+                                Изтрий
+                            </button>
 
-                        <div class="modal fade" id="deleteAdmin_@(user.Username)" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Сигурни ли сте че искате да изтриете @user.Username?</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Затвори</button>
-                                        <button type="button" class="btn btn-danger"
-                                                @onclick="() => Remove(user.Username)" data-dismiss="modal">
-                                            Изтрий
-                                        </button>
+                            <div class="modal fade" id="deleteUser_@(user.Username)" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Сигурни ли сте че искате да изтриете @user.Username?</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Затвори</button>
+                                            <button type="button" class="btn btn-danger"
+                                                    @onclick="() => RemoveAsync(user.Username)" data-dismiss="modal">
+                                                Изтрий
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <button class="btn btn-danger"
-                                data-toggle="modal"
-                                data-target="#removeFromAdmin_@(user.Username)">
-                            Отнеми админски права
-                        </button>
 
-                        <div class="modal fade" id="removeFromAdmin_@(user.Username)" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Сигурни ли сте че искате да отнемете админските права на @user.Username?</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Затвори</button>
-                                        <button type="button" class="btn btn-danger"
-                                                @onclick="() => RemoveFromAdmin(user.Username)" data-dismiss="modal">
-                                            Потвърди
-                                        </button>
+                            <button class="btn btn-danger"
+                                    data-toggle="modal"
+                                    data-target="#makeAdmin_@(user.Username)">
+                                Направи админ
+                            </button>
+
+                            <div class="modal fade" id="makeAdmin_@(user.Username)" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Сигурни ли сте че искате да дадете на @user.Username админски права?</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Затвори</button>
+                                            <button type="button" class="btn btn-danger"
+                                                    @onclick="() => MakeAdminAsync(user.Username)" data-dismiss="modal">
+                                                Потвърди
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </td>
-                </tr>
+                            <button class="btn btn-danger"
+                                    data-toggle="modal"
+                                    @onclick="() => GetUserResults(user.Username)">
+                                Резултати
+                            </button>
+                        </td>
+                    </tr>
+                }
             }
         </tbody>
     </table>
@@ -157,17 +179,21 @@ else
 
 @code {
     private UserAdminViewModel Model;
+    private IList<UserViewModel> DataToShow;
     string successMsg = "";
     string errorMsg = "";
+    private string Search = string.Empty;
+    private bool showAdmin;
 
     protected async override Task OnInitializedAsync()
     {
         successMsg = "";
         errorMsg = "";
         Model = await this.service.AllUsersAsync();
+        DataToShow = Model.Users;
     }
 
-    private async Task Remove(string username)
+    private async Task RemoveAsync(string username)
     {
         if (string.IsNullOrEmpty(username))
         {
@@ -190,7 +216,7 @@ else
         }
     }
 
-    private async Task MakeAdmin(string username)
+    private async Task MakeAdminAsync(string username)
     {
         if (string.IsNullOrEmpty(username))
         {
@@ -215,7 +241,7 @@ else
         }
     }
 
-    private async Task RemoveFromAdmin(string username)
+    private async Task RemoveFromAdminAsync(string username)
     {
         if (string.IsNullOrEmpty(username))
         {
@@ -239,4 +265,12 @@ else
             return;
         }
     }
+
+    private void FilterExams()
+    {
+        DataToShow = Model.Users.Where(x => x.Username.ToLower().Contains(Search.ToLower())).ToList();
+        this.StateHasChanged();
+    }
+
+    private void GetUserResults(string username) => navigation.NavigateTo($"Admin/UsersAll/UserResults/{username}");
 }

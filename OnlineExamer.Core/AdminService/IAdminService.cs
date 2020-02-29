@@ -1,5 +1,6 @@
 ﻿namespace OnlineExamer.Core.AdminService
 {
+    using System.Collections.Generic;
     using System.IO;
     using System.Threading.Tasks;
 
@@ -28,5 +29,7 @@
         Task<bool> RemoveFromAdminAsync(string username);
 
         Task<bool> UploadExamAsync(MemoryStream memoryStream, string subject, int Year);
+
+        Task<List<ExamResult>> GetUserResultsByUsernameAsync(string username);
     }  
 }

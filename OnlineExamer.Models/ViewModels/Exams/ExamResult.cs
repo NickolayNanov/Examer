@@ -8,7 +8,6 @@
         public ExamResult()
         {
             PastResults = new List<ExamResult>();
-            this.MaxPoints = 50;
         }
 
         public int? ExamId { get; set; }
