@@ -34,5 +34,7 @@
         public DateTime SolvedOn { get; set; }
 
         public string WrongAnswerIds { get; set; }
+
+        public int MaxPoints { get; set; }
     }
 }

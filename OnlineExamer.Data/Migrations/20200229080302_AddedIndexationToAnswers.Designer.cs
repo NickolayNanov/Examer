@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OnlineExamer.Data;
 
 namespace OnlineExamer.Data.Migrations
 {
     [DbContext(typeof(OnlineExamerDbContext))]
-    partial class OnlineExamerDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200229080302_AddedIndexationToAnswers")]
+    partial class AddedIndexationToAnswers
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -191,6 +193,9 @@ namespace OnlineExamer.Data.Migrations
                     b.Property<int>("ExamType")
                         .HasColumnType("int");
 
+                    b.Property<int>("MaxPoints")
+                        .HasColumnType("int");
+
                     b.Property<int>("YearOfCreation")
                         .HasColumnType("int");
 
@@ -337,9 +342,6 @@ namespace OnlineExamer.Data.Migrations
 
                     b.Property<double>("Grade")
                         .HasColumnType("float");
-
-                    b.Property<int>("MaxPoints")
-                        .HasColumnType("int");
 
                     b.Property<int>("Points")
                         .HasColumnType("int");

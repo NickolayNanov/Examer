@@ -181,8 +181,7 @@
         {
             await Task.Run(() =>
             {
-                Exam examForDb = new Exam(examTypeResult, exam.Year);
-                examForDb.MaxPoints = exam.Questions.Sum(q => q.Points);
+                Exam examForDb = new Exam(examTypeResult, exam.Year);                
                 context.Exams.Add(examForDb);
                 context.SaveChanges();
             });
@@ -229,6 +228,7 @@
                 ExcelWorksheet worksheet = wb.Worksheets.FirstOrDefault();
                 int index = 2;
                 int questionNumberInExam = 1;
+                int answerIndex = 1;
                 while ((string)worksheet.Cells[index, 1].Value != null)
                 {
                     string QuestionTitle = (string)worksheet.Cells[index, 1].Value;
@@ -261,7 +261,13 @@
 
                         question = new Question(correctAnswer, questionNumberInExam++, exam.Id, isSingleAnswer, isOpenAnswer, points);
                         question.Title = QuestionTitle;
-                        List<Answer> answers = new List<Answer> { new Answer(answer1), new Answer(answer2), new Answer(answer3), new Answer(answer4) };
+
+                        List<Answer> answers = new List<Answer>();
+                        answers.Add(new Answer(answer1, answerIndex++));
+                        answers.Add(new Answer(answer2, answerIndex++));
+                        answers.Add(new Answer(answer3, answerIndex++));
+                        answers.Add(new Answer(answer4, answerIndex++));
+                        answerIndex = 1;
                         AddAnswersToQuestion(question, answers);
                     }
 

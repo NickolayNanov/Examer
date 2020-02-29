@@ -8,7 +8,7 @@
     public class QuestionViewModel
     {
         public QuestionViewModel(){}
-        public QuestionViewModel(string title, int correctAnswer, int selectedAnswer,int questionNumber, bool isOpenAnswer, bool isSingleAnswer)
+        public QuestionViewModel(string title, int correctAnswer, int selectedAnswer,int questionNumber, bool isOpenAnswer, bool isSingleAnswer, int numberInExam)
         {
             this.Title = title;
             this.IsOpenAnswer = isOpenAnswer;
@@ -16,6 +16,7 @@
             this.QuestionNumber = questionNumber;
             this.SelectedAnswer = selectedAnswer;
             this.IsSingleAnswer = isSingleAnswer;
+            this.NumberInExam = numberInExam;
         }
 
 
@@ -32,6 +33,8 @@
         public bool IsSingleAnswer { get; set; }
 
         public int QuestionNumber { get; set; }
+
+        public int NumberInExam { get; set; }
 
         public IList<AnswerViewModel> Answers { get; set; }
     }

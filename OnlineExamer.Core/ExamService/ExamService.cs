@@ -95,6 +95,11 @@
 
             examm.Questions = examm.Questions.OrderBy(q => q.NumberInExam).ToList();
 
+            foreach (var question in examm.Questions)
+            {
+                question.Answers = question.Answers.OrderBy(a => a.NumberInQuestion).ToList();
+            }
+
 
             dto = new ExamQuestionsViewModel()
             {
@@ -140,7 +145,7 @@
             {
                 Grade = userExam.Grade,
                 Points = userExam.Points,
-                MaxPoints = exam.MaxPoints,
+                MaxPoints = userExam.MaxPoints,
                 ExamId = exam.Id,
                 Subject = ExamTypeParser.Parse(exam),
                 PastResults = FillPastResults(examResults)
@@ -152,13 +157,9 @@
         public async Task<int> SolveExamAsync(ExamQuestionsViewModel data, string username)
         {
             double grade = 0.0;
-
             bool doesParse = Enum.TryParse(data.ExamType, out ExamType type);
 
-            if (!doesParse)
-            {
-                return 0;
-            }
+            if (!doesParse) return 0;
 
             OnlineExamerUser user = await this.context.Users.FirstOrDefaultAsync(u => u.UserName == username);
             Exam exam = await context.Exams.FirstOrDefaultAsync(e => e.YearOfCreation == data.YearOfCreation && e.ExamType == type);
@@ -167,7 +168,7 @@
             grade = CalcGrade(examResult.Points);
 
             UserExam userExam = new UserExam(user.Id, exam.Id, DateTime.Now, examResult.Points, grade, examResult.WrongAnswers);
-
+            userExam.MaxPoints = data.Questions.Count;
             context.UserExams.Add(userExam);
             context.SaveChanges();
 
@@ -182,8 +183,6 @@
                                                         .Where(ux => ux.UserId == user.Id))
                                                     .ToList()
                                                     .OrderByDescending(e => e.SolvedOn);
-
-
             return result;
         }
 
@@ -215,12 +214,12 @@
                     if (question.Answers[i].IsSelected && (i + 1) != question.CorrectAnswer)
                     {
                         sb.Append($"{data.Questions.IndexOf(question)} - {i + 1}, ");
+                        break;
                     }
                 }
             }
 
             examResult.WrongAnswers = sb.ToString();
-
             return examResult;
         }
 
@@ -228,7 +227,7 @@
         {
             foreach (UserExam examResult in examResults)
             {
-                yield return new ExamResult { Grade = examResult.Grade, Points = examResult.Points, MaxPoints = examResult.Exam.MaxPoints, ExamId = examResult.ExamId };
+                yield return new ExamResult { Grade = examResult.Grade, Points = examResult.Points, MaxPoints = examResult.MaxPoints, ExamId = examResult.ExamId };
             }
         }
 
@@ -264,16 +263,19 @@
                         int answer = int.Parse(tokens[1]);
 
                         Question currentQuestion = questions[questionId];
+                        if (currentQuestion.Title.StartsWith("ТЕКСТ")) continue;
                         QuestionViewModel question = new QuestionViewModel(currentQuestion.Title, 
                                                                            currentQuestion.CorrectAnswer, 
                                                                            answer, 
                                                                            questionId + 1,
                                                                            currentQuestion.IsOpenAnswer, 
-                                                                           currentQuestion.IsSingleAnswer);
+                                                                           currentQuestion.IsSingleAnswer,
+                                                                           currentQuestion.NumberInExam);
 
                         question.Answers = currentQuestion.Answers.Select(x => mapper.Map<AnswerViewModel>(x)).ToList();
                         result.Questions.Add(question);
                     }
+                    result.Questions = result.Questions.OrderBy(x => x.NumberInExam).ToList();
                 }
             }
 

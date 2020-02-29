@@ -28,7 +28,5 @@
         public ICollection<UserExam> ExamUsers { get; set; }
 
         public IList<Question> Questions { get; set; }     
-
-        public int MaxPoints { get; set; }
     }
 }

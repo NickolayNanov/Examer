@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OnlineExamer.Data;
 
 namespace OnlineExamer.Data.Migrations
 {
     [DbContext(typeof(OnlineExamerDbContext))]
-    partial class OnlineExamerDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200229095000_RemovedMaxPointsFromExam")]
+    partial class RemovedMaxPointsFromExam
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

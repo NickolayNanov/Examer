@@ -47,16 +47,16 @@ namespace OnlineExamer.Web.Areas.Identity.Pages.Account
 
         public class InputModel
         {
-            [Required]
+            [Required(ErrorMessage = "Е-Пощата е задължителна!")]
             [EmailAddress]
             [Display(Name = "Е-Поща")]
             public string Email { get; set; }
 
-            [Required]
             [Display(Name = "Потребителско име")]
+            [Required(ErrorMessage = "Потребителското име е задължително!")]
             public string Username { get; set; }
 
-            [Required]
+            [Required(ErrorMessage = "Паролата е задължителна!")]
             [StringLength(100, ErrorMessage = "{0} трябва да бъде най-малко {2} и най-много {1} символа.", MinimumLength = 6)]
             [DataType(DataType.Password)]
             [Display(Name = "Парола")]
@@ -65,6 +65,7 @@ namespace OnlineExamer.Web.Areas.Identity.Pages.Account
             [DataType(DataType.Password)]
             [Display(Name = "Потвърди парола")]
             [Compare("Password", ErrorMessage = "Паролите не съвпадат.")]
+            [Required(ErrorMessage = "Това поле е задължително!")]
             public string ConfirmPassword { get; set; }
         }
 

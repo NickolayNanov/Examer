@@ -219,7 +219,7 @@
         bool result = await adminService.CreateExamAsync(exam);
         if (result)
         {
-            SuccessMessage = "Изпит/Матура е саздаден успешно";
+            SuccessMessage = $"Изпит/Матура по {Subject}-{Year} бе саздаден успешно";
             ErrorMessage = "";
         }
         else
