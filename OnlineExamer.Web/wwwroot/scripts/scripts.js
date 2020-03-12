@@ -13,7 +13,6 @@ function giveAnswer(questionId, ansewrId) {
     let lis = ul.children;
 
     for (let i = 0; i < lis.length; i++) {
-
         lis[i].style.background = "white";
     }
 

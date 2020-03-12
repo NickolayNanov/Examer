@@ -20,7 +20,6 @@
                 @for (int i = 0; i < Data.Questions.Count; i++)
                 {
                     <span>@(Data.Questions[i].Title)</span>
-
                     if (Data.Questions[i].Answers.Count != 0)
                     {
                         if (!Data.Questions[i].IsOpenAnswer)
@@ -43,7 +42,11 @@
                                         </li>
                                     }
                                 }
-                                <br/>
+                                @if (!string.IsNullOrEmpty(Data.Questions[i].ImgUrl))
+                                {
+                                    <img src="@Data.Questions[i].ImgUrl" width="300" height="300" />
+                                }
+                                <br />
                             </ul>
                         }
                         else
@@ -53,7 +56,6 @@
                             <br />
                         }
                     }
-
                 }
                 <h5 class="text-danger">@ErrorMsg</h5>
 

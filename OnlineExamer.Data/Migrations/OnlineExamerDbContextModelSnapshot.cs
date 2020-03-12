@@ -280,6 +280,9 @@ namespace OnlineExamer.Data.Migrations
                     b.Property<int>("ExamId")
                         .HasColumnType("int");
 
+                    b.Property<string>("ImgUrl")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("IsOpenAnswer")
                         .HasColumnType("bit");
 

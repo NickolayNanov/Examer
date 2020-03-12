@@ -460,3 +460,5 @@ D:\Projects\Repositories\Examer\Examer\OnlineExamer.Web\obj\Debug\netcoreapp3.0\
 D:\Projects\Repositories\Examer\Examer\OnlineExamer.Web\obj\Debug\netcoreapp3.0\OnlineExamer.Web.pdb
 D:\Projects\Repositories\Examer\Examer\OnlineExamer.Web\obj\Debug\netcoreapp3.0\RazorDeclaration\Pages\Admin\UserResults.razor.g.cs
 D:\Projects\Repositories\Examer\Examer\OnlineExamer.Web\obj\Debug\netcoreapp3.0\Razor\Pages\Admin\UserResults.razor.g.cs
+D:\Projects\Repositories\Examer\Examer\OnlineExamer.Web\bin\Debug\netcoreapp3.0\wwwroot\Untitled.png
+D:\Projects\Repositories\Examer\Examer\OnlineExamer.Web\bin\Debug\netcoreapp3.0\CloudinaryDotNet.dll

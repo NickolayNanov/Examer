@@ -45,6 +45,8 @@
 
         public int NumberInExam { get; set; }
 
+        public string ImgUrl { get; set; }
+
         public ICollection<Answer> Answers { get; set; }
     }
 }

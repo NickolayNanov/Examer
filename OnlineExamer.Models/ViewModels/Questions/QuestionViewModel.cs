@@ -36,6 +36,8 @@
 
         public int NumberInExam { get; set; }
 
+        public string ImgUrl { get; set; }
+
         public IList<AnswerViewModel> Answers { get; set; }
     }
 }

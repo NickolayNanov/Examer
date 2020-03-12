@@ -237,8 +237,8 @@
                     string answer3 = (string)worksheet.Cells[index, 4].Value;
                     string answer4 = (string)worksheet.Cells[index, 5].Value;
                     int correctAnswer = 0;
-                    Question question = null;
-
+                    Question question = new Question();
+                    question.ImgUrl = worksheet.Cells[index, 9].Value == null ? (string)worksheet.Cells[index, 9].Value : null;
                     if (answer1 is null &&
                         answer2 is null &&
                         answer3 is null &&
@@ -256,10 +256,10 @@
                         int points = (int)((double)worksheet.Cells[index, 7].Value);
                         int single = (int)(((double)worksheet.Cells[index, 8].Value));
                         bool isSingleAnswer = single == 1 ? true : false;//if 1 then it is single answer, else it is multiple answer
-                        int open = (int)(((double)worksheet.Cells[index, 9].Value));
-                        bool isOpenAnswer = open == 1 ? true : false;//if 1 then it is open answer, else it is pick answer
+                        //int open = (int)(((double)worksheet.Cells[index, 9].Value));
+                        //bool isOpenAnswer = open == 1 ? true : false;//if 1 then it is open answer, else it is pick answer
 
-                        question = new Question(correctAnswer, questionNumberInExam++, exam.Id, isSingleAnswer, isOpenAnswer, points);
+                        question = new Question(correctAnswer, questionNumberInExam++, exam.Id, isSingleAnswer, false, points);
                         question.Title = QuestionTitle;
 
                         List<Answer> answers = new List<Answer>();

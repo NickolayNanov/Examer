@@ -21,7 +21,8 @@ namespace OnlineExamer.Web
     using OnlineExamer.Core.AdminService;
 
     using AutoMapper;
-     
+    using OnlineExamer.Infrastructure.CloudinaryUploader;
+
     public class Startup
     {
         public Startup(IConfiguration configuration)
@@ -63,6 +64,7 @@ namespace OnlineExamer.Web
             services.AddScoped<IExamService, ExamService>();
             services.AddScoped<IAdminService, AdminService>();
             services.AddScoped<ISchoolSubjectService, SchoolSubjectService>();
+            services.AddScoped<IImageUploader, CloudinaryUploader>();
 
             services.AddTransient<SendGrid>();
             services.AddTransient<LogoutModel>();
