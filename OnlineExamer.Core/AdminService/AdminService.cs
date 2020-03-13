@@ -181,7 +181,7 @@
         {
             await Task.Run(() =>
             {
-                Exam examForDb = new Exam(examTypeResult, exam.Year);                
+                Exam examForDb = new Exam(examTypeResult, exam.Year);
                 context.Exams.Add(examForDb);
                 context.SaveChanges();
             });
@@ -198,7 +198,7 @@
 
         private static void SetQuestionIds(ExamCreate exam, int examId, List<Question> questions)
         {
-            if(exam.Questions.Count > 0)
+            if (exam.Questions.Count > 0)
             {
                 for (int i = 0; i < exam.Questions.Count; i++)
                 {
@@ -207,7 +207,7 @@
                     questions[i].CorrectAnswer = index;
                     questions[i].ExamId = examId;
                 }
-            } 
+            }
         }
 
         public async Task<bool> UploadExamAsync(MemoryStream memoryStream, string subject, int year)
@@ -238,7 +238,7 @@
                     string answer4 = (string)worksheet.Cells[index, 5].Value;
                     int correctAnswer = 0;
                     Question question = new Question();
-                    question.ImgUrl = worksheet.Cells[index, 9].Value == null ? (string)worksheet.Cells[index, 9].Value : null;
+                    string imgUrl = worksheet.Cells[index, 10].Value != null ? (string)(worksheet.Cells[index, 10].Value) : null;
                     if (answer1 is null &&
                         answer2 is null &&
                         answer3 is null &&
@@ -246,7 +246,7 @@
                     {
                         correctAnswer = 5;
                         List<Answer> answers = new List<Answer> { new Answer(string.Empty), new Answer(string.Empty), new Answer(string.Empty), new Answer(string.Empty) };
-                        question = new Question(correctAnswer, questionNumberInExam++, exam.Id, true, true, 0);
+                        question = new Question(imgUrl, correctAnswer, questionNumberInExam++, exam.Id, true, true, 0);
                         question.Title = QuestionTitle;
                         AddAnswersToQuestion(question, answers);
                     }
@@ -259,7 +259,7 @@
                         //int open = (int)(((double)worksheet.Cells[index, 9].Value));
                         //bool isOpenAnswer = open == 1 ? true : false;//if 1 then it is open answer, else it is pick answer
 
-                        question = new Question(correctAnswer, questionNumberInExam++, exam.Id, isSingleAnswer, false, points);
+                        question = new Question(imgUrl, correctAnswer, questionNumberInExam++, exam.Id, isSingleAnswer, false, points);
                         question.Title = QuestionTitle;
 
                         List<Answer> answers = new List<Answer>();

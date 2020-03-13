@@ -17,8 +17,9 @@
             this.Answers = new HashSet<Answer>();
         }
 
-        public Question(int correctAnswer, int numberInExam, int examId, bool isSingleAnswer, bool isOpenAnswer, int points = 1)
+        public Question(string imgUrl, int correctAnswer, int numberInExam, int examId, bool isSingleAnswer, bool isOpenAnswer, int points = 1)
         {
+            this.ImgUrl = imgUrl;
             this.CorrectAnswer = correctAnswer;
             this.ExamId = examId;
             this.Points = points;
