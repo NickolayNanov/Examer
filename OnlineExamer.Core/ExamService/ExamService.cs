@@ -110,6 +110,7 @@
                     CorrectAnswer = x.CorrectAnswer,
                     Points = x.Points,
                     IsSingleAnswer = x.IsSingleAnswer,
+                    ImgUrl = x.ImgUrl,
                     Answers = x.Answers.Select(a => new AnswerViewModel()
                     {
                         Content = a.Content,
