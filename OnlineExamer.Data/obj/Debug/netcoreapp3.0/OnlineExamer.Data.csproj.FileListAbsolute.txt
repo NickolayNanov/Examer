@@ -24,3 +24,16 @@ D:\Projects\Repositories\Examer\Examer\OnlineExamer.Data\obj\Debug\netcoreapp3.0
 D:\Projects\Repositories\Examer\Examer\OnlineExamer.Data\obj\Debug\netcoreapp3.0\OnlineExamer.Data.csproj.CopyComplete
 D:\Projects\Repositories\Examer\Examer\OnlineExamer.Data\obj\Debug\netcoreapp3.0\OnlineExamer.Data.dll
 D:\Projects\Repositories\Examer\Examer\OnlineExamer.Data\obj\Debug\netcoreapp3.0\OnlineExamer.Data.pdb
+D:\Nikolay\Repositories\Examer\Examer\OnlineExamer.Data\bin\Debug\netcoreapp3.0\OnlineExamer.Data.deps.json
+D:\Nikolay\Repositories\Examer\Examer\OnlineExamer.Data\bin\Debug\netcoreapp3.0\OnlineExamer.Data.runtimeconfig.json
+D:\Nikolay\Repositories\Examer\Examer\OnlineExamer.Data\bin\Debug\netcoreapp3.0\OnlineExamer.Data.runtimeconfig.dev.json
+D:\Nikolay\Repositories\Examer\Examer\OnlineExamer.Data\bin\Debug\netcoreapp3.0\OnlineExamer.Data.dll
+D:\Nikolay\Repositories\Examer\Examer\OnlineExamer.Data\bin\Debug\netcoreapp3.0\OnlineExamer.Data.pdb
+D:\Nikolay\Repositories\Examer\Examer\OnlineExamer.Data\bin\Debug\netcoreapp3.0\OnlineExamer.Models.dll
+D:\Nikolay\Repositories\Examer\Examer\OnlineExamer.Data\bin\Debug\netcoreapp3.0\OnlineExamer.Models.pdb
+D:\Nikolay\Repositories\Examer\Examer\OnlineExamer.Data\obj\Debug\netcoreapp3.0\OnlineExamer.Data.csprojAssemblyReference.cache
+D:\Nikolay\Repositories\Examer\Examer\OnlineExamer.Data\obj\Debug\netcoreapp3.0\OnlineExamer.Data.AssemblyInfoInputs.cache
+D:\Nikolay\Repositories\Examer\Examer\OnlineExamer.Data\obj\Debug\netcoreapp3.0\OnlineExamer.Data.AssemblyInfo.cs
+D:\Nikolay\Repositories\Examer\Examer\OnlineExamer.Data\obj\Debug\netcoreapp3.0\OnlineExamer.Data.csproj.CopyComplete
+D:\Nikolay\Repositories\Examer\Examer\OnlineExamer.Data\obj\Debug\netcoreapp3.0\OnlineExamer.Data.dll
+D:\Nikolay\Repositories\Examer\Examer\OnlineExamer.Data\obj\Debug\netcoreapp3.0\OnlineExamer.Data.pdb

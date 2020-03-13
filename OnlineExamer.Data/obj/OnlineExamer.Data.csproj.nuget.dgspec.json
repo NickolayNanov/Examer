@@ -1,24 +1,26 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Projects\\Repositories\\Examer\\Examer\\OnlineExamer.Data\\OnlineExamer.Data.csproj": {}
+    "D:\\Nikolay\\Repositories\\Examer\\Examer\\OnlineExamer.Data\\OnlineExamer.Data.csproj": {}
   },
   "projects": {
-    "D:\\Projects\\Repositories\\Examer\\Examer\\OnlineExamer.Data\\OnlineExamer.Data.csproj": {
+    "D:\\Nikolay\\Repositories\\Examer\\Examer\\OnlineExamer.Data\\OnlineExamer.Data.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Projects\\Repositories\\Examer\\Examer\\OnlineExamer.Data\\OnlineExamer.Data.csproj",
+        "projectUniqueName": "D:\\Nikolay\\Repositories\\Examer\\Examer\\OnlineExamer.Data\\OnlineExamer.Data.csproj",
         "projectName": "OnlineExamer.Data",
-        "projectPath": "D:\\Projects\\Repositories\\Examer\\Examer\\OnlineExamer.Data\\OnlineExamer.Data.csproj",
-        "packagesPath": "C:\\Users\\Nick\\.nuget\\packages\\",
-        "outputPath": "D:\\Projects\\Repositories\\Examer\\Examer\\OnlineExamer.Data\\obj\\",
+        "projectPath": "D:\\Nikolay\\Repositories\\Examer\\Examer\\OnlineExamer.Data\\OnlineExamer.Data.csproj",
+        "packagesPath": "C:\\Users\\Nikolay\\.nuget\\packages\\",
+        "outputPath": "D:\\Nikolay\\Repositories\\Examer\\Examer\\OnlineExamer.Data\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
+          "D:\\Microsoft\\Xamarin\\NuGet\\",
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\Nick\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Users\\Nikolay\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.0"
@@ -30,8 +32,8 @@
         "frameworks": {
           "netcoreapp3.0": {
             "projectReferences": {
-              "D:\\Projects\\Repositories\\Examer\\Examer\\OnlineExamer.Models\\OnlineExamer.Models.csproj": {
-                "projectPath": "D:\\Projects\\Repositories\\Examer\\Examer\\OnlineExamer.Models\\OnlineExamer.Models.csproj"
+              "D:\\Nikolay\\Repositories\\Examer\\Examer\\OnlineExamer.Models\\OnlineExamer.Models.csproj": {
+                "projectPath": "D:\\Nikolay\\Repositories\\Examer\\Examer\\OnlineExamer.Models\\OnlineExamer.Models.csproj"
               }
             }
           }
@@ -99,21 +101,23 @@
         }
       }
     },
-    "D:\\Projects\\Repositories\\Examer\\Examer\\OnlineExamer.Models\\OnlineExamer.Models.csproj": {
+    "D:\\Nikolay\\Repositories\\Examer\\Examer\\OnlineExamer.Models\\OnlineExamer.Models.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Projects\\Repositories\\Examer\\Examer\\OnlineExamer.Models\\OnlineExamer.Models.csproj",
+        "projectUniqueName": "D:\\Nikolay\\Repositories\\Examer\\Examer\\OnlineExamer.Models\\OnlineExamer.Models.csproj",
         "projectName": "OnlineExamer.Models",
-        "projectPath": "D:\\Projects\\Repositories\\Examer\\Examer\\OnlineExamer.Models\\OnlineExamer.Models.csproj",
-        "packagesPath": "C:\\Users\\Nick\\.nuget\\packages\\",
-        "outputPath": "D:\\Projects\\Repositories\\Examer\\Examer\\OnlineExamer.Models\\obj\\",
+        "projectPath": "D:\\Nikolay\\Repositories\\Examer\\Examer\\OnlineExamer.Models\\OnlineExamer.Models.csproj",
+        "packagesPath": "C:\\Users\\Nikolay\\.nuget\\packages\\",
+        "outputPath": "D:\\Nikolay\\Repositories\\Examer\\Examer\\OnlineExamer.Models\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
+          "D:\\Microsoft\\Xamarin\\NuGet\\",
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\Nick\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Users\\Nikolay\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.0"
